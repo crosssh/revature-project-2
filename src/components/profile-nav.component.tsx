@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import RevLogo from '../assets/rev-logo.png';
 
-export const NavComponent: React.StatelessComponent<{}> = () => {
+export const ProfileNavComponent: React.StatelessComponent<{}> = () => {
   return (
     <div>
       <nav className="navbar navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
@@ -17,32 +17,16 @@ export const NavComponent: React.StatelessComponent<{}> = () => {
         <div className="collapse navbar-collapse" id="navbarsExample04">
           <ul className="navbar-nav ml-auto margin-nav">
             <li className="nav-item active">
-              <Link to="/home" className="unset-anchor nav-link">Home</Link>
+              <Link to="/bids" className="unset-anchor nav-link">Bids</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/sign-in" className="unset-anchor nav-link">Sign In</Link>
+              <Link to="/selling" className="unset-anchor nav-link">Selling</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/first" className="unset-anchor nav-link">First</Link>
+              <Link to="/bought" className="unset-anchor nav-link">Bought</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/second" className="unset-anchor nav-link">Second</Link>
-            </li>
-            <li className="nav-item active">
-              <Link to="/clicker" className="unset-anchor nav-link">Clicker</Link>
-            </li>
-            <li className="nav-item active dropdown">
-              <a className="nav-link dropdown-toggle pointer" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</a>
-              <div className="dropdown-menu" aria-labelledby="dropdown04">
-                <div className="dropdown-item"><Link to="/movies" className="unset-anchor nav-link active">Movies</Link></div>
-                <div className="dropdown-item"><Link to="/clicker" className="unset-anchor nav-link active">Clicker Game</Link></div>
-                <div className="dropdown-item"><Link to="/tic-tac-toe" className="unset-anchor nav-link active">Tic Tac Toe Game</Link></div>
-                <div className="dropdown-item"><Link to="/chuck-norris" className="unset-anchor nav-link active">Chuck Norris Jokes</Link></div>
-                <div className="dropdown-item"><Link to="/pokemon" className="unset-anchor nav-link active">Pokemon</Link></div>
-              </div>
-            </li>
-            <li className="nav-item active">
-              <Link to="/nested" className="unset-anchor nav-link">Nested</Link>
+              <Link to="/user-info" className="unset-anchor nav-link">User Info</Link>
             </li>
           </ul>
         </div>

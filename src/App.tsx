@@ -7,20 +7,48 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './Store';
 import { SignInContainer } from './components/sign-in/sign-in.container';
+import { CreateUserComponent } from './components/create-user/create-user.component';
+import { ProfileNavComponent } from './components/profile-nav.component';
+import { BidsComponent } from './components/bids/bids.component';
+import { BoughtComponent } from './components/bought/bought.component';
+import { SellingComponent } from './components/selling/selling.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
+import { BrowseComponent } from './components/browse/browse.component';
+import { HomeComponent } from './components/home/home.component';
+import { ItemComponent } from './components/item/item.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { NewPopComponent } from './components/new-pop/new-pop.component';
 
 class App extends React.Component<any, any> {
 
   public render() {
     return (
       <Provider store={store}>
-        <HashRouter>
-          <div>
-            <NavComponent />
-            <Switch>
-              <Route path="/sign-in" component={SignInContainer} />
-            </Switch>
-          </div>
-        </HashRouter>
+        <HashRouter> 
+        <div>
+        <NavComponent />
+          <Switch>
+            <Route path="/sign-in" component={SignInContainer} />
+            <Route path="/browse" component={BrowseComponent} />
+            <Route path="/home" component={HomeComponent} />
+            <Route path="/checkout" component={CheckoutComponent} />
+            <Route path="/item" component={ItemComponent} />
+            <Route path="/new-pop" component={NewPopComponent} />
+            <Route path="/create-user" component={CreateUserComponent} />
+            <div>
+              <ProfileNavComponent />
+              <Switch>
+                <Route path="/bids" component={BidsComponent} />
+                <Route path="/bought" component={BoughtComponent}/>
+                <Route path="/selling" component={SellingComponent} />
+                <Route path="/user-info" component={UserInfoComponent}/>
+              </Switch>
+            </div>
+            <Route path="/" component={HomeComponent} />
+          </Switch>
+          
+        </div>
+      </HashRouter>
       </Provider>
     );
   }
