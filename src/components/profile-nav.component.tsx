@@ -1,11 +1,32 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import RevLogo from '../assets/rev-logo.png';
+// import RevLogo from '../assets/rev-logo.png';
 
 export const ProfileNavComponent: React.StatelessComponent<{}> = () => {
   return (
-    <div>
-      <nav className="navbar navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
+    <div className="col-1">
+      <div className="row bids">
+        <Link to="/bids" className="unset-anchor nav-link">
+          <button className="btn btn-primary">Bids</button>
+        </Link>
+      </div>
+      <div className="row selling">
+        <Link to="/selling" className="unset-anchor nav-link">
+          <button className="btn btn-primary">Selling</button>
+          </Link>
+      </div>
+      <div className="row bought">
+        <Link to="/bought" className="unset-anchor nav-link">
+          <button className="btn btn-primary">Bought</button>
+          </Link>
+      </div>
+      <div className="row user-info">
+        <Link to="/user-info" className="unset-anchor nav-link">
+          <button className="btn btn-primary">Use Info</button>
+          </Link>
+      </div>
+
+      {/* <nav className="navbar navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
         <div className="navbar-header c-pointer shift-left">
           <Link to="/home" className="unset-anchor">
             <img className="img-adjust-position rev-logo" src={RevLogo} alt="revature" />
@@ -30,7 +51,7 @@ export const ProfileNavComponent: React.StatelessComponent<{}> = () => {
             </li>
           </ul>
         </div>
-      </nav>
+      </nav> */}
     </div >
   );
 }

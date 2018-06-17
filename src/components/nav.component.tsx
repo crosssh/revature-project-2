@@ -23,7 +23,7 @@ export const NavComponent: React.StatelessComponent<{}> = () => {
               <Link to="/browse" className="unset-anchor nav-link">Browse</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/check-out" className="unset-anchor nav-link">Checkout</Link>
+              <Link to="/checkout" className="unset-anchor nav-link">Checkout</Link>
             </li>
             <li className="nav-item active">
               <Link to="/bids" className="unset-anchor nav-link">Profile</Link>
