@@ -1,7 +1,7 @@
 import aws from 'aws-sdk';
 import { ConfigurationOptions } from 'aws-sdk/lib/config';
 const awsConfig: ConfigurationOptions = {
-  region: process.env.MOVIE_API_REGION,
+  region: process.env.AWS_REGION,
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 };
