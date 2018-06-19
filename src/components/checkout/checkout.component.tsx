@@ -7,6 +7,13 @@ export class CheckoutComponent extends React.Component<any, any> {
   }
 
   public render() {
-    return <div className="container">This is the checkout Page.</div>;
+    return <div className="container">This is the checkout Page.
+    
+    
+    
+    
+    
+    
+    </div>;
   }
 }
