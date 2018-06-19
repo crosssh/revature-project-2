@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import { store } from './Store';
 import { SignInContainer } from './components/sign-in/sign-in.container';
 import { CreateUserComponent } from './components/create-user/create-user.component';
-// import { ProfileNavComponent } from './components/profile-nav.component';
 import { BidsComponent } from './components/bids/bids.component';
 import { BoughtComponent } from './components/bought/bought.component';
 import { SellingComponent } from './components/selling/selling.component';
@@ -17,7 +16,7 @@ import { BrowseComponent } from './components/browse/browse.component';
 import { HomeComponent } from './components/home/home.component';
 import { ItemComponent } from './components/item/item.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { NewPopComponent } from './components/new-pop/new-pop.component';
+import { NewPopContainer } from './components/new-pop/new-pop.container';
 
 class App extends React.Component<any, any> {
 
@@ -33,7 +32,7 @@ class App extends React.Component<any, any> {
               <Route path="/home" component={HomeComponent} />
               <Route path="/checkout" component={CheckoutComponent} />
               <Route path="/item" component={ItemComponent} />
-              <Route path="/new-pop" component={NewPopComponent} />
+              <Route path="/new-pop" component={NewPopContainer} />
               <Route path="/create-user" component={CreateUserComponent} />
               <Route path="/bids" component={BidsComponent} />
               <Route path="/bought" component={BoughtComponent} />
