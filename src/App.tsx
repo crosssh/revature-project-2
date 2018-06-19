@@ -15,8 +15,8 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { BrowseComponent } from './components/browse/browse.component';
 import { HomeComponent } from './components/home/home.component';
 import { ItemComponent } from './components/item/item.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NewPopContainer } from './components/new-pop/new-pop.container';
+import { CheckoutContainer } from './components/checkout/checkout.container';
 
 class App extends React.Component<any, any> {
 
@@ -30,7 +30,7 @@ class App extends React.Component<any, any> {
               <Route path="/sign-in" component={SignInContainer} />
               <Route path="/browse" component={BrowseComponent} />
               <Route path="/home" component={HomeComponent} />
-              <Route path="/checkout" component={CheckoutComponent} />
+              <Route path="/checkout" component={CheckoutContainer} />
               <Route path="/item" component={ItemComponent} />
               <Route path="/new-pop" component={NewPopContainer} />
               <Route path="/create-user" component={CreateUserComponent} />

@@ -3,19 +3,19 @@ import { productTypes } from '../actions/product/product.types';
 
 const initialState: IProduct = {
   currentProduct: {
-    "auctionEndTime": 0,
-    "buyNowPrice": 0,
-    "category": "",
-    "condition": "",
-    "currentBidPrice": 0,
-    "currentBidder": "",
-    "minimumBidPrice": 0,
-    "name": "",
-    "photos": "",
-    "status": "",
-    "timePosted": 0,
-    "type": "",
-    "username": ""
+    auctionEndTime: 0,
+    buyNowPrice: 0,
+    category: "",
+    condition: "",
+    currentBidPrice: 0,
+    currentBidder: "",
+    minimumBidPrice: 0,
+    name: "",
+    photos: "",
+    status: "",
+    timePosted: 0,
+    type: "",
+    username: ""
   },
   productList: []
 }
