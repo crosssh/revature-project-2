@@ -1,5 +1,13 @@
 import { combineReducers } from "redux";
 import { signInReducer } from "./sign-in.reducer";
+import { productReducer } from "./product.reducer";
+
+export interface IProduct {
+  
+  currentProduct: any
+  productList: any[]
+}
+
 
 export interface ISignIn {
   username: string,
@@ -8,9 +16,14 @@ export interface ISignIn {
 }
 
 export interface IState {
-  signIn: ISignIn,
+  signIn: ISignIn
+  product: IProduct
 };
 
+
+
 export const state = combineReducers<IState>({
-  signIn: signInReducer,
+  product: productReducer,
+  signIn: signInReducer
+  
 });

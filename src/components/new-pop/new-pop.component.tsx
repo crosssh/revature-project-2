@@ -1,6 +1,24 @@
 import * as React from "react";
+import { IProduct } from "../../reducers";
+interface IProp extends IProduct {
 
-export class NewPopComponent extends React.Component<any, any> {
+  addProduct: (currentProduct: any) => void;
+  setAuctionEnd: (auctionEnd: number) => void;
+  setBuyNow: (buyNowPrice: number) => void;
+  setMinBid: (minBid: number) => void;
+  setTimePosted: (timePosted: number) => void;
+  updateBidder: (bidder: string) => void;
+  updateCategory: (category: string) => void;
+  updateCondition: (condition: string) => void;
+  updateCurrentBid: (currentBid: number) => void;
+  updateName: (name: string) => void;
+  updatePhotos: (photos: string) => void;
+  updateStatus: (status: string) => void;
+  updateType: (type: string) => void;
+
+}
+
+export class NewPopComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
     console.log(props);
