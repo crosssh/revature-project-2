@@ -11,11 +11,11 @@ const initialState: IProduct = {
     currentBidder: "",
     minimumBidPrice: 0,
     name: "",
-    photos: "",
-    status: "",
+    photos: "url",
+    status: "available",
     timePosted: 0,
     type: "",
-    username: ""
+    username: "Crosssh"
   },
   productList: []
 }
@@ -67,6 +67,16 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           name: action.payload.name
+
+        }
+      };
+
+    case productTypes.UPDATE_PRODUCT_USERNAME:
+      return {
+        ...state,
+        currentProduct: {
+          ...state.currentProduct,
+          username: action.payload.username
 
         }
       };
@@ -176,7 +186,21 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.ADD_PRODUCT:
       return {
         ...state,
-
+        currentProduct: {
+          auctionEndTime: 0,
+          buyNowPrice: 0,
+          category: "",
+          condition: "",
+          currentBidPrice: 0,
+          currentBidder: "",
+          minimumBidPrice: 0,
+          name: "",
+          photos: "url",
+          status: "available",
+          timePosted: 0,
+          type: "",
+          username: ""
+        }
       };
 
   }// end switch
