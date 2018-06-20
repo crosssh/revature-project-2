@@ -13,17 +13,22 @@ export const ProfileNavComponent: React.StatelessComponent<{}> = () => {
       <div className="row selling">
         <Link to="/selling" className="unset-anchor nav-link">
           <button className="btn btn-primary">Selling</button>
-          </Link>
+        </Link>
       </div>
       <div className="row bought">
         <Link to="/bought" className="unset-anchor nav-link">
           <button className="btn btn-primary">Bought</button>
-          </Link>
+        </Link>
+      </div>
+      <div className="row new-pop">
+        <Link to="/new-pop" className="unset-anchor nav-link">
+          <button className="btn btn-primary">Add New Pop</button>
+        </Link>
       </div>
       <div className="row user-info">
         <Link to="/user-info" className="unset-anchor nav-link">
           <button className="btn btn-primary">Use Info</button>
-          </Link>
+        </Link>
       </div>
 
       {/* <nav className="navbar navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
