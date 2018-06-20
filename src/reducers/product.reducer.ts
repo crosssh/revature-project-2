@@ -1,5 +1,5 @@
-import { IProduct } from '.';
-import { productTypes } from '../actions/product/product.types';
+import { IProduct } from ".";
+import { productTypes } from "../actions/product/product.types";
 
 const initialState: IProduct = {
   currentProduct: {
@@ -18,7 +18,7 @@ const initialState: IProduct = {
     username: ""
   },
   productList: []
-}
+};
 
 export const productReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -28,7 +28,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           currentBidder: action.payload.bidder
-
         }
       };
     case productTypes.UPDATE_CATEGORY:
@@ -37,7 +36,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           category: action.payload.category
-
         }
       };
 
@@ -47,7 +45,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           condition: action.payload.condition
-
         }
       };
 
@@ -57,7 +54,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           currentBidPrice: action.payload.currentBid
-
         }
       };
 
@@ -67,7 +63,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           name: action.payload.name
-
         }
       };
 
@@ -77,7 +72,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           photos: action.payload.photos
-
         }
       };
 
@@ -87,7 +81,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           status: action.payload.status
-
         }
       };
 
@@ -97,7 +90,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           type: action.payload.type
-
         }
       };
 
@@ -107,10 +99,8 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           auctionEndTime: action.payload.auctionEnd
-
         }
       };
-
 
     case productTypes.SET_BUY_NOW:
       return {
@@ -118,10 +108,8 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           buyNowPrice: action.payload.buyNowPrice
-
         }
       };
-
 
     case productTypes.SET_MIN_BID:
       return {
@@ -129,7 +117,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           minimumBidPrice: action.payload.minBid
-
         }
       };
 
@@ -139,7 +126,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           timePosted: action.payload.timePosted
-
         }
       };
 
@@ -175,11 +161,9 @@ export const productReducer = (state = initialState, action: any) => {
 
     case productTypes.ADD_PRODUCT:
       return {
-        ...state,
-
+        ...state
       };
-
-  }// end switch
+  } // end switch
 
   return state;
 };

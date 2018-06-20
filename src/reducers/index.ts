@@ -1,42 +1,33 @@
 import { combineReducers } from "redux";
-import { signInReducer } from "./sign-in.reducer";
 import { productReducer } from "./product.reducer";
 import { buyerReducer } from "./buyer.reducer";
+import { userReducer } from "./user.reducer";
 
 export interface IProduct {
-  
-  currentProduct: any
-  productList: any[]
+  currentProduct: any;
+  productList: any[];
 }
 
 export interface IBuyer {
-  
-  currentBuyer: any
-  newBid: any
-  newBoughtItem: any
-  
+  currentBuyer: any;
+  newBid: any;
+  newBoughtItem: any;
 }
 
-
-
-export interface ISignIn {
-  username: string,
-  password: string,
-  errorMessage: string
+export interface IUser {
+  username: string;
+  errorMessage: string;
+  authToken: string;
 }
 
 export interface IState {
-  signIn: ISignIn
-  product: IProduct
-  buyer:IBuyer
-};
-
-
+  user: IUser;
+  product: IProduct;
+  buyer: IBuyer;
+}
 
 export const state = combineReducers<IState>({
   buyer: buyerReducer,
   product: productReducer,
-  signIn: signInReducer,
-  
-  
+  user: userReducer
 });
