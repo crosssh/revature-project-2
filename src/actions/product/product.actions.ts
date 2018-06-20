@@ -115,13 +115,13 @@ export const setMinBid = (minBid: number) => {
   }
 }
 
-export const setTimePosted = (timePosted: number) => {
-  return {
+export const setTimePosted = (timePosted: number) => (dispatch: any) => {
+  dispatch ({
     payload: {
       timePosted
     },
     type: productTypes.SET_TIME_POSTED,
-  }
+  })
 }
 
 export const getByCategory = () => {
