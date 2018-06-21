@@ -72,7 +72,6 @@ export const productReducer = (state = initialState, action: any) => {
         currentProduct: {
           ...state.currentProduct,
           username: action.payload.username
-
         }
       };
 
@@ -164,6 +163,12 @@ export const productReducer = (state = initialState, action: any) => {
       };
 
     case productTypes.GET_SELLER:
+      return {
+        ...state,
+        productList: action.payload.productList
+      };
+
+    case productTypes.GET_BY_SELLER_AND_TIME:
       return {
         ...state,
         productList: action.payload.productList
