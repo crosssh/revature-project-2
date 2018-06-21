@@ -1,6 +1,13 @@
 import * as React from "react";
+import { IBuyer, IUser } from "../../reducers";
 
-export class CreateUserComponent extends React.Component<any, any> {
+interface IProp extends IBuyer, IUser {
+  buyer: any;
+  user: any;
+  updateUsername: (username: string) => void;
+}
+
+export class CreateUserComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
     console.log(props);
@@ -11,12 +18,14 @@ export class CreateUserComponent extends React.Component<any, any> {
     this.props.updateUsername(username);
   };
 
-  public updatePassword = (e: any) => {
-    const password = e.target.value;
-    this.props.updatePassword(password);
-  };
-
   public render() {
-    return <h1> This will be the create user form </h1>;
+    return (
+      <div>
+        This will be the create user form.
+        <br />
+        Also don't forget to do the new buyer thing to the db on account
+        creation.
+      </div>
+    );
   }
 }

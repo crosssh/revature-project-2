@@ -1,7 +1,14 @@
 import * as React from "react";
 import { ProfileNavComponent } from "../profile-nav.component";
+import { IBuyer, IUser } from "../../reducers";
 
-export class BidsComponent extends React.Component<any, any> {
+interface IProp extends IBuyer, IUser {
+  buyer: any;
+  user: any;
+  getBuyer: (username: string) => void;
+}
+
+export class BidsComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
     console.log(props);
@@ -13,6 +20,9 @@ export class BidsComponent extends React.Component<any, any> {
         <ProfileNavComponent />
         <div className="col-11">
           This is the bids Page. A user's previous bids.
+          <br />
+          We can access them with this.props.buyer.currentBuyer.bids, which is
+          an array, after we call this.props.getBuyer(this.props.user.username);
         </div>
       </div>
     );
