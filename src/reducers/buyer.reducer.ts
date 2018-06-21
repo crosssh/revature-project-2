@@ -151,8 +151,7 @@ export const buyerReducer = (state = initialState, action: any) => {
 
     case buyerTypes.POST_NEW_BUYER:
       return {
-        // ...state,
-        initialState
+       ...state,
          
       };
 
