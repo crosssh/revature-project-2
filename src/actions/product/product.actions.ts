@@ -1,4 +1,6 @@
 import { productTypes } from "./product.types";
+import { productInterceptor } from "../../interceptors/product.interceptor";
+import { environment } from "../../environment";
 
 
 export const updateBidder = (bidder: string) => {
@@ -74,6 +76,15 @@ export const updateType = (type: string) => {
       type
     },
     type: productTypes.UPDATE_TYPE,
+  }
+}
+
+export const updateProductUsername = (username: string) => {
+  return {
+    payload: {
+      username
+    },
+    type: productTypes.UPDATE_PRODUCT_USERNAME,
   }
 }
 
@@ -160,11 +171,18 @@ export const getSeller = () => {
   }
 }
 
-export const addProduct = () => {
-  return {
-    payload: {
-       
-    },
-    type: productTypes.ADD_PRODUCT,
-  }
+export const addProduct = (currentProduct: any) => (dispatch: any) => {
+  productInterceptor.post(environment.context + 'product/add-pop', currentProduct)
+  .then(resp => {
+    console.log(resp.statusText);
+    dispatch({
+      payload: {
+
+      },
+      type: productTypes.ADD_PRODUCT
+    })
+  })
+  .catch(err => {
+    console.log(err);
+  });
 }
