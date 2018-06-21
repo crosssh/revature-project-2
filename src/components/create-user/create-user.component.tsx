@@ -1,10 +1,13 @@
 import * as React from "react";
 import { IBuyer, IUser } from "../../reducers";
 import * as awsCognito from "amazon-cognito-identity-js";
+import { RouteProps } from "react-router";
 
-interface IProp extends IBuyer, IUser {
+interface IProp extends IBuyer, IUser, RouteProps {
   buyer: any;
   user: any;
+  history: any;
+  postNewBuyer: (username: string) => void;
   updateUsername: (username: string) => void;
   updatePassword: (password: string) => void;
   updateGivenName: (givenName: string) => void;
@@ -43,15 +46,17 @@ export class CreateUserComponent extends React.Component<IProp, any> {
     this.props.updateEmail(email);
   };
 
+  public postNewBuyer = (username: string) => {
+    this.props.postNewBuyer(username);
+  }
+
   public submit = (e: any) => {
     e.preventDefault();
-    console.log('Here');
     const poolData = {
       ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here
       UserPoolId: "us-west-2_S3BP7tO7z" // Your user pool id here
     };
     const userPool = new awsCognito.CognitoUserPool(poolData);
-    console.log(this.props.user.attribute);
     const email = {
       Name: 'email',
       Value: this.props.user.attribute.email,
@@ -78,10 +83,12 @@ export class CreateUserComponent extends React.Component<IProp, any> {
 
     userPool.signUp(this.props.user.username, this.props.user.password, attributeList, [], (err: any, result: any) => {
       if (err) {
-        alert(err);
+        console.log(err);
         return;
       }
       cognitoUser = result.user;
+      this.postNewBuyer(this.props.user.username);
+      this.props.history.push('/home');
     })
   };
 
