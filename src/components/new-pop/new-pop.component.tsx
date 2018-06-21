@@ -71,9 +71,9 @@ export class NewPopComponent extends React.Component<IProp, any> {
   };
 
   public addProduct = (e: any) => {
-    // e.preventDefault();
+     e.preventDefault();
     this.props.setTimePosted(Date.now());
-    this.props.updateCurrentBid(this.props.currentProduct.minBid);
+    this.props.updateCurrentBid(this.props.currentProduct.minimumBidPrice);
     this.props.updateProductUsername('Crosssh');
     this.props.addProduct(this.props.currentProduct);
   }
