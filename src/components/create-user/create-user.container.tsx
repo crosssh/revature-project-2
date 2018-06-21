@@ -2,6 +2,10 @@ import { connect } from "react-redux";
 import { IState } from "../../reducers";
 import {
   updateAuthToken,
+  updateEmail,
+  updateFamilyName,
+  updateGivenName,
+  updatePassword,
   updateUsername,
   updateError
 } from "../../actions/user/user.actions";
@@ -16,7 +20,11 @@ const mapStateToProps = (state: IState) => ({
 export const mapDispatchToProps = {
   postNewBuyer,
   updateAuthToken,
+  updateEmail,
   updateError,
+  updateFamilyName,
+  updateGivenName,
+  updatePassword,
   updateUsername
 };
 
