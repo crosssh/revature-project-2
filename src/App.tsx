@@ -11,12 +11,12 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
 import { BidsComponent } from './components/bids/bids.component';
 import { BoughtComponent } from './components/bought/bought.component';
 import { SellingComponent } from './components/selling/selling.component';
-import { UserInfoComponent } from './components/user-info/user-info.component';
-import { BrowseComponent } from './components/browse/browse.component';
+import { UserInfoComponent } from './components/user-info/user-info.component'; 
 import { HomeComponent } from './components/home/home.component';
 import { ItemComponent } from './components/item/item.component';
 import { NewPopContainer } from './components/new-pop/new-pop.container';
 import { CheckoutContainer } from './components/checkout/checkout.container';
+import { BrowseContainer } from './components/browse/browse.container';
 
 class App extends React.Component<any, any> {
 
@@ -28,7 +28,7 @@ class App extends React.Component<any, any> {
             <NavComponent />
             <Switch>
               <Route path="/sign-in" component={SignInContainer} />
-              <Route path="/browse" component={BrowseComponent} />
+              <Route path="/browse" component={BrowseContainer} />
               <Route path="/home" component={HomeComponent} />
               <Route path="/checkout" component={CheckoutContainer} />
               <Route path="/item" component={ItemComponent} />
