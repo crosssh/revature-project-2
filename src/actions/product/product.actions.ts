@@ -172,6 +172,8 @@ export const getSeller = () => {
 }
 
 export const addProduct = (currentProduct: any) => (dispatch: any) => {
+  currentProduct.timePosted=Date.now();
+  console.log(currentProduct)
   productInterceptor.post(environment.context + 'product/add-pop', currentProduct)
   .then(resp => {
     console.log(resp.statusText);
