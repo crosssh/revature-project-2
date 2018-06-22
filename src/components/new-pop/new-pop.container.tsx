@@ -1,14 +1,30 @@
-import { connect } from 'react-redux';
-import { IState } from '../../reducers';
+import { connect } from "react-redux";
+import { IState } from "../../reducers";
 
-import { addProduct,setAuctionEnd,setBuyNow,setMinBid,setTimePosted,updateBidder,updateCategory,updateCondition,updateCurrentBid
-,updateName, updateProductUsername, updatePhotos,updateStatus,updateType} from '../../actions/product/product.actions';
-import { NewPopComponent } from './new-pop.component';
+import {
+  addProduct,
+  setAuctionEnd,
+  setBuyNow,
+  setMinBid,
+  setTimePosted,
+  updateBidder,
+  updateCategory,
+  updateCondition,
+  updateCurrentBid,
+  updateName,
+  updateProductUsername,
+  updatePhotos,
+  updateStatus,
+  updateType
+} from "../../actions/product/product.actions";
+import { NewPopComponent } from "./new-pop.component";
 
-const mapStateToProps = (state: IState) => (state.product);
+const mapStateToProps = (state: IState) => ({
+  product: state.product,
+  user: state.user
+});
 
 export const mapDispatchToProps = {
-   
   addProduct,
   setAuctionEnd,
   setBuyNow,
@@ -27,7 +43,5 @@ export const mapDispatchToProps = {
 
 export const NewPopContainer = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(NewPopComponent);
-
-

@@ -1,10 +1,7 @@
 {
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
-    "exclude": [
-      "config/**/*.js",
-      "node_modules/**/*.ts"
-    ]
+    "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
   },
   "rules": {
     "ordered-imports": false,
@@ -12,6 +9,7 @@
     "jsx-no-lambda": false,
     "no-console": false,
     "jsx-no-bind": false,
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "prefer-for-of": false
   }
 }
