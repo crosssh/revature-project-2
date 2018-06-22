@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as awsCognito from "amazon-cognito-identity-js";
+import { Link } from "react-router-dom";
 
 let tempPass = "";
 export class SignInComponent extends React.Component<any, any> {
@@ -72,6 +73,10 @@ export class SignInComponent extends React.Component<any, any> {
     });
   };
 
+  public signUp = (e: any) => {
+    this.props.history.push("/create-user")
+  }
+
   public render() {
     return (
       <form className="form-signin" onSubmit={this.submit}>
@@ -117,7 +122,9 @@ export class SignInComponent extends React.Component<any, any> {
         <button className="btn btn-lg btn-primary btn-block" type="submit">
           Sign in
         </button>
-        <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+        <p className="mt-5 mb-3">Create new account 
+        <Link to="/create-user" className="unset-anchor nav-link">Sign Up</Link>
+        </p>
       </form>
     );
   }

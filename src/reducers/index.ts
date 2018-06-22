@@ -15,6 +15,8 @@ export interface IBuyer {
 }
 
 export interface IUser {
+  attribute: any;
+  password: string;
   username: string;
   errorMessage: string;
   authToken: string;
