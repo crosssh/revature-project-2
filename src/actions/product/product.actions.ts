@@ -146,13 +146,19 @@ export const getByType = () => {
   };
 };
 
-export const getRecent = () => {
-  return {
-    payload: {
-      productList: []
-    },
-    type: productTypes.GET_RECENT
-  };
+export const getRecent = () => (dispatch: any) => {
+  productInterceptor.get(environment.context + 'product/get-last-ten')
+    .then(resp => {
+      dispatch({
+        payload: {
+          productList: resp.data
+        },
+        type: productTypes.GET_RECENT
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    })
 };
 
 export const getSeller = () => {
