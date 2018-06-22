@@ -147,7 +147,8 @@ export const getByType = () => {
 };
 
 export const getRecent = () => (dispatch: any) => {
-  productInterceptor.get(environment.context + 'product/get-last-ten')
+  productInterceptor
+    .get(environment.context + "product/get-last-ten")
     .then(resp => {
       dispatch({
         payload: {
@@ -158,16 +159,23 @@ export const getRecent = () => (dispatch: any) => {
     })
     .catch(err => {
       console.log(err);
-    })
+    });
 };
 
-export const getSeller = () => {
-  return {
-    payload: {
-      productList: []
-    },
-    type: productTypes.GET_SELLER
-  };
+export const getSeller = (username: string) => (dispatch: any) => {
+  productInterceptor
+    .get(environment.context + "product/get-seller" + username)
+    .then(resp => {
+      dispatch({
+        payload: {
+          productList: resp.data
+        },
+        type: productTypes.GET_SELLER
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 export const getBySellerAndTime = () => {
