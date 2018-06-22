@@ -11,11 +11,11 @@ const initialState: IProduct = {
     currentBidder: "N/A",
     minimumBidPrice: 0,
     name: "",
-    photos: "url",
+    photos: [],
     status: "available",
     timePosted: 0,
     type: "",
-    username: "Crosssh"
+    username: ""
   },
   productList: []
 };
@@ -186,7 +186,7 @@ export const productReducer = (state = initialState, action: any) => {
           currentBidder: "N/A",
           minimumBidPrice: 0,
           name: "",
-          photos: "url",
+          photos: [],
           status: "available",
           timePosted: 0,
           type: "",

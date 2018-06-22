@@ -47,10 +47,10 @@ export const updateName = (name: string) => {
   };
 };
 
-export const updatePhotos = (photos: string) => {
+export const updatePhotos = (url: string, photos: string[]) => {
   return {
     payload: {
-      photos
+      photos: [...photos, url]
     },
     type: productTypes.UPDATE_PHOTOS
   };
@@ -174,19 +174,18 @@ export const getBySellerAndTime = () => {
 };
 
 export const addProduct = (currentProduct: any) => (dispatch: any) => {
-  currentProduct.timePosted=Date.now();
-  console.log(currentProduct)
-  productInterceptor.post(environment.context + 'product/add-pop', currentProduct)
-  .then(resp => {
-    console.log(resp.statusText);
-    dispatch({
-      payload: {
-
-      },
-      type: productTypes.ADD_PRODUCT
+  currentProduct.timePosted = Date.now();
+  console.log(currentProduct);
+  productInterceptor
+    .post(environment.context + "product/add-pop", currentProduct)
+    .then(resp => {
+      console.log(resp.statusText);
+      dispatch({
+        payload: {},
+        type: productTypes.ADD_PRODUCT
+      });
     })
-  })
-  .catch(err => {
-    console.log(err);
-  });
-}
+    .catch(err => {
+      console.log(err);
+    });
+};
