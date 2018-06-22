@@ -207,6 +207,26 @@ export const productReducer = (state = initialState, action: any) => {
           username: ""
         }
       };
+      case productTypes.REINITIALIZE_PRODUCT:
+      return {
+        ...state,
+        currentProduct: {
+          auctionEndTime: 0,
+          buyNowPrice: 0,
+          category: "",
+          condition: "",
+          currentBidPrice: 0,
+          currentBidder: "N/A",
+          minimumBidPrice: 0,
+          name: "",
+          photos: [],
+          status: "available",
+          timePosted: 0,
+          type: "",
+          username: ""
+        },
+        url: "",
+      };
   } // end switch
 
   return state;
