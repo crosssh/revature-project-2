@@ -31,7 +31,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
     const file = files[0];
     console.log(file);
 
-    const url = environment.context + "product/add-photo/" + file.name;
+    const url = file.name;
     this.updatePhotos(url);
   };
 
@@ -39,15 +39,14 @@ export class NewPopComponent extends React.Component<IProp, any> {
     this.props.updatePhotos(url, this.props.product.currentProduct.photos);
   };
 
-  public sendPhotos = (files: any) => {
+  public sendPhotos = (files: string) => {
     // maybe I should say string
     // const file = files[0];
 
     productInterceptor
-      .post(files)
-      // (environment.context + "product/add-photo/" + file.name)
+      .post(environment.context + "product/add-photo/" + files)
       .then(resp => {
-        Axios.put(resp.data, files) // added s
+        Axios.put(resp.data, files)
           .then(uploadResp => {
             alert(uploadResp.status);
           })
@@ -86,11 +85,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
     const condition = e.target.value;
     this.props.updateCondition(condition);
   };
-
-  // public updateCurrentBid = (e: any) => { // actually don't need it anyway
-  //   const currentBid = e.target.value;
-  //   this.props.updateCurrentBid(currentBid);
-  // };
 
   public updateName = (e: any) => {
     const name = e.target.value;
