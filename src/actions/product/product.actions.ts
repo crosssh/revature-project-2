@@ -146,13 +146,19 @@ export const getByType = () => {
   };
 };
 
-export const getRecent = () => {
-  return {
-    payload: {
-      productList: []
-    },
-    type: productTypes.GET_RECENT
-  };
+export const getRecent = () => (dispatch: any) => {
+  productInterceptor.get(environment.context + 'product/get-last-ten')
+    .then(resp => {
+      dispatch({
+        payload: {
+          productList: resp.data
+        },
+        type: productTypes.GET_RECENT
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    })
 };
 
 export const getSeller = () => {
@@ -174,19 +180,19 @@ export const getBySellerAndTime = () => {
 };
 
 export const addProduct = (currentProduct: any) => (dispatch: any) => {
-  currentProduct.timePosted=Date.now();
+  currentProduct.timePosted = Date.now();
   console.log(currentProduct)
   productInterceptor.post(environment.context + 'product/add-pop', currentProduct)
-  .then(resp => {
-    console.log(resp.statusText);
-    dispatch({
-      payload: {
+    .then(resp => {
+      console.log(resp.statusText);
+      dispatch({
+        payload: {
 
-      },
-      type: productTypes.ADD_PRODUCT
+        },
+        type: productTypes.ADD_PRODUCT
+      })
     })
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    .catch(err => {
+      console.log(err);
+    });
 }
