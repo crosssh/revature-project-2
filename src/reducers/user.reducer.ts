@@ -61,6 +61,18 @@ export const userReducer = (state = initialState, action: any) => {
           ...state,
           password: action.payload.password
         };
+        case userTypes.REINITIALIZE_USER:
+        return {
+          attribute: {
+            email: "",
+            family_name: "",
+            given_name: "",
+          },
+          authToken: "",
+          errorMessage: "",
+          password: "",
+          username: ""
+        };
   }
 
   return state;

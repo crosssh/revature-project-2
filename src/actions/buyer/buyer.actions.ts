@@ -144,3 +144,12 @@ export const addToBought = (newBought: any, boughtItems: any[]) => {
     type: buyerTypes.ADD_TO_BOUGHT
   };
 };
+
+export const reinitializeBuyer = () => {
+  return {
+    payload: {
+
+    },
+    type: buyerTypes.REINITIALIZE_BUYER
+  }
+}

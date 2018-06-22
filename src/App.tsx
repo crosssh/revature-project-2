@@ -17,6 +17,7 @@ import { ItemContainer } from "./components/item/item.container";
 import { HomeContainer } from "./components/home/home.container";
 import { CreateUserContainer } from "./components/create-user/create-user.container";
 import { BrowseContainer } from "./components/browse/browse.container";
+import { SignOutContainer } from "./components/sign-out/sign-out.container";
 
 class App extends React.Component<any, any> {
   public render() {
@@ -37,6 +38,7 @@ class App extends React.Component<any, any> {
               <Route path="/bought" component={BoughtContainer} />
               <Route path="/selling" component={SellingContainer} />
               <Route path="/user-info" component={UserInfoContainer} />
+              <Route path="/sign-out" component={SignOutContainer} />
               <Route path="/" component={HomeContainer} />
             </Switch>
           </div>
