@@ -1,11 +1,13 @@
 import * as React from "react";
 import { IProduct } from "../../reducers";
-import { productInterceptor } from "../../interceptors/product.interceptor";
+// import { productInterceptor } from "../../interceptors/product.interceptor";
 import { environment } from "../../environment";
+import Axios from 'axios';
 
 interface IProps extends IProduct {
   getRecent: () => void;
   getUrl: (url: string) => string;
+  updateUrl: (url: string) => void;
 }
 
 export class HomeComponent extends React.Component<IProps, any> {
@@ -14,48 +16,47 @@ export class HomeComponent extends React.Component<IProps, any> {
     console.log(props);
   }
 
+  public componentDidMount() {
+    this.getRecent();
+  }
+
   public getRecent = () => {
-    console.log(this.props.productList)
-    this.props.getRecent(); // was there some param?
-    // do we need this functino defined right here? Do we need to set the time number based on today? If so, we should do it here.
+    this.props.getRecent();
   };
 
-  public getUrl = (url: string) => {
-    console.log(url)
-    productInterceptor.get(environment.context + 'product/get-photo/gronk-pop.jpg')
-    .then(resp => {
-      console.log(resp.data);
-      return resp.data;
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    return "";
+  public getUrl = (filename: string) => {
+    console.log(filename)
+    Axios.get(environment.context + 'product/get-photo/' + filename)
+      .then(resp => {
+        this.props.updateUrl(resp.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    return this.props.url;
   }
 
-  public componentDidMount() {
-    console.log(this.props.productList)
-    this.getRecent(); // figure out what this should be or make the sction need a param
-  }
 
   public render() {
     return (
       <div className="container">
-        {console.log(this.props.productList)}
         <div className="row">
           {
-            this.props.productList &&
+            this.props.productList.length > 0 &&
             this.props.productList.map((product: any) =>
-              <div className="card" key={product.timePosted}>
-                <img className="card-img-top" src={this.getUrl(product.photos[0])}alt="Card image cap" />
+              <div className="card col-4" key={product.timePosted}>
+              <div className="card-title"><h5>{product.name}</h5></div>
+                <img className="card-img-top" src={'http://popbay-photo-storage.s3.amazonaws.com/' + product.photos[0]} alt="Card image cap" />
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">Category: {product.category}</li>
                   <li className="list-group-item">Type: {product.type}</li>
                   <li className="list-group-item">Condition: {product.condition}</li>
                 </ul>
                 <div className="card-body">
+                  a couple items 
+                  {/* insert React-router-dom links instead
                   <a href="#" className="card-link">Card link</a>
-                  <a href="#" className="card-link">Another link</a>
+                  <a href="#" className="card-link">Another link</a> */}
                 </div>
               </div>
             )
