@@ -17,7 +17,8 @@ interface IProp extends IProduct {
   updateCondition: (condition: string) => void;
   updateCurrentBid: (currentBid: number) => void;
   updateName: (name: string) => void;
-  updatePhotos: (url: string, photos: string[]) => void;
+  updatePhotos: (file: any, photos: any[]) => void;
+  updatePhotoNames: (fileName: string, photoNames: string[]) => void;
   updateProductUsername: (username: string) => void;
   updateType: (type: string) => void;
 }
@@ -32,19 +33,24 @@ export class NewPopComponent extends React.Component<IProp, any> {
     console.log(file);
 
     const url = file.name;
-    this.updatePhotos(url);
+    this.updatePhotoNames(url);
+    this.updatePhotos(file);
   };
 
-  public updatePhotos = (url: string) => {
-    this.props.updatePhotos(url, this.props.product.currentProduct.photos);
+  public updatePhotos = (file: any) => {
+    this.props.updatePhotos(file, this.props.product.photos);
   };
 
-  public sendPhotos = (files: string) => {
-    // maybe I should say string
-    // const file = files[0];
+  public updatePhotoNames = (fileName: string) => {
+    this.props.updatePhotoNames(
+      fileName,
+      this.props.product.currentProduct.photoNames
+    );
+  };
 
+  public sendPhotos = (files: any) => {
     productInterceptor
-      .post(environment.context + "product/add-photo/" + files)
+      .post(environment.context + "product/add-photo/" + files.name)
       .then(resp => {
         Axios.put(resp.data, files)
           .then(uploadResp => {
@@ -98,9 +104,9 @@ export class NewPopComponent extends React.Component<IProp, any> {
 
   public addProduct = (e: any) => {
     e.preventDefault();
-    for (let i = 0; i < this.props.product.currentProduct.photos.length; i++) {
-      console.log(this.props.product.currentProduct.photos[i]);
-      this.sendPhotos(this.props.product.currentProduct.photos[i]);
+    for (let i = 0; i < this.props.product.photos.length; i++) {
+      console.log(this.props.product.photos[i]);
+      this.sendPhotos(this.props.product.photos[i]);
     }
     // this.props.setTimePosted(Date.now());
     // this.props.updateCurrentBid(this.props.product.currentProduct.minBid);

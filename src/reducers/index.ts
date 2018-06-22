@@ -5,6 +5,7 @@ import { userReducer } from "./user.reducer";
 
 export interface IProduct {
   currentProduct: any;
+  photos: any[];
   productList: any[];
   url: string;
 }

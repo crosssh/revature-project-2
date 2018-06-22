@@ -14,6 +14,7 @@ import {
   updateName,
   updateProductUsername,
   updatePhotos,
+  updatePhotoNames,
   updateStatus,
   updateType
 } from "../../actions/product/product.actions";
@@ -35,6 +36,7 @@ export const mapDispatchToProps = {
   updateCondition,
   updateCurrentBid,
   updateName,
+  updatePhotoNames,
   updatePhotos,
   updateProductUsername,
   updateStatus,

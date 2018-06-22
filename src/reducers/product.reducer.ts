@@ -11,14 +11,15 @@ const initialState: IProduct = {
     currentBidder: "N/A",
     minimumBidPrice: 0,
     name: "",
-    photos: [],
+    photoNames: [],
     status: "available",
     timePosted: 0,
     type: "",
     username: ""
   },
+  photos: [],
   productList: [],
-  url: "",
+  url: ""
 };
 
 export const productReducer = (state = initialState, action: any) => {
@@ -79,9 +80,15 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.UPDATE_PHOTOS:
       return {
         ...state,
+        photos: action.payload.photos
+      };
+
+    case productTypes.UPDATE_PHOTO_NAMES:
+      return {
+        ...state,
         currentProduct: {
           ...state.currentProduct,
-          photos: action.payload.photos
+          photoNames: action.payload.photoNames
         }
       };
 
