@@ -187,6 +187,15 @@ export const getBySellerAndTime = () => {
   };
 };
 
+export const updateUrl = (url: string) => {
+  return {
+    payload: {
+      url
+    },
+    type: productTypes.UPDATE_URL,
+  };
+};
+
 export const addProduct = (currentProduct: any) => (dispatch: any) => {
   currentProduct.timePosted = Date.now();
   console.log(currentProduct);

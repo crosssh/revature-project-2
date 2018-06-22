@@ -6,6 +6,7 @@ import { userReducer } from "./user.reducer";
 export interface IProduct {
   currentProduct: any;
   productList: any[];
+  url: string;
 }
 
 export interface IBuyer {

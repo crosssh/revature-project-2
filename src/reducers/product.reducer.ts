@@ -17,7 +17,8 @@ const initialState: IProduct = {
     type: "",
     username: ""
   },
-  productList: []
+  productList: [],
+  url: "",
 };
 
 export const productReducer = (state = initialState, action: any) => {
@@ -91,6 +92,12 @@ export const productReducer = (state = initialState, action: any) => {
           ...state.currentProduct,
           status: action.payload.status
         }
+      };
+
+    case productTypes.UPDATE_URL:
+      return {
+        ...state,
+        url: action.payload.url
       };
 
     case productTypes.UPDATE_TYPE:
