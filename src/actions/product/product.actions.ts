@@ -119,32 +119,97 @@ export const setTimePosted = (timePosted: number) => (dispatch: any) => {
   });
 };
 
-export const getByCategory = () => {
-  return {
+export const getByCategory = (category: string)=>(dispatch:any) => {
+//   return {
+//     payload: {
+//       productList: []
+//     },
+//     type: productTypes.GET_BY_CATEGORY
+//   };
+// };
+
+productInterceptor.get(environment.context +'/product')  
+.then( resp => {
+
+  const filteredByCategory = resp.data.filter((p:any)=>{
+
+    return p.category.indexOf(category) !== -1;
+
+  })
+
+
+  dispatch({
     payload: {
-      productList: []
+      productList: filteredByCategory
     },
     type: productTypes.GET_BY_CATEGORY
-  };
+  })
+})
+.catch(err => {
+  console.log(err);
+});
 };
 
-export const getByName = () => {
-  return {
-    payload: {
-      productList: []
-    },
-    type: productTypes.GET_BY_NAME
-  };
+export const getByName =(name: string) => (dispatch:any) => {
+  // return {
+  //   payload: {
+  //     productList: []
+  //   },
+  //   type: productTypes.GET_BY_NAME
+  // };
+  
+  productInterceptor.get(environment.context +'/product')  
+  .then( resp => {
+
+    const filteredByName = resp.data.filter((p:any)=>{
+      
+      return p.name.indexOf(name) !== -1;
+  
+    })
+  
+
+    dispatch({
+      payload: {
+        productList: filteredByName
+      },
+      type: productTypes.GET_BY_NAME
+    })
+  })
+  .catch(err => {
+    console.log(err);
+  });
 };
 
-export const getByType = () => {
-  return {
+export const getByType = (type: string) =>(dispatch:any) => {
+//   return {
+//     payload: {
+//       productList: []
+//     },
+//     type: productTypes.GET_BY_TYPE
+//   };
+// };
+
+productInterceptor.get(environment.context +'/product')  
+.then( resp => {
+
+  const filteredByType = resp.data.filter((p:any)=>{
+
+    return p.type.indexOf(type) !== -1;
+
+  })
+
+
+  dispatch({
     payload: {
-      productList: []
+      productList: filteredByType
     },
     type: productTypes.GET_BY_TYPE
-  };
-};
+  })
+})
+.catch(err => {
+  console.log(err);
+});
+}
 
 export const getRecent = () => (dispatch: any) => {
   productInterceptor
