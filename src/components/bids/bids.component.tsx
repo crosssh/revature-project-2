@@ -14,15 +14,27 @@ export class BidsComponent extends React.Component<IProp, any> {
     console.log(props);
   }
 
+  public componentDidMount() {
+    this.props.getBuyer(this.props.user.username);
+  }
+
   public render() {
     return (
       <div className="row">
         <ProfileNavComponent />
         <div className="col-11">
-          This is the bids Page. A user's previous bids.
+          This is the bought items Page.{" "}
+          {this.props.buyer.currentBuyer.username}'s previous bids will be shown
+          here.
           <br />
           We can access them with this.props.buyer.currentBuyer.bids, which is
-          an array, after we call this.props.getBuyer(this.props.user.username);
+          an array. We will map the bid data to a table.
+          <br />
+          <div className="row">
+            <div className="col">{this.props.buyer.currentBuyer.username}</div>
+            Here is what is stored in bids:
+            <div className="col">{this.props.buyer.currentBuyer.bids}</div>
+          </div>
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
-import { IBuyer } from '.';
-import { buyerTypes } from '../actions/buyer/buyer.types';
+import { IBuyer } from ".";
+import { buyerTypes } from "../actions/buyer/buyer.types";
 
 const initialState: IBuyer = {
   currentBuyer: {
@@ -19,9 +19,8 @@ const initialState: IBuyer = {
     seller: "",
     timeBought: 0,
     timePosted: 0
-  },
-
-}
+  }
+};
 
 export const buyerReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -31,7 +30,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBid: {
           ...state.newBid,
           bidPrice: action.payload.bidPrice
-
         }
       };
     case buyerTypes.UPDATE_HIGHEST:
@@ -40,7 +38,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBid: {
           ...state.newBid,
           highestBid: action.payload.highestBid
-
         }
       };
 
@@ -50,7 +47,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBid: {
           ...state.newBid,
           seller: action.payload.bidSeller
-
         }
       };
 
@@ -60,7 +56,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBid: {
           ...state.newBid,
           timePosted: action.payload.postTimeBid
-
         }
       };
 
@@ -70,7 +65,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBoughtItem: {
           ...state.newBoughtItem,
           boughtPrice: action.payload.boughtPrice
-
         }
       };
 
@@ -80,7 +74,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBoughtItem: {
           ...state.newBoughtItem,
           itemName: action.payload.itemNameBought
-
         }
       };
 
@@ -90,7 +83,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBoughtItem: {
           ...state.newBoughtItem,
           seller: action.payload.boughtSeller
-
         }
       };
 
@@ -100,7 +92,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBoughtItem: {
           ...state.newBoughtItem,
           timeBought: action.payload.boughtTime
-
         }
       };
 
@@ -110,10 +101,8 @@ export const buyerReducer = (state = initialState, action: any) => {
         newBoughtItem: {
           ...state.newBoughtItem,
           timePosted: action.payload.postTimeBought
-
         }
       };
-
 
     case buyerTypes.ADD_TO_BIDS:
       return {
@@ -121,10 +110,8 @@ export const buyerReducer = (state = initialState, action: any) => {
         currentBuyer: {
           ...state.currentBuyer,
           bids: action.payload.bids
-
         }
       };
-
 
     case buyerTypes.ADD_TO_BOUGHT:
       return {
@@ -132,32 +119,32 @@ export const buyerReducer = (state = initialState, action: any) => {
         currentBuyer: {
           ...state.currentBuyer,
           boughtItems: action.payload.boughtItems
-
         }
       };
 
     case buyerTypes.GET_BUYER:
       return {
         ...state,
-        currentBuyer: action.payload.currentBuyer
+        currentBuyer: {
+          ...state.currentBuyer,
+          bids: action.payload.currentBuyer[0].bids,
+          boughtItems: action.payload.currentBuyer[0].boughtItems,
+          username: action.payload.currentBuyer[0].username
+        }
       };
 
     case buyerTypes.PUT_NEW_BID:
       return {
         // ...state,
-        
+
         initialState
       };
 
     case buyerTypes.POST_NEW_BUYER:
       return {
-       ...state,
-         
+        ...state
       };
-
-
-
-  }// end switch
+  } // end switch
 
   return state;
 };

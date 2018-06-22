@@ -14,16 +14,29 @@ export class BoughtComponent extends React.Component<IProp, any> {
     console.log(props);
   }
 
+  public componentDidMount() {
+    this.props.getBuyer(this.props.user.username);
+  }
+
   public render() {
     return (
       <div className="row">
         <ProfileNavComponent />
         <div className="col-11">
-          This is the bought items Page. A user's previously purchased items.
+          This is the bought items Page.{" "}
+          {this.props.buyer.currentBuyer.username}'s previously purchased items
+          will be shown here.
           <br />
           We can access them with this.props.buyer.currentBuyer.boughtItems,
-          which is an array, after we call
-          this.props.getBuyer(this.props.user.username);
+          which is an array. We will insert a table to make it presentable and
+          map the info.
+          <br />
+          <div className="row">
+            <div className="col">{this.props.buyer.currentBuyer.username}</div>
+            <div className="col">
+              {this.props.buyer.currentBuyer.boughtItems}
+            </div>
+          </div>
         </div>
       </div>
     );
