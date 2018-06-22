@@ -212,3 +212,12 @@ export const addProduct = (currentProduct: any) => (dispatch: any) => {
       console.log(err);
     });
 };
+
+export const reinitializeProduct = () => {
+  return {
+    payload: {
+
+    },
+    type: productTypes.REINITIALIZE_PRODUCT,
+  };
+};

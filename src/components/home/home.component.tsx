@@ -46,7 +46,7 @@ export class HomeComponent extends React.Component<IProps, any> {
             this.props.productList.map((product: any) =>
               <div className="card col-4" key={product.timePosted}>
               <div className="card-title"><h5>{product.name}</h5></div>
-                <img className="card-img-top" src={'http://popbay-photo-storage.s3.amazonaws.com/' + product.photos[0]} alt="Card image cap" />
+                <img className="card-img-top" src={'http://popbay-photo-storage.s3.amazonaws.com/' } alt="Card image cap" />
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">Category: {product.category}</li>
                   <li className="list-group-item">Type: {product.type}</li>

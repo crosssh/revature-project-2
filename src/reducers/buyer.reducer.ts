@@ -144,7 +144,31 @@ export const buyerReducer = (state = initialState, action: any) => {
       return {
         ...state
       };
+
+    case buyerTypes.REINITIALIZE_BUYER:
+      return {
+        currentBuyer: {
+          bids: [],
+          boughtItems: [],
+          username: ""
+        },
+        newBid: {
+          bidPrice: 0,
+          highestBid: true,
+          seller: "",
+          timePosted: 0
+        },
+        newBoughtItem: {
+          boughtPrice: 0,
+          itemName: "",
+          seller: "",
+          timeBought: 0,
+          timePosted: 0
+        }
+      };
   } // end switch
+
+
 
   return state;
 };

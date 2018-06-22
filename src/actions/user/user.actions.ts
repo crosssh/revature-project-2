@@ -62,3 +62,12 @@ export const updatePassword = (password: string) => {
     type: userTypes.UPDATE_PASSWORD
   };
 };
+
+export const reinitializeUser = () => {
+  return {
+    payload: {
+
+    },
+    type: userTypes.REINITIALIZE_USER
+  }
+}
