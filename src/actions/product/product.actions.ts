@@ -47,12 +47,21 @@ export const updateName = (name: string) => {
   };
 };
 
-export const updatePhotos = (url: string, photos: string[]) => {
+export const updatePhotos = (file: any, photos: any[]) => {
   return {
     payload: {
-      photos: [...photos, url]
+      photos: [...photos, file]
     },
     type: productTypes.UPDATE_PHOTOS
+  };
+};
+
+export const updatePhotoNames = (fileName: string, photoNames: string[]) => {
+  return {
+    payload: {
+      photoNames: [...photoNames, fileName]
+    },
+    type: productTypes.UPDATE_PHOTO_NAMES
   };
 };
 
@@ -257,7 +266,7 @@ export const updateUrl = (url: string) => {
     payload: {
       url
     },
-    type: productTypes.UPDATE_URL,
+    type: productTypes.UPDATE_URL
   };
 };
 
