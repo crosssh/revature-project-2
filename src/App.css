@@ -88,21 +88,6 @@ nav {
 
 
 /*****************************
-  TIC TAC TOE
-*****************************/
-.tic-tac-col {
-  border: 1px solid black;
-  font-size: 4em;
-  text-align: center;
-  min-height: 1em ;
-}
-#tic-tac-board {
-  width: 75%;
-}
-
-
-
-/*****************************
   SIGN IN
 *****************************/
 .form-signin {
@@ -138,4 +123,12 @@ nav {
 
 #error-message {
   color: red;
+}
+
+/*********************
+* Checkout
+*********************/
+
+.checkout {
+  border: solid;
 }
