@@ -133,9 +133,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
                 className="product-name form-control"
                 onChange={this.updateName}
               />{" "}
-              <br />
               <label>Type of Pop:</label>
-              <br />
               <select
                 value={this.props.product.currentProduct.type}
                 onChange={this.updateType}
@@ -151,9 +149,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
                 <option value="plush">plush</option>
                 <option value="pocket">pocket</option>
               </select>
-              <br />
               <label>Category:</label>
-              <br />
               <select
                 value={this.props.product.currentProduct.category}
                 onChange={this.updateCategory}
@@ -173,7 +169,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
                 <option value="television">Television</option>
                 <option value="other">Other</option>
               </select>
-              <br />
+              <label>Condition:</label>
               <select
                 value={this.props.product.currentProduct.condition}
                 onChange={this.updateCondition}
@@ -188,7 +184,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
                 <option value="damaged">damaged</option>
                 <option value="missing box">missing box</option>
               </select>
-              <br />
               Minimum bid price: <br />
               <input
                 value={this.props.product.currentProduct.minimumBidPrice}
@@ -196,7 +191,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
                 className="min-bid form-control"
                 onChange={this.setMinBid}
               />{" "}
-              <br />
               Buy now price: <br />
               <input
                 value={this.props.product.currentProduct.buyNowPrice}
@@ -204,7 +198,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
                 className="buy-now-price form-control"
                 onChange={this.setBuyNow}
               />{" "}
-              <br />
               Auction length (hours): <br />
               <input
                 value={this.props.product.currentProduct.auctionEndTime}
@@ -220,19 +213,31 @@ export class NewPopComponent extends React.Component<IProp, any> {
                   one file at a time.
                 </p>
               </Dropzone>
-              {/* {
-            this.props.product.photos &&
-
-          } */}
-              The page could display the names of the uploaded files in a table
-              here
+              {this.props.product.currentProduct.photoNames.length > 0 && (
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Items Submitted:</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.props.product.currentProduct.photoNames.map(
+                      (file: any) => (
+                        <tr key={file}>
+                          <td>{file}</td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              )}
+              <br />
+              <button className="btn btn-success centered" type="submit">
+                Add Product
+              </button>
             </div>
           </div>
           <br />
-
-          <button className="btn btn-success" type="submit">
-            Add Product
-          </button>
         </form>
       </div>
     );

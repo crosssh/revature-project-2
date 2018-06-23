@@ -26,6 +26,46 @@ export class ItemComponent extends React.Component<IProp, any> {
   public render() {
     return (
       <div>
+        <div className="container">
+          <div className="row">
+            <div
+              className="card col-3"
+              key={this.props.product.chosenItem.timePosted}
+            >
+              {/* <div className="card-title">
+                  <h5>{product.name}</h5>
+                </div> */}
+              <img
+                className="card-img-top"
+                src={
+                  "http://popbay-photo-storage.s3.amazonaws.com/" +
+                  this.props.product.chosenItem.photoNames[0]
+                }
+                alt="Card image cap"
+              />
+              <div className="card-title">
+                <h5>{this.props.product.chosenItem.name}</h5>
+              </div>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">
+                  Category: {this.props.product.chosenItem.category}
+                </li>
+                <li className="list-group-item">
+                  Type: {this.props.product.chosenItem.type}
+                </li>
+                <li className="list-group-item">
+                  Condition: {this.props.product.chosenItem.condition}
+                </li>
+              </ul>
+              <div className="card-body">
+                a couple items
+                {/* insert React-router-dom links instead
+                  <a href="#" className="card-link">Card link</a>
+                  <a href="#" className="card-link">Another link</a> */}
+              </div>
+            </div>
+          </div>
+        </div>
         This is a page for an individual item That somehow when we clicked on it
         it retreived that single item, probably with
         this.props.getBySellerAndTime(), whose parameters it got from the array
