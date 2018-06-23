@@ -22,10 +22,9 @@ export class BidsComponent extends React.Component<IProp, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        <div className="col-11">
-          This is the bought items Page.{" "}
-          {this.props.buyer.currentBuyer.username}'s previous bids will be shown
-          here.
+        <div className="col-10">
+          This is the bids Page. {this.props.buyer.currentBuyer.username}'s
+          previous bids will be shown here.
           <br />
           We can access them with this.props.buyer.currentBuyer.bids, which is
           an array. We will map the bid data to a table.

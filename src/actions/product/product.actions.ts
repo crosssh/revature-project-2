@@ -128,97 +128,88 @@ export const setTimePosted = (timePosted: number) => (dispatch: any) => {
   });
 };
 
-export const getByCategory = (category: string)=>(dispatch:any) => {
-//   return {
-//     payload: {
-//       productList: []
-//     },
-//     type: productTypes.GET_BY_CATEGORY
-//   };
-// };
+export const getByCategory = (category: string) => (dispatch: any) => {
+  //   return {
+  //     payload: {
+  //       productList: []
+  //     },
+  //     type: productTypes.GET_BY_CATEGORY
+  //   };
+  // };
 
-productInterceptor.get(environment.context +'/product')  
-.then( resp => {
+  productInterceptor
+    .get(environment.context + "/product")
+    .then(resp => {
+      const filteredByCategory = resp.data.filter((p: any) => {
+        return p.category.indexOf(category) !== -1;
+      });
 
-  const filteredByCategory = resp.data.filter((p:any)=>{
-
-    return p.category.indexOf(category) !== -1;
-
-  })
-
-
-  dispatch({
-    payload: {
-      productList: filteredByCategory
-    },
-    type: productTypes.GET_BY_CATEGORY
-  })
-})
-.catch(err => {
-  console.log(err);
-});
+      dispatch({
+        payload: {
+          productList: filteredByCategory
+        },
+        type: productTypes.GET_BY_CATEGORY
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
-export const getByName =(name: string) => (dispatch:any) => {
+export const getByName = (name: string) => (dispatch: any) => {
   // return {
   //   payload: {
   //     productList: []
   //   },
   //   type: productTypes.GET_BY_NAME
   // };
-  
-  productInterceptor.get(environment.context +'/product')  
-  .then( resp => {
 
-    const filteredByName = resp.data.filter((p:any)=>{
-      
-      return p.name.indexOf(name) !== -1;
-  
-    })
-  
+  productInterceptor
+    .get(environment.context + "/product")
+    .then(resp => {
+      const filteredByName = resp.data.filter((p: any) => {
+        return p.name.indexOf(name) !== -1;
+      });
 
-    dispatch({
-      payload: {
-        productList: filteredByName
-      },
-      type: productTypes.GET_BY_NAME
+      dispatch({
+        payload: {
+          productList: filteredByName
+        },
+        type: productTypes.GET_BY_NAME
+      });
     })
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    .catch(err => {
+      console.log(err);
+    });
 };
 
-export const getByType = (type: string) =>(dispatch:any) => {
-//   return {
-//     payload: {
-//       productList: []
-//     },
-//     type: productTypes.GET_BY_TYPE
-//   };
-// };
+export const getByType = (type: string) => (dispatch: any) => {
+  //   return {
+  //     payload: {
+  //       productList: []
+  //     },
+  //     type: productTypes.GET_BY_TYPE
+  //   };
+  // };
 
-productInterceptor.get(environment.context +'/product')  
-.then( resp => {
+  productInterceptor
+    .get(environment.context + "/product")
+    .then(resp => {
+      const filteredByType = resp.data.filter((p: any) => {
+        return p.type.indexOf(type) !== -1;
+      });
 
-  const filteredByType = resp.data.filter((p:any)=>{
-
-    return p.type.indexOf(type) !== -1;
-
-  })
-
-
-  dispatch({
-    payload: {
-      productList: filteredByType
-    },
-    type: productTypes.GET_BY_TYPE
-  })
-})
-.catch(err => {
-  console.log(err);
-});
-}
+      dispatch({
+        payload: {
+          productList: filteredByType
+        },
+        type: productTypes.GET_BY_TYPE
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
 export const getRecent = () => (dispatch: any) => {
   productInterceptor
@@ -238,7 +229,7 @@ export const getRecent = () => (dispatch: any) => {
 
 export const getSeller = (username: string) => (dispatch: any) => {
   productInterceptor
-    .get(environment.context + "product/get-seller" + username)
+    .get(environment.context + "product/get-seller/" + username)
     .then(resp => {
       dispatch({
         payload: {
@@ -252,13 +243,28 @@ export const getSeller = (username: string) => (dispatch: any) => {
     });
 };
 
-export const getBySellerAndTime = () => {
-  return {
-    payload: {
-      productList: []
-    },
-    type: productTypes.GET_BY_SELLER_AND_TIME
-  };
+export const getBySellerAndTime = (username: string, timePosted: number) => (
+  dispatch: any
+) => {
+  productInterceptor
+    .get(
+      environment.context +
+        "product/get-seller/" +
+        username +
+        "/time/" +
+        timePosted
+    )
+    .then(resp => {
+      dispatch({
+        payload: {
+          chosenItem: resp.data
+        },
+        type: productTypes.GET_BY_SELLER_AND_TIME
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 export const updateUrl = (url: string) => {
@@ -289,9 +295,7 @@ export const addProduct = (currentProduct: any) => (dispatch: any) => {
 
 export const reinitializeProduct = () => {
   return {
-    payload: {
-
-    },
-    type: productTypes.REINITIALIZE_PRODUCT,
+    payload: {},
+    type: productTypes.REINITIALIZE_PRODUCT
   };
 };

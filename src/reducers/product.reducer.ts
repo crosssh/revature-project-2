@@ -2,6 +2,7 @@ import { IProduct } from ".";
 import { productTypes } from "../actions/product/product.types";
 
 const initialState: IProduct = {
+  chosenItem: {},
   currentProduct: {
     auctionEndTime: 0,
     buyNowPrice: 0,
@@ -185,7 +186,7 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.GET_BY_SELLER_AND_TIME:
       return {
         ...state,
-        productList: action.payload.productList
+        chosenItem: action.payload.chosenItem[0]
       };
 
     case productTypes.ADD_PRODUCT:
@@ -207,7 +208,7 @@ export const productReducer = (state = initialState, action: any) => {
           username: ""
         }
       };
-      case productTypes.REINITIALIZE_PRODUCT:
+    case productTypes.REINITIALIZE_PRODUCT:
       return {
         ...state,
         currentProduct: {
@@ -225,7 +226,7 @@ export const productReducer = (state = initialState, action: any) => {
           type: "",
           username: ""
         },
-        url: "",
+        url: ""
       };
   } // end switch
 

@@ -9,6 +9,7 @@ interface IProp extends IProduct {
   user: any;
   product: any;
   addProduct: (currentProduct: any) => void;
+  reinitializeProduct: () => void;
   setAuctionEnd: (auctionEnd: number) => void;
   setBuyNow: (buyNowPrice: number) => void;
   setMinBid: (minBid: number) => void;
@@ -26,6 +27,10 @@ interface IProp extends IProduct {
 export class NewPopComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
+  }
+
+  public componentDidMount() {
+    this.props.reinitializeProduct();
   }
 
   public onDrop = (files: any) => {
@@ -119,71 +124,112 @@ export class NewPopComponent extends React.Component<IProp, any> {
       <div className="container">
         Please enter the information NOW!!!
         <form onSubmit={this.addProduct}>
-          Product Name: <br />
-          <input
-            value={this.props.product.currentProduct.name}
-            type="text"
-            className="product-name"
-            onChange={this.updateName}
-          />{" "}
+          <div className="row">
+            <div className="col">
+              Product Name: <br />
+              <input
+                value={this.props.product.currentProduct.name}
+                type="text"
+                className="product-name form-control"
+                onChange={this.updateName}
+              />{" "}
+              <br />
+              <label>Type of Pop:</label>
+              <br />
+              <select
+                value={this.props.product.currentProduct.type}
+                onChange={this.updateType}
+                className="form-control pop-type"
+                id="FormControlSelect1"
+              >
+                <option value="choose" hidden>
+                  Select
+                </option>
+                <option value="pop">POP!</option>
+                <option value="vinyl">vinyl/vnyl</option>
+                <option value="keychain">keychain</option>
+                <option value="plush">plush</option>
+                <option value="pocket">pocket</option>
+              </select>
+              <br />
+              <label>Category:</label>
+              <br />
+              <select
+                value={this.props.product.currentProduct.category}
+                onChange={this.updateCategory}
+                className="form-control category"
+                id="FormControlSelect1"
+              >
+                <option value="choose" hidden>
+                  Select
+                </option>
+                <option value="animation">Animation</option>
+                <option value="games">Games</option>
+                <option value="heroes">Heroes</option>
+                <option value="movies">Movies</option>
+                <option value="music">Music</option>
+                <option value="sports">Sports</option>
+                <option value="Star Wars">Star Wars</option>
+                <option value="television">Television</option>
+                <option value="other">Other</option>
+              </select>
+              <br />
+              <select
+                value={this.props.product.currentProduct.condition}
+                onChange={this.updateCondition}
+                className="form-control condition"
+                id="FormControlSelect1"
+              >
+                <option value="choose" hidden>
+                  Select
+                </option>
+                <option value="new">new</option>
+                <option value="opened">opened</option>
+                <option value="damaged">damaged</option>
+                <option value="missing box">missing box</option>
+              </select>
+              <br />
+              Minimum bid price: <br />
+              <input
+                value={this.props.product.currentProduct.minimumBidPrice}
+                type="number"
+                className="min-bid form-control"
+                onChange={this.setMinBid}
+              />{" "}
+              <br />
+              Buy now price: <br />
+              <input
+                value={this.props.product.currentProduct.buyNowPrice}
+                type="number"
+                className="buy-now-price form-control"
+                onChange={this.setBuyNow}
+              />{" "}
+              <br />
+              Auction length (hours): <br />
+              <input
+                value={this.props.product.currentProduct.auctionEndTime}
+                type="text"
+                className="auction-length form-control"
+                onChange={this.setAuctionEnd}
+              />{" "}
+            </div>
+            <div className="col">
+              <Dropzone onDrop={this.onDrop}>
+                <p>
+                  Drop your files here or click to select one. Drop or select
+                  one file at a time.
+                </p>
+              </Dropzone>
+              {/* {
+            this.props.product.photos &&
+
+          } */}
+              The page could display the names of the uploaded files in a table
+              here
+            </div>
+          </div>
           <br />
-          Type of Pop: (make this a dropdown)<br />
-          <input
-            value={this.props.product.currentProduct.type}
-            type="text"
-            className="pop-type"
-            onChange={this.updateType}
-          />{" "}
-          <br />
-          Category: (make this a dropdown)<br />
-          <input
-            value={this.props.product.currentProduct.category}
-            type="text"
-            className="category"
-            onChange={this.updateCategory}
-          />{" "}
-          <br />
-          Condition: (make this a dropdown) <br />
-          <input
-            value={this.props.product.currentProduct.condition}
-            type="text"
-            className="condition"
-            onChange={this.updateCondition}
-          />{" "}
-          <br />
-          Minimum bid price: <br />
-          <input
-            value={this.props.product.currentProduct.minimumBidPrice}
-            type="number"
-            className="min-bid"
-            onChange={this.setMinBid}
-          />{" "}
-          <br />
-          Buy now price: <br />
-          <input
-            value={this.props.product.currentProduct.buyNowPrice}
-            type="number"
-            className="buy-now-price"
-            onChange={this.setBuyNow}
-          />{" "}
-          <br />
-          Auction length (hours): <br />
-          <input
-            value={this.props.product.currentProduct.auctionEndTime}
-            type="text"
-            className="auction-length"
-            onChange={this.setAuctionEnd}
-          />{" "}
-          <br />
-          <br />
-          <Dropzone onDrop={this.onDrop}>
-            <p>
-              Drop your files here or click to select one. Drop or select one
-              file at a time.
-            </p>
-          </Dropzone>
-          <br />
-          The page could display the names of the uploaded files...
+
           <button className="btn btn-success" type="submit">
             Add Product
           </button>

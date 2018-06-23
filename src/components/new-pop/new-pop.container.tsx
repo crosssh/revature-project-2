@@ -3,6 +3,7 @@ import { IState } from "../../reducers";
 
 import {
   addProduct,
+  reinitializeProduct,
   setAuctionEnd,
   setBuyNow,
   setMinBid,
@@ -27,6 +28,7 @@ const mapStateToProps = (state: IState) => ({
 
 export const mapDispatchToProps = {
   addProduct,
+  reinitializeProduct,
   setAuctionEnd,
   setBuyNow,
   setMinBid,
