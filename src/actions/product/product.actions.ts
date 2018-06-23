@@ -133,7 +133,7 @@ productInterceptor.get(environment.context +'/product')
 
   const filteredByCategory = resp.data.filter((p:any)=>{
 
-    return p.category.indexOf(category) !== -1;
+    return p.category.toLowerCase().indexOf(category.toLowerCase()) !== -1;
 
   })
 
@@ -163,7 +163,7 @@ export const getByName =(name: string) => (dispatch:any) => {
 
     const filteredByName = resp.data.filter((p:any)=>{
       
-      return p.name.indexOf(name) !== -1;
+      return p.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
   
     })
   
@@ -194,7 +194,7 @@ productInterceptor.get(environment.context +'/product')
 
   const filteredByType = resp.data.filter((p:any)=>{
 
-    return p.type.indexOf(type) !== -1;
+    return p.type.toLowerCase().indexOf(type.toLowerCase()) !== -1;
 
   })
 

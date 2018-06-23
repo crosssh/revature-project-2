@@ -20,15 +20,29 @@ export class BrowseComponent extends React.Component<IProp, any> {
     super(props);
     console.log(props);
     this.state ={
+      
+      categorySelected:false,
+      checkRadio:"none",  
       currentCategory:'',
+      currentCategorySortingList:[],
       currentSearchCriteria:'name',
+      currentSortingCategory:'',
+      currentSortingType:'',
       currentType:'',
+      currentTypeSortingList:[],            
       filteredList:[],
       searchText: '',
-      show:false,
+      selected:true,
+      typeSelected:false,
+      unfilteredList:[]
+      
+      
+      
       
       
     }
+
+    
   }
 
 
@@ -69,7 +83,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   }    
     
-  setTimeout (this.setFiltered,1000)
+  setTimeout (this.setFiltered,1500)
    
     this.setState({filteredList:this.props.productList})
     this.setState({searchText: ''})
@@ -93,7 +107,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
     
     this.setState ({currentCategory:e.target.value});
-     console.log(this.state.currentCategory);
+      console.log(this.state.currentCategory);
 
  } // end update criteria 
 
@@ -127,18 +141,247 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
 
 
-
-
-
-
   public setFiltered = ()=>{
 
   this.setState({filteredList:this.props.productList})
+  this.setState({unfiltered:this.props.productList})
   console.log(this.state.filteredList)
 
   } // end set state
 
+ 
+  // public updateAndSortCategory = (e:any)=>{
+
+  //   this.setState ({currentCategory:e.target.value});
+  //   this.sortCategory(e);
+
+  // } // end update and sort 
+
+  // public sortCategory =(e:any)=>{
+
+  //   const filtered  = this.state.filteredList.filter((p:any)=>{
+
+  //     return p.category.indexOf(e.target.value) !== -1;
+  
+  //   }) 
+
+  //   this.setState({filteredList:filtered})
+
+  // } // end sort category
+
+// public sortCategory=(e:any)=>{
+//    console.log(this.state.selected); 
+//    console.log(e.target.value);
+//    const checked =  this.state.selected
+    
+//    // this.setState({selected:!checked});
+//   let filtered :any =[]
+
+//     if (this.state.selected){
+//       this.setState({unfiltered:this.state.filteredList})
+//       filtered  = this.state.filteredList.filter((p:any)=>{
+
+//         return p.category.indexOf(e.target.value) !== -1;
+        
+//     }) 
+//     this.setState({filteredList:filtered})
+//     // this.setState({selected:!checked});
+//   }  else {
+
+//     this.setState({filteredList:this.state.unfiltered})
+       
+//     // this.setState({selected:!checked});
+//   }
+//   this.setState({selected:!checked});
+
+public sortCategoryName=(e:any)=>{
+       
+
+        if (this.state.typeSelected){
+           
+
+
+          console.log('type was selected')
+          console.log(`type was selected ${this.state.currentType}`)
+          const filtered  = this.state.currentTypeSortingList.filter((p:any)=>{
+
+            return p.category.indexOf(e.target.value) !== -1;
+            
+        })    
+          
+          this.setState({filteredList:filtered})  
+
+
+
+        } else   {
+          
+        console.log(this.state.selected); 
+        console.log(e.target.value);   
+        
+          const filtered  = this.state.unfiltered.filter((p:any)=>{
+
+            return p.category.indexOf(e.target.value) !== -1;
+            
+        })    
+          
+          this.setState({currentCategorySortingList:filtered})  
+          this.setState({filteredList:filtered})  
+           
+      }
+      this.setState({categorySelected:true})
+      this.setState({currentSortingCategory:e.target.value})
+       
+} //  end sortCategory 
+
+
+
+
+
+
+
+public sortTypeName=(e:any)=>{
+
+      if (this.state.categorySelected){
+        
+
+
+        console.log(`category was selected ${this.state.currentCategory}`)
+        const filtered  = this.state.currentCategorySortingList.filter((p:any)=>{
+
+          return p.type.indexOf(e.target.value) !== -1;
+          
+      })    
+        
+        this.setState({filteredList:filtered})  
+        
+
+
+
+
+      } else  {
+         
+      console.log(this.state.selected); 
+      console.log(e.target.value);   
+      
+        const filtered  = this.state.unfiltered.filter((p:any)=>{
+
+          return p.type.indexOf(e.target.value) !== -1;
+          
+      })    
+        this.setState({currentTypeSortingList:filtered})  
+        this.setState({filteredList:filtered})  
+       
+    }
+    this.setState({currentSortingType:e.target.value})
+    this.setState({typeSelected:true})
+  
+} //  end sortType 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+public sortCategory=(e:any)=>{
+ 
+  console.log(this.state.selected); 
+  console.log(e.target.value);   
+  
+    const filtered  = this.state.unfiltered.filter((p:any)=>{
+
+      return p.category.indexOf(e.target.value) !== -1;
+      
+  })    
+    
+    this.setState({filteredList:filtered})  
+     
+
+ 
+} //  end sortCategory 
+
+
+public sortType=(e:any)=>{
+
    
+  console.log(this.state.selected); 
+  console.log(e.target.value);   
+  
+    const filtered  = this.state.unfiltered.filter((p:any)=>{
+
+      return p.type.indexOf(e.target.value) !== -1;
+      
+  })    
+    
+    this.setState({filteredList:filtered})  
+     
+
+ 
+} //  end sortCategory 
+
+
+
+
+public  getUnfilteredTypeList =() =>{
+
+
+  this.setState({filteredList:this.state.unfiltered})
+  // this.state.currentSortingCategory
+  // this.state.currentSortingType
+
+
+
+} // end getUnfilteredTypeList
+
+
+
+public  getUnfilteredCategoryList =(e:any) =>{
+
+
+  this.setState({filteredList:this.state.unfiltered})
+  // this.setState({currentSortingType:"pocket"})
+  // this.setState({currentSortingCategory:"animation"})
+  e.target.value="";
+
+} // end  getUnfilteredCategoryList
+
+public  reset =(e:any) =>{
+
+
+  this.setState({filteredList:this.state.unfiltered})
+  this.setState({checkRadio:"none"})
+   
+   
+   
+
+} // end  getUnfilteredCategoryList
+
+
+
+// public sortByName =(e:any) =>{
+
+
+//   this.setState({searchText: e.target.value});
+
+//   const filtered  = this.state.filteredList.filter((p:any)=>{
+
+//     return p.name.toLowerCase().indexOf(this.state.searchText) !== -1; 
+
+    
+// })    
+
+// this.setState({filteredList: filtered});
+
+// }
+
 
   public render() {
     return (
@@ -209,7 +452,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
                 {
                   
                    
-                  this.props.productList.map((p:any) =>
+                  this.state.filteredList.map((p:any) =>
                     <tr key={p.timePosted}>
                       <td>{p.name}</td> 
                       <td>{p.buyNowPrice }</td>
@@ -226,34 +469,34 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
              {
       
-               this.state.filteredList.length !== 0 && this.state.currentSearchCriteria ==='name' &&
+               this.state.currentSearchCriteria ==='name' &&
               <div> 
-                
+                <h3> Sort options </h3>
+                <div><input onClick={this.reset} name='categotyChoice' type="button" />Reset Filter</div>
                             <div>
-                        <select onChange={this.updateCategory}>
-                        <option value=""></option>
-                        <option value="animation">Animation</option>
-                        <option value="apparel">Apparel</option>            
-                        <option value="games">Games</option>
-                        <option value="heroes">Heroes</option>
-                        <option value="home">Home</option>
-                        <option value="movies">Movies</option>
-                        <option value="music">Music</option>
-                        <option value="rides">Rides</option>
-                        <option value="sports">Sports</option>
-                        <option value="television">Television</option>
-                        <option value="Star Wars">Star Wars</option>                 
-                        </select>
-                        </div>
+                            <h4>Category</h4>
+                            {/* <input checked ={this.state.checkRadio} name='categotyChoice' type="radio" value='none' />none */}
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="animation"/>Animation
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="apparel"/>Apparel
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="games"/>Games
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="heroes"/>Heroes
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="home"/>Home
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="movies"/>Movies
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="music"/>Music
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="rides"/>Rides
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="sports"/>Sports
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="television"/>Television
+                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="star wars"/>Star Wars  
+                          </div>    
 
-                        <div>
-                        <select onChange={this.updatetype}>
-                        <option value=""></option>
-                        <option value="pop">POP!</option>
-                        <option value="pocket">Pocket</option>
-                        <option value="vinyl">Vinyl</option>
-                        <option value="plush">Plush</option>
-                        </select>
+                        <div> 
+                       
+                          <h4>Types</h4>    
+                          {/* <input   name='typeChoice' type="radio" value='none' />none                     */}
+                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pop"/>POP!
+                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pocket"/>Pocket
+                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
+                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="plush"/>Plush
                         </div>
 
 
@@ -268,22 +511,32 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
                {
       
-               this.state.filteredList.length !== 0 && this.state.currentSearchCriteria ==='category' &&
+               this.state.currentSearchCriteria ==='category' &&
               <div> 
                 
-                  <div>
+                  {/* <div>
                       <input type='text' placeholder ='Search POP!' value={this.state.searchText} onChange={this.updateSearch} />
-                  </div>
+                  </div> */}
 
                   <div>
-                  <select onChange={this.updatetype}>
+                          <h3> Sort options </h3>
+                          <h4>Types</h4>
+                          <input onChange={this.getUnfilteredTypeList} name='typeChoice' type="radio" value=""/>none
+                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="pop"/>POP!
+                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="pocket"/>Pocket
+                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
+                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="plush"/>Plush
+                           
+                  
+                  </div>
+
+                  {/* <select onChange={this.updatetype}>
                   <option value=""></option>
                   <option value="pop">POP!</option>
                   <option value="pocket">Pocket</option>
                   <option value="vinyl">Vinyl</option>
                   <option value="plush">Plush</option>
-                  </select>
-                  </div>
+                  </select> */}
 
 
               </div>
@@ -295,28 +548,29 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
                {
       
-                this.state.filteredList.length !== 0 && this.state.currentSearchCriteria ==='type' &&
+                this.state.currentSearchCriteria ==='type' &&
               <div> 
                 
-                      <div>
+                      {/* <div>
                           <input type='text' placeholder ='Search POP!' value={this.state.searchText} onChange={this.updateSearch} />
-                      </div>
+                      </div> */}
 
                         <div>
-                        <select onChange={this.updateCategory}>
-                        <option value=""></option>
-                        <option value="animation">Animation</option>
-                        <option value="apparel">Apparel</option>            
-                        <option value="games">Games</option>
-                        <option value="heroes">Heroes</option>
-                        <option value="home">Home</option>
-                        <option value="movies">Movies</option>
-                        <option value="music">Music</option>
-                        <option value="rides">Rides</option>
-                        <option value="sports">Sports</option>
-                        <option value="television">Television</option>
-                        <option value="Star Wars">Star Wars</option>                 
-                        </select>
+                          <h3> Sort options </h3>
+                          <h4>Category</h4>
+                          <input onChange={this.getUnfilteredCategoryList} name='categotyChoice' type="radio" />none
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="animation"/>Animation
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="apparel"/>Apparel
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="games"/>Games
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="heroes"/>Heroes
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="home"/>Home
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="movies"/>Movies
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="music"/>Music
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="rides"/>Rides
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="sports"/>Sports
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="television"/>Television
+                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="star wars"/>Star Wars                            
+                           
                         </div>
 
 
