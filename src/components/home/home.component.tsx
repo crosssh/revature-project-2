@@ -9,7 +9,7 @@ interface IProps extends IProduct, RouteProps {
   history: any;
   getRecent: () => void;
   getUrl: (url: string) => string;
-  getBySellerAndTime: (username: string, timePosted: number) => any;
+  getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   updateUrl: (url: string) => void;
 }
 
@@ -40,8 +40,12 @@ export class HomeComponent extends React.Component<IProps, any> {
   };
 
   public selectItem = (username: string, timePosted: number) => (e: any) => {
-    this.props.getBySellerAndTime(username, timePosted);
-    this.props.history.push("/item");
+    this.props
+      .getBySellerAndTime(username, timePosted)
+      .then(resp => {
+        this.props.history.push("/item");
+      })
+      .catch(err => console.log(err));
   };
 
   public render() {

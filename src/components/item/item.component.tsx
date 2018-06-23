@@ -1,5 +1,6 @@
 import * as React from "react";
 import { IBuyer, IProduct, IUser } from "../../reducers";
+import { Link } from "react-router-dom";
 
 interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
@@ -28,13 +29,7 @@ export class ItemComponent extends React.Component<IProp, any> {
       <div>
         <div className="container">
           <div className="row">
-            <div
-              className="card col-3"
-              key={this.props.product.chosenItem.timePosted}
-            >
-              {/* <div className="card-title">
-                  <h5>{product.name}</h5>
-                </div> */}
+            <div className="col-6">
               <img
                 className="card-img-top"
                 src={
@@ -43,34 +38,53 @@ export class ItemComponent extends React.Component<IProp, any> {
                 }
                 alt="Card image cap"
               />
-              <div className="card-title">
-                <h5>{this.props.product.chosenItem.name}</h5>
-              </div>
+            </div>
+            <div className="card col-6">
               <ul className="list-group list-group-flush">
+                <br />
                 <li className="list-group-item">
-                  Category: {this.props.product.chosenItem.category}
+                  <h1>{this.props.product.chosenItem.name}</h1>
                 </li>
                 <li className="list-group-item">
-                  Type: {this.props.product.chosenItem.type}
+                  <div className="row">
+                    <h3>
+                      Buy Now: ${this.props.product.chosenItem.buyNowPrice +
+                        "  "}
+                    </h3>
+                    <Link to="/checkout">
+                      <button className="btn btn-success"> Buy </button>
+                    </Link>
+                  </div>
                 </li>
                 <li className="list-group-item">
-                  Condition: {this.props.product.chosenItem.condition}
+                  <div className="row">
+                    <h3>
+                      Current Bidding Price: ${this.props.product.chosenItem
+                        .currentBidPrice + "  "}
+                    </h3>
+                    <button className="btn btn-warning"> Place a bid </button>
+                  </div>
+                </li>
+                <li className="list-group-item">
+                  <h5>
+                    Auction ends in{" "}
+                    {this.props.product.chosenItem.auctionEndTime} hours
+                  </h5>
+                </li>
+                <li className="list-group-item">
+                  <h5>Category: {this.props.product.chosenItem.category}</h5>
+                </li>
+                <li className="list-group-item">
+                  <h5>Type: {this.props.product.chosenItem.type}</h5>
+                </li>
+                <li className="list-group-item">
+                  <h5>Condition: {this.props.product.chosenItem.condition}</h5>
                 </li>
               </ul>
-              <div className="card-body">
-                a couple items
-                {/* insert React-router-dom links instead
-                  <a href="#" className="card-link">Card link</a>
-                  <a href="#" className="card-link">Another link</a> */}
-              </div>
+              <div className="card-body">a couple items</div>
             </div>
           </div>
         </div>
-        This is a page for an individual item That somehow when we clicked on it
-        it retreived that single item, probably with
-        this.props.getBySellerAndTime(), whose parameters it got from the array
-        displayed on the previous page... somehow...
-        <br />
         We need to add lots of the little updating functions, but not the one
         for Time.
         <br />
@@ -86,12 +100,9 @@ export class ItemComponent extends React.Component<IProp, any> {
         This is because we need to update the isHighestBid field of THAT user's
         bid(s) on this product to false.
         <br />
-        Then by one way or another we can pull stuff out of holdBuyer so that we
-        can: this.props.addToBids(this.props.buyer.newBid,
+        Then we pull stuff out of holdBuyer so that we can:
+        this.props.addToBids(this.props.buyer.newBid,
         this.props.buyer.currentBuyer.bids) with the bid info we stored.
-        <br />
-        If you think this is kind of a long way to get at things, well, you're
-        not wrong.
       </div>
     );
   }
