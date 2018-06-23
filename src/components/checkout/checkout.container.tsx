@@ -14,6 +14,7 @@ import { CheckoutComponent } from "./checkout.component";
 
 const mapStateToProps = (state: IState) => ({
   buyer: state.buyer,
+  product: state.product,
   user: state.user
 });
 
