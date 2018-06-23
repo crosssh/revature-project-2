@@ -10,6 +10,10 @@ import {
   updateItemNameBought,
   updatePostTimeBought
 } from "../../actions/buyer/buyer.actions";
+import {
+  putProduct,
+  updateStatus,
+} from "../../actions/product/product.actions";
 import { CheckoutComponent } from "./checkout.component";
 
 const mapStateToProps = (state: IState) => ({
@@ -22,11 +26,13 @@ export const mapDispatchToProps = {
   addToBought,
   getBuyer,
   putNewBid,
+  putProduct,
   updateBoughtPrice,
   updateBoughtSeller,
   updateBoughtTime,
   updateItemNameBought,
-  updatePostTimeBought
+  updatePostTimeBought,
+  updateStatus
 };
 
 export const CheckoutContainer = connect(
