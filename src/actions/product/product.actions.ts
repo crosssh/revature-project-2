@@ -306,3 +306,20 @@ export const reinitializeProduct = () => {
     type: productTypes.REINITIALIZE_PRODUCT
   };
 };
+
+export const putProduct = (chosenItem: any) => (dispatch: any) => {
+  productInterceptor
+  .put(environment.context + 'product/update-product-status/username/'+ chosenItem.username + '/time/' + chosenItem.timePosted, chosenItem)
+  .then(resp => {
+    console.log(resp);
+    dispatch({
+      payload: {
+  
+      },
+      type: productTypes.PUT_PRODUCT
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}
