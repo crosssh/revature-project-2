@@ -202,7 +202,7 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.GET_BY_SELLER_AND_TIME:
       return {
         ...state,
-        chosenItem: action.payload.chosenItem[0]
+        chosenItem: action.payload.chosenItem
       };
 
     case productTypes.PUT_PRODUCT:
@@ -223,7 +223,7 @@ export const productReducer = (state = initialState, action: any) => {
           currentBidder: "N/A",
           minimumBidPrice: 0,
           name: "",
-          photos: [],
+          photoNames: [],
           status: "available",
           timePosted: 0,
           type: "",
@@ -242,12 +242,13 @@ export const productReducer = (state = initialState, action: any) => {
           currentBidder: "N/A",
           minimumBidPrice: 0,
           name: "",
-          photos: [],
+          photoNames: [],
           status: "available",
           timePosted: 0,
           type: "",
           username: ""
         },
+        photos: [],
         url: ""
       };
   } // end switch

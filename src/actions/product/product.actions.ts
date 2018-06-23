@@ -245,27 +245,34 @@ export const getSeller = (username: string) => (dispatch: any) => {
 
 export const getBySellerAndTime = (username: string, timePosted: number) => (
   dispatch: any
-) => {
-  productInterceptor
-    .get(
-      environment.context +
-        "product/get-seller/" +
-        username +
-        "/time/" +
-        timePosted
-    )
-    .then(resp => {
-      dispatch({
-        payload: {
-          chosenItem: resp.data
-        },
-        type: productTypes.GET_BY_SELLER_AND_TIME
+) =>
+  new Promise(function(resolve, reject) {
+    // dispatch({
+    //   // some...thing?
+    //   type: productTypes.GET_BY_SELLER_AND_TIME
+    // });
+    productInterceptor
+      .get(
+        environment.context +
+          "product/get-seller/" +
+          username +
+          "/time/" +
+          timePosted
+      )
+      .then(resp => {
+        dispatch({
+          payload: {
+            chosenItem: resp.data
+          },
+          type: productTypes.GET_BY_SELLER_AND_TIME
+        });
+        resolve(resp);
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
       });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+  });
 
 export const updateUrl = (url: string) => {
   return {

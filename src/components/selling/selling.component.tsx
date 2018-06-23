@@ -11,7 +11,6 @@ interface IProp extends IProduct, IUser {
 export class SellingComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   public render() {
