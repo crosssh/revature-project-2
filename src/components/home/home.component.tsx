@@ -16,7 +16,6 @@ interface IProps extends IProduct, RouteProps {
 export class HomeComponent extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   public componentDidMount() {

@@ -12,17 +12,58 @@ interface IProp extends IBuyer, IProduct, IUser {
   putNewBid: (currentBuyer: any) => void;
   updateBidPrice: (price: number) => void;
   updateBidseller: (seller: string) => void;
-  updateHighest: (highest: boolean) => void;
+  updateHighest: () => void;
   updatePostTimeBid: (time: number) => void;
 }
 
-// let holdBuyer :any = {};
+let holdBuyer: any = {};
 
 export class ItemComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
+    this.state = {
+      bidding: false
+    };
   }
+
+  public isBidding = (e: any) => {
+    this.setState({ bidding: true });
+  };
+
+  public updateBidPrice = (e: any) => {
+    const price = parseInt(e.target.value, 10);
+    this.props.updateBidPrice(price);
+  };
+
+  public submitBid = (e: any) => {
+    if (this.props.product.chosenItem.currentBidder !== "N/A") {
+      this.props.getBuyer(this.props.product.chosenItem.currentBidder);
+      this.forceUpdate(() => {
+        // this.props.updateHighest(); I think not!
+        holdBuyer = this.props.buyer.currentBuyer;
+        for (let i = 0; i < holdBuyer.bids.length; i++) {
+          if (
+            holdBuyer.bids[i].seller ===
+              this.props.product.chosenItem.username &&
+            holdBuyer.bids[i].timePosted ===
+              this.props.product.chosenItem.timePosted
+          ) {
+            holdBuyer.bids[i].highestBid = false;
+          }
+        }
+      });
+      this.props.putNewBid(holdBuyer);
+    }
+
+    this.props.getBuyer(this.props.user.username);
+    this.props.updateBidseller(this.props.product.chosenItem.username);
+    this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
+
+    this.props.addToBids(
+      this.props.buyer.newBid,
+      this.props.buyer.currentBuyer.bids
+    );
+  };
 
   public render() {
     return (
@@ -41,7 +82,6 @@ export class ItemComponent extends React.Component<IProp, any> {
             </div>
             <div className="card col-6">
               <ul className="list-group list-group-flush">
-                <br />
                 <li className="list-group-item">
                   <h1>{this.props.product.chosenItem.name}</h1>
                 </li>
@@ -62,8 +102,27 @@ export class ItemComponent extends React.Component<IProp, any> {
                       Current Bidding Price: ${this.props.product.chosenItem
                         .currentBidPrice + "  "}
                     </h3>
-                    <button className="btn btn-warning"> Place a bid </button>
+                    <button
+                      className="btn btn-warning"
+                      onClick={this.isBidding}
+                    >
+                      {" "}
+                      Place a bid{" "}
+                    </button>
                   </div>
+                  {this.state.bidding && (
+                    <form onSubmit={this.submitBid}>
+                      <div className="row">
+                        <input
+                          value={this.props.buyer.newBid.bidPrice}
+                          onChange={this.updateBidPrice}
+                          type="number"
+                          className="form-control"
+                          placeholder="Amount"
+                        />
+                      </div>
+                    </form>
+                  )}
                 </li>
                 <li className="list-group-item">
                   <h5>
@@ -85,24 +144,6 @@ export class ItemComponent extends React.Component<IProp, any> {
             </div>
           </div>
         </div>
-        We need to add lots of the little updating functions, but not the one
-        for Time.
-        <br />
-        When someone chooses to place a bid by hitting the button,
-        <br />
-        We will call this.props.getBuyer(this.props.user.username)
-        <br />
-        for the buyer mentioned on the product's currentBidder field.
-        <br />
-        After the bid-submit button is pressed, we need to store the current
-        user's info and bid in the holding variable holdBuyer.
-        <br />
-        This is because we need to update the isHighestBid field of THAT user's
-        bid(s) on this product to false.
-        <br />
-        Then we pull stuff out of holdBuyer so that we can:
-        this.props.addToBids(this.props.buyer.newBid,
-        this.props.buyer.currentBuyer.bids) with the bid info we stored.
       </div>
     );
   }
