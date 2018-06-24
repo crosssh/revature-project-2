@@ -1,7 +1,6 @@
 import * as React from "react";
 import { RouteProps } from "react-router";
 import { IProduct } from "../../reducers";
-// import { productInterceptor } from "../../interceptors/product.interceptor";
 import { environment } from "../../environment";
 import Axios from "axios";
 
@@ -54,7 +53,7 @@ export class HomeComponent extends React.Component<IProps, any> {
           {this.props.productList.length > 0 &&
             this.props.productList.map((product: any) => (
               <div
-                className="card col-3"
+                className="card col-3 pop-card"
                 key={product.timePosted}
                 onClick={this.selectItem(product.username, product.timePosted)}
               >
@@ -62,7 +61,7 @@ export class HomeComponent extends React.Component<IProps, any> {
                   <h5>{product.name}</h5>
                 </div> */}
                 <img
-                  className="card-img-top"
+                  className="card-img-top pop-card-img"
                   src={
                     "http://popbay-photo-storage.s3.amazonaws.com/" +
                     product.photoNames[0]
