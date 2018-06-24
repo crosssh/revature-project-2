@@ -11,7 +11,7 @@ interface IProp extends IBuyer, IProduct, IUser {
   getBySellerAndTime: (username: string, time: number) => void;
   putNewBid: (currentBuyer: any) => void;
   updateBidPrice: (price: number) => void;
-  updateBidseller: (seller: string) => void;
+  updateBidSeller: (seller: string) => void;
   updateHighest: () => void;
   updatePostTimeBid: (time: number) => void;
 }
@@ -56,14 +56,18 @@ export class ItemComponent extends React.Component<IProp, any> {
     }
 
     this.props.getBuyer(this.props.user.username);
-    this.props.updateBidseller(this.props.product.chosenItem.username);
-    this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
-
-    this.props.addToBids(
-      this.props.buyer.newBid,
-      this.props.buyer.currentBuyer.bids
-    );
+    this.forceUpdate(() => {
+      this.props.addToBids(
+        this.props.buyer.newBid,
+        this.props.buyer.currentBuyer.bids
+      );
+    });
   };
+
+  public componentDidMount() {
+    this.props.updateBidSeller(this.props.product.chosenItem.username);
+    this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
+  }
 
   public render() {
     return (
@@ -102,10 +106,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                       Current Bidding Price: ${this.props.product.chosenItem
                         .currentBidPrice + "  "}
                     </h3>
-                    <button
-                      className="btn btn-warning"
-                      onClick={this.isBidding}
-                    >
+                    <button className="btn btn-link" onClick={this.isBidding}>
                       {" "}
                       Place a bid{" "}
                     </button>
@@ -120,6 +121,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                           className="form-control"
                           placeholder="Amount"
                         />
+                        {/* add BUTTON and success message*/}
                       </div>
                     </form>
                   )}
