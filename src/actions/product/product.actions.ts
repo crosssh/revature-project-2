@@ -47,12 +47,21 @@ export const updateName = (name: string) => {
   };
 };
 
-export const updatePhotos = (url: string, photos: string[]) => {
+export const updatePhotos = (file: any, photos: any[]) => {
   return {
     payload: {
-      photos: [...photos, url]
+      photos: [...photos, file]
     },
     type: productTypes.UPDATE_PHOTOS
+  };
+};
+
+export const updatePhotoNames = (fileName: string, photoNames: string[]) => {
+  return {
+    payload: {
+      photoNames: [...photoNames, fileName]
+    },
+    type: productTypes.UPDATE_PHOTO_NAMES
   };
 };
 
@@ -119,6 +128,7 @@ export const setTimePosted = (timePosted: number) => (dispatch: any) => {
   });
 };
 
+
 export const getByCategory = (category: string)=>(dispatch:any) => {
 
 
@@ -173,11 +183,11 @@ export const getByName =(name: string) => (dispatch:any) => {
         productList: filterdByStatus
       },
       type: productTypes.GET_BY_NAME
+
     })
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 export const getByType = (type: string) =>(dispatch:any) => {
@@ -199,6 +209,13 @@ productInterceptor.get(environment.context +'/product')
   })
 
 
+  productInterceptor
+    .get(environment.context + "/product")
+    .then(resp => {
+      const filteredByType = resp.data.filter((p: any) => {
+        return p.type.indexOf(type) !== -1;
+      });
+
   dispatch({
     payload: {
       productList: filterdByStatus
@@ -210,6 +227,7 @@ productInterceptor.get(environment.context +'/product')
   console.log(err);
 });
 }
+
 
 export const getRecent = () => (dispatch: any) => {
   productInterceptor
@@ -229,7 +247,7 @@ export const getRecent = () => (dispatch: any) => {
 
 export const getSeller = (username: string) => (dispatch: any) => {
   productInterceptor
-    .get(environment.context + "product/get-seller" + username)
+    .get(environment.context + "product/get-seller/" + username)
     .then(resp => {
       dispatch({
         payload: {
@@ -243,21 +261,43 @@ export const getSeller = (username: string) => (dispatch: any) => {
     });
 };
 
-export const getBySellerAndTime = () => {
-  return {
-    payload: {
-      productList: []
-    },
-    type: productTypes.GET_BY_SELLER_AND_TIME
-  };
-};
+export const getBySellerAndTime = (username: string, timePosted: number) => (
+  dispatch: any
+) =>
+  new Promise(function(resolve, reject) {
+    // dispatch({
+    //   // some...thing?
+    //   type: productTypes.GET_BY_SELLER_AND_TIME
+    // });
+    productInterceptor
+      .get(
+        environment.context +
+          "product/get-seller/" +
+          username +
+          "/time/" +
+          timePosted
+      )
+      .then(resp => {
+        dispatch({
+          payload: {
+            chosenItem: resp.data
+          },
+          type: productTypes.GET_BY_SELLER_AND_TIME
+        });
+        resolve(resp);
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      });
+  });
 
 export const updateUrl = (url: string) => {
   return {
     payload: {
       url
     },
-    type: productTypes.UPDATE_URL,
+    type: productTypes.UPDATE_URL
   };
 };
 
@@ -280,9 +320,24 @@ export const addProduct = (currentProduct: any) => (dispatch: any) => {
 
 export const reinitializeProduct = () => {
   return {
-    payload: {
-
-    },
-    type: productTypes.REINITIALIZE_PRODUCT,
+    payload: {},
+    type: productTypes.REINITIALIZE_PRODUCT
   };
 };
+
+export const putProduct = (chosenItem: any) => (dispatch: any) => {
+  productInterceptor
+  .put(environment.context + 'product/update-product-status/username/'+ chosenItem.username + '/time/' + chosenItem.timePosted, chosenItem)
+  .then(resp => {
+    console.log(resp);
+    dispatch({
+      payload: {
+  
+      },
+      type: productTypes.PUT_PRODUCT
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}

@@ -11,7 +11,7 @@ export class UserInfoComponent extends React.Component<any, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        <div className="col-11">
+        <div className="col-10">
           This page will show a user's account information: name, email,
           username, and possibly password.
           <br />

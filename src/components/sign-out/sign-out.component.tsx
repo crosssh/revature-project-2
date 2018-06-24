@@ -25,6 +25,7 @@ export class SignOutComponent extends React.Component<IProps, any> {
     this.props.reinitializeBuyer();
     this.props.reinitializeProduct();
     this.props.reinitializeUser();
+    localStorage.removeItem('token');
 
     this.props.history.push('/home');
   }

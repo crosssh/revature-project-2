@@ -1,5 +1,6 @@
 import * as React from "react";
 import { IBuyer, IProduct, IUser } from "../../reducers";
+import { Link } from "react-router-dom";
 
 interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
@@ -11,47 +12,138 @@ interface IProp extends IBuyer, IProduct, IUser {
   putNewBid: (currentBuyer: any) => void;
   updateBidPrice: (price: number) => void;
   updateBidseller: (seller: string) => void;
-  updateHighest: (highest: boolean) => void;
+  updateHighest: () => void;
   updatePostTimeBid: (time: number) => void;
 }
 
-// let holdBuyer :any = {};
+let holdBuyer: any = {};
 
 export class ItemComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
+    this.state = {
+      bidding: false
+    };
   }
+
+  public isBidding = (e: any) => {
+    this.setState({ bidding: true });
+  };
+
+  public updateBidPrice = (e: any) => {
+    const price = parseInt(e.target.value, 10);
+    this.props.updateBidPrice(price);
+  };
+
+  public submitBid = (e: any) => {
+    if (this.props.product.chosenItem.currentBidder !== "N/A") {
+      this.props.getBuyer(this.props.product.chosenItem.currentBidder);
+      this.forceUpdate(() => {
+        // this.props.updateHighest(); I think not!
+        holdBuyer = this.props.buyer.currentBuyer;
+        for (let i = 0; i < holdBuyer.bids.length; i++) {
+          if (
+            holdBuyer.bids[i].seller ===
+              this.props.product.chosenItem.username &&
+            holdBuyer.bids[i].timePosted ===
+              this.props.product.chosenItem.timePosted
+          ) {
+            holdBuyer.bids[i].highestBid = false;
+          }
+        }
+      });
+      this.props.putNewBid(holdBuyer);
+    }
+
+    this.props.getBuyer(this.props.user.username);
+    this.props.updateBidseller(this.props.product.chosenItem.username);
+    this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
+
+    this.props.addToBids(
+      this.props.buyer.newBid,
+      this.props.buyer.currentBuyer.bids
+    );
+  };
 
   public render() {
     return (
       <div>
-        This is a page for an individual item That somehow when we clicked on it
-        it retreived that single item, probably with
-        this.props.getBySellerAndTime(), whose parameters it got from the array
-        displayed on the previous page... somehow...
-        <br />
-        We need to add lots of the little updating functions, but not the one
-        for Time.
-        <br />
-        When someone chooses to place a bid by hitting the button,
-        <br />
-        We will call this.props.getBuyer(this.props.user.username)
-        <br />
-        for the buyer mentioned on the product's currentBidder field.
-        <br />
-        After the bid-submit button is pressed, we need to store the current
-        user's info and bid in the holding variable holdBuyer.
-        <br />
-        This is because we need to update the isHighestBid field of THAT user's
-        bid(s) on this product to false.
-        <br />
-        Then by one way or another we can pull stuff out of holdBuyer so that we
-        can: this.props.addToBids(this.props.buyer.newBid,
-        this.props.buyer.currentBuyer.bids) with the bid info we stored.
-        <br />
-        If you think this is kind of a long way to get at things, well, you're
-        not wrong.
+        <div className="container">
+          <div className="row">
+            <div className="col-6">
+              <img
+                className="card-img-top"
+                src={
+                  "http://popbay-photo-storage.s3.amazonaws.com/" +
+                  this.props.product.chosenItem.photoNames[0]
+                }
+                alt="Card image cap"
+              />
+            </div>
+            <div className="card col-6">
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">
+                  <h1>{this.props.product.chosenItem.name}</h1>
+                </li>
+                <li className="list-group-item">
+                  <div className="row">
+                    <h3>
+                      Buy Now: ${this.props.product.chosenItem.buyNowPrice +
+                        "  "}
+                    </h3>
+                    <Link to="/checkout">
+                      <button className="btn btn-success"> Buy </button>
+                    </Link>
+                  </div>
+                </li>
+                <li className="list-group-item">
+                  <div className="row">
+                    <h3>
+                      Current Bidding Price: ${this.props.product.chosenItem
+                        .currentBidPrice + "  "}
+                    </h3>
+                    <button
+                      className="btn btn-warning"
+                      onClick={this.isBidding}
+                    >
+                      {" "}
+                      Place a bid{" "}
+                    </button>
+                  </div>
+                  {this.state.bidding && (
+                    <form onSubmit={this.submitBid}>
+                      <div className="row">
+                        <input
+                          value={this.props.buyer.newBid.bidPrice}
+                          onChange={this.updateBidPrice}
+                          type="number"
+                          className="form-control"
+                          placeholder="Amount"
+                        />
+                      </div>
+                    </form>
+                  )}
+                </li>
+                <li className="list-group-item">
+                  <h5>
+                    Auction ends in{" "}
+                    {this.props.product.chosenItem.auctionEndTime} hours
+                  </h5>
+                </li>
+                <li className="list-group-item">
+                  <h5>Category: {this.props.product.chosenItem.category}</h5>
+                </li>
+                <li className="list-group-item">
+                  <h5>Type: {this.props.product.chosenItem.type}</h5>
+                </li>
+                <li className="list-group-item">
+                  <h5>Condition: {this.props.product.chosenItem.condition}</h5>
+                </li>
+              </ul>
+              <div className="card-body">a couple items</div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

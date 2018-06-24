@@ -88,21 +88,6 @@ nav {
 
 
 /*****************************
-  TIC TAC TOE
-*****************************/
-.tic-tac-col {
-  border: 1px solid black;
-  font-size: 4em;
-  text-align: center;
-  min-height: 1em ;
-}
-#tic-tac-board {
-  width: 75%;
-}
-
-
-
-/*****************************
   SIGN IN
 *****************************/
 .form-signin {
@@ -138,4 +123,53 @@ nav {
 
 #error-message {
   color: red;
+}
+
+/*********************
+* Checkout
+*********************/
+
+.checkout {
+  border: solid;
+}
+
+/**********************
+* Pop Card
+**********************/
+.pop-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: 0.3s;
+   margin: .25em;
+}
+
+.pop-card-img {
+  max-width: 25em;
+  max-height: 20em;
+  min-height: 20em;
+}
+
+/**********************
+* Verical Menu
+**********************/
+
+.vertical-menu {
+  width: 200px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
 }

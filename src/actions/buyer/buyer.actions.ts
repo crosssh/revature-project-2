@@ -48,10 +48,10 @@ export const updateBoughtTime = (boughtTime: string) => {
   };
 };
 
-export const updateHighest = (highestBid: string) => {
+export const updateHighest = () => {
   return {
     payload: {
-      highestBid
+      highestBid: false
     },
     type: buyerTypes.UPDATE_HIGHEST
   };
@@ -84,11 +84,23 @@ export const updatePostTimeBought = (postTimeBought: string) => {
   };
 };
 
-export const putNewBid = (newBid: string) => {
-  return {
-    payload: {},
-    type: buyerTypes.PUT_NEW_BID
-  };
+export const putNewBid = (currentBuyer: any) => (dispatch: any) => {
+  console.log(currentBuyer);
+  buyerInterceptor
+    .put(
+      environment.context + "buyer/update-bought-info/" + currentBuyer.username,
+      currentBuyer
+    )
+    .then(resp => {
+      console.log(resp);
+      dispatch({
+        payload: {},
+        type: buyerTypes.PUT_NEW_BID
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 export const postNewBuyer = (currentBuyer: any) => (dispatch: any) => {
@@ -136,20 +148,20 @@ export const addToBids = (newBid: any, bids: any[]) => {
   };
 };
 
-export const addToBought = (newBought: any, boughtItems: any[]) => {
-  return {
+export const addToBought = (newBought: any, boughtItems: any[]) => (
+  dispatch: any
+) => {
+  dispatch({
     payload: {
       boughtItems: [...boughtItems, newBought]
     },
     type: buyerTypes.ADD_TO_BOUGHT
-  };
+  });
 };
 
 export const reinitializeBuyer = () => {
   return {
-    payload: {
-
-    },
+    payload: {},
     type: buyerTypes.REINITIALIZE_BUYER
-  }
-}
+  };
+};

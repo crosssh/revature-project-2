@@ -22,7 +22,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        <div className="col-11">
+        <div className="col-10">
           This is the bought items Page.{" "}
           {this.props.buyer.currentBuyer.username}'s previously purchased items
           will be shown here.

@@ -4,7 +4,9 @@ import { buyerReducer } from "./buyer.reducer";
 import { userReducer } from "./user.reducer";
 
 export interface IProduct {
+  chosenItem: any;
   currentProduct: any;
+  photos: any[];
   productList: any[];
   url: string;
 }

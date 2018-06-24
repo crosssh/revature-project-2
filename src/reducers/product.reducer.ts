@@ -2,23 +2,41 @@ import { IProduct } from ".";
 import { productTypes } from "../actions/product/product.types";
 
 const initialState: IProduct = {
+  chosenItem: {
+    auctionEndTime: 9,
+    buyNowPrice: 26,
+    category: "sports",
+    condition: "new",
+    currentBidPrice: 17,
+    currentBidder: "N/A",
+    minimumBidPrice: 17,
+    name: "Ben Roethlisberger",
+    photoNames: [
+      "ben-pop.jpeg"
+    ],
+    status: "available",
+    timePosted: 1529682629529,
+    type: "vinyl",
+    username: "Crosssh"
+  },
   currentProduct: {
     auctionEndTime: 0,
     buyNowPrice: 0,
     category: "",
     condition: "",
     currentBidPrice: 0,
-    currentBidder: "N/A",
+    currentBidder: "",
     minimumBidPrice: 0,
     name: "",
-    photos: [],
+    photoNames: [],
     status: "available",
     timePosted: 0,
     type: "",
     username: ""
   },
+  photos: [],
   productList: [],
-  url: "",
+  url: ""
 };
 
 export const productReducer = (state = initialState, action: any) => {
@@ -79,17 +97,23 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.UPDATE_PHOTOS:
       return {
         ...state,
+        photos: action.payload.photos
+      };
+
+    case productTypes.UPDATE_PHOTO_NAMES:
+      return {
+        ...state,
         currentProduct: {
           ...state.currentProduct,
-          photos: action.payload.photos
+          photoNames: action.payload.photoNames
         }
       };
 
     case productTypes.UPDATE_STATUS:
       return {
         ...state,
-        currentProduct: {
-          ...state.currentProduct,
+        chosenItem: {
+          ...state.chosenItem,
           status: action.payload.status
         }
       };
@@ -178,7 +202,13 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.GET_BY_SELLER_AND_TIME:
       return {
         ...state,
-        productList: action.payload.productList
+        chosenItem: action.payload.chosenItem
+      };
+
+    case productTypes.PUT_PRODUCT:
+      return {
+        ...state,
+        chosenItem: {}
       };
 
     case productTypes.ADD_PRODUCT:
@@ -193,14 +223,14 @@ export const productReducer = (state = initialState, action: any) => {
           currentBidder: "N/A",
           minimumBidPrice: 0,
           name: "",
-          photos: [],
+          photoNames: [],
           status: "available",
           timePosted: 0,
           type: "",
           username: ""
         }
       };
-      case productTypes.REINITIALIZE_PRODUCT:
+    case productTypes.REINITIALIZE_PRODUCT:
       return {
         ...state,
         currentProduct: {
@@ -212,13 +242,14 @@ export const productReducer = (state = initialState, action: any) => {
           currentBidder: "N/A",
           minimumBidPrice: 0,
           name: "",
-          photos: [],
+          photoNames: [],
           status: "available",
           timePosted: 0,
           type: "",
           username: ""
         },
-        url: "",
+        photos: [],
+        url: ""
       };
   } // end switch
 

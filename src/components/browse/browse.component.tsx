@@ -1,12 +1,11 @@
 import * as React from "react";
+import { RouteProps } from "react-router";
 import { IProduct } from "../../reducers";
 import { setTimeout } from "timers";
 import { RouteProps } from "react-router";
 // import { TypeOptions } from "./type-options.component";
 // import { CategotyOptions } from "./category-options.component";
 // import { SortOptions } from "./sorting-options.component";
-
-
 
 interface IProp extends IProduct , RouteProps {
   history: any; 
@@ -16,7 +15,7 @@ interface IProp extends IProduct , RouteProps {
   getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   // updateName: (name: string) => void;
 }
- 
+
 export class BrowseComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
@@ -44,21 +43,17 @@ export class BrowseComponent extends React.Component<IProp, any> {
       
       
     }
-
-    
   }
 
-
+  public updateSearch = (e: any) => {
+    this.setState({ searchText: e.target.value });
+  };
   
   public componentDidMount() {
     this.props.getByName(this.state.searchText);
     setTimeout (this.setFiltered,1500)
    
-    this.setState({filteredList:this.props.productList})
-    
-
-    
-    
+    this.setState({filteredList:this.props.productList})  
   }
 
 
@@ -77,19 +72,21 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public submitSearch=(e:any)=>{
     e.preventDefault();
-    if(  this.state.currentSearchCriteria === 'name'){
-
+    if (this.state.currentSearchCriteria === "name") {
       this.props.getByName(this.state.searchText);
-
     }
 
-    if ( this.state.currentSearchCriteria === 'category'){
-        console.log (' entered if category ')
-        console.log (this.state.currentCategory)
-        this.props.getByCategory(this.state.currentCategory)
-        
+    if (this.state.currentSearchCriteria === "category") {
+      console.log(" entered if category ");
+      console.log(this.state.currentCategory);
+      this.props.getByCategory(this.state.currentCategory);
     }
 
+    if (this.state.currentSearchCriteria === "type") {
+      console.log(" entered if type ");
+      console.log(this.state.currentType);
+      this.props.getByType(this.state.currentType);
+    }
 
     if ( this.state.currentSearchCriteria === 'type'){
       console.log (' entered if type ')
@@ -206,12 +203,6 @@ public sortCategoryName=(e:any)=>{
        
 } //  end sortCategory 
 
-
-
-
-
-
-
 public sortTypeName=(e:any)=>{
 
       if (this.state.categorySelected){
@@ -226,10 +217,6 @@ public sortTypeName=(e:any)=>{
       })    
         
         this.setState({filteredList:filtered})  
-        
-
-
-
 
       } else  {
          
@@ -250,20 +237,6 @@ public sortTypeName=(e:any)=>{
     this.setState({currentSortingType:e.target.value})
   
 } //  end sortType 
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
 
 public sortCategory=(e:any)=>{
  
@@ -335,12 +308,6 @@ public  reset =(e:any) =>{
   this.setState({currentSortingCategory:""})
   this.setState({categorySelected:false})
   this.setState({typeSelected:true})
- 
-   
-   
-   
-   
-
 } // end  getUnfilteredCategoryList
 
 
@@ -474,63 +441,64 @@ public selectItem = (username: string, timePosted: number) => (e: any) => {
 
       <div className="col-10">
       {/* POP! display Starts here */}
+
         This is the browse Page. It will display searched Pops.
         <br />
-
         <form onSubmit={this.submitSearch}>
-        <select onChange = {this.updateCriteria} >
-          <option value="name">Name</option>
-          <option value="category">Category</option>
-          <option value="type">Type</option>
-        </select> 
+          <select onChange={this.updateCriteria}>
+            <option value="name">Name</option>
+            <option value="category">Category</option>
+            <option value="type">Type</option>
+          </select>
 
-          {
-             this.state.currentSearchCriteria === 'name' &&
-            <input type='text' placeholder ='Search POP!' value={this.state.searchText} onChange={this.updateSearch} />
-          }
+          {this.state.currentSearchCriteria === "name" && (
+            <input
+              type="text"
+              placeholder="Search POP!"
+              value={this.state.searchText}
+              onChange={this.updateSearch}
+            />
+          )}
 
-          {
-
-            this.state.currentSearchCriteria === 'category' &&
+          {this.state.currentSearchCriteria === "category" && (
             <div>
-            <select onChange={this.updateCategory}>
-            <option value=""></option>
-            <option value="animation">Animation</option>
-            <option value="apparel">Apparel</option>            
-            <option value="games">Games</option>
-            <option value="heroes">Heroes</option>
-            <option value="home">Home</option>
-            <option value="movies">Movies</option>
-            <option value="music">Music</option>
-            <option value="rides">Rides</option>
-            <option value="sports">Sports</option>
-            <option value="television">Television</option>
-            <option value="Star Wars">Star Wars</option>                 
-            </select>
+              <select onChange={this.updateCategory}>
+                <option value="" />
+                <option value="animation">Animation</option>
+                <option value="apparel">Apparel</option>
+                <option value="games">Games</option>
+                <option value="heroes">Heroes</option>
+                <option value="home">Home</option>
+                <option value="movies">Movies</option>
+                <option value="music">Music</option>
+                <option value="rides">Rides</option>
+                <option value="sports">Sports</option>
+                <option value="television">Television</option>
+                <option value="Star Wars">Star Wars</option>
+              </select>
             </div>
-          }
+          )}
 
-          {
-
-            this.state.currentSearchCriteria === 'type' &&
+          {this.state.currentSearchCriteria === "type" && (
             <div>
-            <select onChange={this.updatetype}>
-            <option value=""></option>
-            <option value="pop">POP!</option>
-            <option value="pocket">Pocket</option>
-            <option value="vinyl">Vinyl</option>
-            <option value="plush">Plush</option>
-            </select>
+              <select onChange={this.updatetype}>
+                <option value="" />
+                <option value="pop">POP!</option>
+                <option value="pocket">Pocket</option>
+                <option value="vinyl">Vinyl</option>
+                <option value="plush">Plush</option>
+                <option value="keychain">Keychain</option>
+              </select>
             </div>
+          )}
 
-          }
-         
-          
-          <button type='submit'>Search Now</button>
+          <button type="submit">Search Now</button>
         </form>
-          
-        {this.props.productList.length > 0 &&
-              this.state.filteredList.map((product: any) => (
+
+        <div className="container">
+          <div className="row">
+            {this.props.productList.length > 0 &&
+              this.props.productList.map((product: any) => (
                 <div
                   className="card col-3 pop-card"
                   key={product.timePosted}

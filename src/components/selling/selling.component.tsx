@@ -11,14 +11,13 @@ interface IProp extends IProduct, IUser {
 export class SellingComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   public render() {
     return (
       <div className="row">
         <ProfileNavComponent />
-        <div className="col-11">
+        <div className="col-10">
           This page display the items a seller had sold and is selling.
           <br />
           we can retreive them with the function
