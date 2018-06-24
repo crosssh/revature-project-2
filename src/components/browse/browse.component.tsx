@@ -433,7 +433,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
               {this.state.filteredList.length > 0 &&
                 this.state.filteredList.map((product: any) => (
                   <div
-                    className="card col-3 pop-card"
+                    className="card col-3 pop-card browse-pop-card"
                     key={product.timePosted}
                     onClick={this.selectItem(product.username, product.timePosted)}
                   >
@@ -457,12 +457,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
                         Condition: {product.condition}
                       </li>
                     </ul>
-                    <div className="card-body">
-                      a couple items
-                  {/* insert React-router-dom links instead
-                  <a href="#" className="card-link">Card link</a>
-                  <a href="#" className="card-link">Another link</a> */}
-                    </div>
                   </div>
                 ))}
               {/* POP! display ends here */}
