@@ -348,8 +348,121 @@ public  reset =(e:any) =>{
     return (
      
 
-      <div className="container">
-   
+      // <div className="container">
+      <div className="row">
+      <div className="col-2">
+            
+            {/* Sorting Options starts here  */}
+            {
+     
+              this.state.currentSearchCriteria ==='name' &&
+             <div> 
+               <h3> Sort options </h3>
+               <div><input onClick={this.reset} name='categotyChoice' type="button" />Reset Filter</div>
+                           <div>
+                           <h4>Category</h4>
+                           {/* <input checked ={this.state.checkRadio} name='categotyChoice' type="radio" value='none' />none */}
+                         <input checked={this.state.currentSortingCategory==='animation'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="animation"/>Animation
+                         <input checked={this.state.currentSortingCategory==='apprel'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="apparel"/>Apparel
+                         <input checked={this.state.currentSortingCategory==='games'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="games"/>Games
+                         <input checked={this.state.currentSortingCategory==='heroes'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="heroes"/>Heroes
+                         <input checked={this.state.currentSortingCategory==='home'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="home"/>Home
+                         <input checked={this.state.currentSortingCategory==='movies'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="movies"/>Movies
+                         <input checked={this.state.currentSortingCategory==='music'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="music"/>Music
+                         <input checked={this.state.currentSortingCategory==='rides'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="rides"/>Rides
+                         <input checked={this.state.currentSortingCategory==='sports'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="sports"/>Sports
+                         <input checked={this.state.currentSortingCategory==='television'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="television"/>Television
+                         <input checked={this.state.currentSortingCategory==='star wars'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="star wars"/>Star Wars  
+                         </div>    
+
+                       <div> 
+                      
+                         <h4>Types</h4>    
+                         {/* <input   name='typeChoice' type="radio" value='none' />none                     */}
+                         <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pop"/>POP!
+                         <input checked={this.state.currentSortingType === 'pocket'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pocket"/>Pocket
+                         <input checked={this.state.currentSortingType === 'vinyl'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
+                         <input checked={this.state.currentSortingType === 'plush'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="plush"/>Plush
+                       </div>
+
+
+             </div>
+
+             }
+
+
+
+
+
+
+              {
+     
+              this.state.currentSearchCriteria ==='category' &&
+             <div> 
+               
+                 {/* <div>
+                     <input type='text' placeholder ='Search POP!' value={this.state.searchText} onChange={this.updateSearch} />
+                 </div> */}
+
+                 <div>
+                         <h3> Sort options </h3>
+                         <h4>Types</h4>
+                         <input onChange={this.getUnfilteredTypeList} name='typeChoice' type="radio" value=""/>none
+                         <input onChange={this.sortType} name='typeChoice' type="radio"  value="pop"/>POP!
+                         <input onChange={this.sortType} name='typeChoice' type="radio"  value="pocket"/>Pocket
+                         <input onChange={this.sortType} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
+                         <input onChange={this.sortType} name='typeChoice' type="radio"  value="plush"/>Plush
+                          
+                 
+                 </div>
+
+                 
+             </div>
+
+             }
+       
+
+
+
+              {
+     
+               this.state.currentSearchCriteria ==='type' &&
+             <div> 
+               
+                     {/* <div>
+                         <input type='text' placeholder ='Search POP!' value={this.state.searchText} onChange={this.updateSearch} />
+                     </div> */}
+
+                       <div>
+                         <h3> Sort options </h3>
+                         <h4>Category</h4>
+                         <input onChange={this.getUnfilteredCategoryList} name='categotyChoice' type="radio" />none
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="animation"/>Animation
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="apparel"/>Apparel
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="games"/>Games
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="heroes"/>Heroes
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="home"/>Home
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="movies"/>Movies
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="music"/>Music
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="rides"/>Rides
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="sports"/>Sports
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="television"/>Television
+                         <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="star wars"/>Star Wars                            
+                          
+                       </div>
+
+
+             </div>
+
+             }
+             {/* Sorting Options ends here */}
+             {/* end of first column */}
+           </div>
+
+
+
+      <div className="col-10">
+      {/* POP! display Starts here */}
         This is the browse Page. It will display searched Pops.
         <br />
 
@@ -426,119 +539,16 @@ public  reset =(e:any) =>{
                 }
               </tbody>
             </table>
-
+            {/* POP! display ends here */}
+            {/* end second column  */}
+            </div>
             
 
-             {
-      
-               this.state.currentSearchCriteria ==='name' &&
-              <div> 
-                <h3> Sort options </h3>
-                <div><input onClick={this.reset} name='categotyChoice' type="button" />Reset Filter</div>
-                            <div>
-                            <h4>Category</h4>
-                            {/* <input checked ={this.state.checkRadio} name='categotyChoice' type="radio" value='none' />none */}
-                          <input checked={this.state.currentSortingCategory==='animation'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="animation"/>Animation
-                          <input checked={this.state.currentSortingCategory==='apprel'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="apparel"/>Apparel
-                          <input checked={this.state.currentSortingCategory==='games'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="games"/>Games
-                          <input checked={this.state.currentSortingCategory==='heroes'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="heroes"/>Heroes
-                          <input checked={this.state.currentSortingCategory==='home'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="home"/>Home
-                          <input checked={this.state.currentSortingCategory==='movies'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="movies"/>Movies
-                          <input checked={this.state.currentSortingCategory==='music'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="music"/>Music
-                          <input checked={this.state.currentSortingCategory==='rides'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="rides"/>Rides
-                          <input checked={this.state.currentSortingCategory==='sports'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="sports"/>Sports
-                          <input checked={this.state.currentSortingCategory==='television'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="television"/>Television
-                          <input checked={this.state.currentSortingCategory==='star wars'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="star wars"/>Star Wars  
-                          </div>    
- 
-                        <div> 
-                       
-                          <h4>Types</h4>    
-                          {/* <input   name='typeChoice' type="radio" value='none' />none                     */}
-                          <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pop"/>POP!
-                          <input checked={this.state.currentSortingType === 'pocket'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pocket"/>Pocket
-                          <input checked={this.state.currentSortingType === 'vinyl'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
-                          <input checked={this.state.currentSortingType === 'plush'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="plush"/>Plush
-                        </div>
 
-
-              </div>
-
-              }
-
-
-
-
-
-
-               {
-      
-               this.state.currentSearchCriteria ==='category' &&
-              <div> 
-                
-                  {/* <div>
-                      <input type='text' placeholder ='Search POP!' value={this.state.searchText} onChange={this.updateSearch} />
-                  </div> */}
-
-                  <div>
-                          <h3> Sort options </h3>
-                          <h4>Types</h4>
-                          <input onChange={this.getUnfilteredTypeList} name='typeChoice' type="radio" value=""/>none
-                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="pop"/>POP!
-                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="pocket"/>Pocket
-                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
-                          <input onChange={this.sortType} name='typeChoice' type="radio"  value="plush"/>Plush
-                           
-                  
-                  </div>
-
-                  
-              </div>
-
-              }
-        
-
-
-
-               {
-      
-                this.state.currentSearchCriteria ==='type' &&
-              <div> 
-                
-                      {/* <div>
-                          <input type='text' placeholder ='Search POP!' value={this.state.searchText} onChange={this.updateSearch} />
-                      </div> */}
-
-                        <div>
-                          <h3> Sort options </h3>
-                          <h4>Category</h4>
-                          <input onChange={this.getUnfilteredCategoryList} name='categotyChoice' type="radio" />none
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="animation"/>Animation
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="apparel"/>Apparel
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="games"/>Games
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="heroes"/>Heroes
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="home"/>Home
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="movies"/>Movies
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="music"/>Music
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="rides"/>Rides
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="sports"/>Sports
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="television"/>Television
-                          <input onChange={this.sortCategory} name='categotyChoice' type="radio"  value="star wars"/>Star Wars                            
-                           
-                        </div>
-
-
-              </div>
-
-              }
-
-
-
-
-
-
+     {/* end row */}
+       {/* </div> */}
       {/* end block */}
       </div> 
     );
   }
-}
+}  // end of component 
