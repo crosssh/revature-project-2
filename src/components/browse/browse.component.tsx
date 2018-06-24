@@ -77,6 +77,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
     this.setState({ filteredList: this.props.productList })
     this.setState({ searchText: '' })
+    this.reset()
 
   } // end submit search 
 
@@ -278,14 +279,14 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   } // end  getUnfilteredCategoryList
 
-  public reset = (e: any) => {
+  public reset = () => {
 
 
     this.setState({ filteredList: this.state.unfiltered })
-    this.setState({ currentSortingType: 'm' })
+    this.setState({ currentSortingType: '' })
     this.setState({ currentSortingCategory: "" })
     this.setState({ categorySelected: false })
-    this.setState({ typeSelected: true })
+    this.setState({ typeSelected: false })
   } // end  getUnfilteredCategoryList
 
 
