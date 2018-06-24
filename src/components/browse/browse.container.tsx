@@ -8,6 +8,7 @@ import {
   getRecent,
   getSeller,
   
+  
 } from "../../actions/product/product.actions";
 import { BrowseComponent } from "./browse.component";
 

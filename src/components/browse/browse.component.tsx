@@ -1,17 +1,19 @@
 import * as React from "react";
 import { IProduct } from "../../reducers";
 import { setTimeout } from "timers";
+import { RouteProps } from "react-router";
 // import { TypeOptions } from "./type-options.component";
 // import { CategotyOptions } from "./category-options.component";
 // import { SortOptions } from "./sorting-options.component";
 
 
 
-interface IProp extends IProduct {
-
+interface IProp extends IProduct , RouteProps {
+  history: any; 
   getByName: (name: string)=>void;
   getByCategory:(category: string)=>void;
   getByType:(type: string)=>void;
+  getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   // updateName: (name: string) => void;
 }
  
@@ -53,6 +55,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
     setTimeout (this.setFiltered,1500)
    
     this.setState({filteredList:this.props.productList})
+    
 
     
     
@@ -341,7 +344,15 @@ public  reset =(e:any) =>{
 } // end  getUnfilteredCategoryList
 
 
-
+public selectItem = (username: string, timePosted: number) => (e: any) => {
+  this.props
+    .getBySellerAndTime(username, timePosted)
+    .then(resp => {
+      this.props.history.push("/item");
+    })
+    .catch(err => console.log(err));
+};
+ 
  
 
   public render() {
@@ -518,27 +529,43 @@ public  reset =(e:any) =>{
           <button type='submit'>Search Now</button>
         </form>
           
+        {this.props.productList.length > 0 &&
+              this.state.filteredList.map((product: any) => (
+                <div
+                  className="card col-3 pop-card"
+                  key={product.timePosted}
+                  onClick={this.selectItem(product.username, product.timePosted)}
+                >
+                  <img
+                    className="card-img-top pop-card-img"
+                    src={
+                      "http://popbay-photo-storage.s3.amazonaws.com/" +
+                      product.photoNames[0]
+                    }
+                    alt="Card image cap"
+                  />
+                  <div className="card-title">
+                    <h5>{product.name}</h5>
+                  </div>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">
+                      Category: {product.category}
+                    </li>
+                    <li className="list-group-item">Type: {product.type}</li>
+                    <li className="list-group-item">
+                      Condition: {product.condition}
+                    </li>
+                  </ul>
+                  <div className="card-body">
+                    a couple items
+                  {/* insert React-router-dom links instead
+                  <a href="#" className="card-link">Card link</a>
+                  <a href="#" className="card-link">Another link</a> */}
+                  </div>
+                </div>
+              ))}
           
-      <table className="table ">
-               
-              <tbody id="product-table-body">
-              
-                {
-                  
-                   
-                  this.state.filteredList.map((p:any) =>
-                    <tr key={p.timePosted}>
-                      <td>{p.name}</td> 
-                      <td>{p.buyNowPrice }</td>
-                      <td>{p.category }</td>
-                      <td>{p.condition }</td>
-                      <td>{p.type }</td>           
-                      <td>{p.status }</td>              
-                    </tr>
-                  )
-                }
-              </tbody>
-            </table>
+      
             {/* POP! display ends here */}
             {/* end second column  */}
             </div>
