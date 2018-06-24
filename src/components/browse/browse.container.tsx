@@ -6,7 +6,9 @@ import {
   getBySellerAndTime,
   getByType,
   getRecent,
-  getSeller
+  getSeller,
+  
+  
 } from "../../actions/product/product.actions";
 import { BrowseComponent } from "./browse.component";
 

@@ -128,69 +128,86 @@ export const setTimePosted = (timePosted: number) => (dispatch: any) => {
   });
 };
 
-export const getByCategory = (category: string) => (dispatch: any) => {
-  //   return {
-  //     payload: {
-  //       productList: []
-  //     },
-  //     type: productTypes.GET_BY_CATEGORY
-  //   };
-  // };
 
-  productInterceptor
-    .get(environment.context + "/product")
-    .then(resp => {
-      const filteredByCategory = resp.data.filter((p: any) => {
-        return p.category.indexOf(category) !== -1;
-      });
+export const getByCategory = (category: string)=>(dispatch:any) => {
 
-      dispatch({
-        payload: {
-          productList: filteredByCategory
-        },
-        type: productTypes.GET_BY_CATEGORY
-      });
+
+productInterceptor.get(environment.context +'/product')  
+.then( resp => {
+
+  const filteredByCategory = resp.data.filter((p:any)=>{
+
+    return p.category.toLowerCase().indexOf(category.toLowerCase()) !== -1;
+
+  })
+
+const filterdByStatus = filteredByCategory.filter((p:any)=>{
+
+  return p.status.toLowerCase().indexOf('available') !== -1;
+
+})
+
+  dispatch({
+    payload: {
+      productList:  filterdByStatus
+    },
+    type: productTypes.GET_BY_CATEGORY
+  })
+})
+.catch(err => {
+  console.log(err);
+});
+};
+
+export const getByName =(name: string) => (dispatch:any) => {
+  
+  
+  productInterceptor.get(environment.context +'/product')  
+  .then( resp => {
+
+    const filteredByName = resp.data.filter((p:any)=>{
+      
+      return p.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
+  
+    })
+
+    const filterdByStatus = filteredByName.filter((p:any)=>{
+
+      return p.status.toLowerCase().indexOf('available') !== -1;
+    
+    })
+  
+
+    dispatch({
+      payload: {
+        productList: filterdByStatus
+      },
+      type: productTypes.GET_BY_NAME
+
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-export const getByName = (name: string) => (dispatch: any) => {
-  // return {
-  //   payload: {
-  //     productList: []
-  //   },
-  //   type: productTypes.GET_BY_NAME
-  // };
+export const getByType = (type: string) =>(dispatch:any) => {
 
-  productInterceptor
-    .get(environment.context + "/product")
-    .then(resp => {
-      const filteredByName = resp.data.filter((p: any) => {
-        return p.name.indexOf(name) !== -1;
-      });
 
-      dispatch({
-        payload: {
-          productList: filteredByName
-        },
-        type: productTypes.GET_BY_NAME
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+productInterceptor.get(environment.context +'/product')  
+.then( resp => {
 
-export const getByType = (type: string) => (dispatch: any) => {
-  //   return {
-  //     payload: {
-  //       productList: []
-  //     },
-  //     type: productTypes.GET_BY_TYPE
-  //   };
-  // };
+  const filteredByType = resp.data.filter((p:any)=>{
+
+    return p.type.toLowerCase().indexOf(type.toLowerCase()) !== -1;
+
+  })
+
+  const filterdByStatus = filteredByType.filter((p:any)=>{
+
+    return p.status.toLowerCase().indexOf('available') !== -1;
+  
+  })
+
 
   productInterceptor
     .get(environment.context + "/product")
@@ -199,17 +216,18 @@ export const getByType = (type: string) => (dispatch: any) => {
         return p.type.indexOf(type) !== -1;
       });
 
-      dispatch({
-        payload: {
-          productList: filteredByType
-        },
-        type: productTypes.GET_BY_TYPE
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+  dispatch({
+    payload: {
+      productList: filterdByStatus
+    },
+    type: productTypes.GET_BY_TYPE
+  })
+})
+.catch(err => {
+  console.log(err);
+});
+}
+
 
 export const getRecent = () => (dispatch: any) => {
   productInterceptor
