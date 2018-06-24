@@ -120,13 +120,7 @@ export const setTimePosted = (timePosted: number) => (dispatch: any) => {
 };
 
 export const getByCategory = (category: string)=>(dispatch:any) => {
-//   return {
-//     payload: {
-//       productList: []
-//     },
-//     type: productTypes.GET_BY_CATEGORY
-//   };
-// };
+
 
 productInterceptor.get(environment.context +'/product')  
 .then( resp => {
@@ -137,10 +131,15 @@ productInterceptor.get(environment.context +'/product')
 
   })
 
+const filterdByStatus = filteredByCategory.filter((p:any)=>{
+
+  return p.status.toLowerCase().indexOf('available') !== -1;
+
+})
 
   dispatch({
     payload: {
-      productList: filteredByCategory
+      productList:  filterdByStatus
     },
     type: productTypes.GET_BY_CATEGORY
   })
@@ -151,12 +150,7 @@ productInterceptor.get(environment.context +'/product')
 };
 
 export const getByName =(name: string) => (dispatch:any) => {
-  // return {
-  //   payload: {
-  //     productList: []
-  //   },
-  //   type: productTypes.GET_BY_NAME
-  // };
+  
   
   productInterceptor.get(environment.context +'/product')  
   .then( resp => {
@@ -166,11 +160,17 @@ export const getByName =(name: string) => (dispatch:any) => {
       return p.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
   
     })
+
+    const filterdByStatus = filteredByName.filter((p:any)=>{
+
+      return p.status.toLowerCase().indexOf('available') !== -1;
+    
+    })
   
 
     dispatch({
       payload: {
-        productList: filteredByName
+        productList: filterdByStatus
       },
       type: productTypes.GET_BY_NAME
     })
@@ -181,13 +181,7 @@ export const getByName =(name: string) => (dispatch:any) => {
 };
 
 export const getByType = (type: string) =>(dispatch:any) => {
-//   return {
-//     payload: {
-//       productList: []
-//     },
-//     type: productTypes.GET_BY_TYPE
-//   };
-// };
+
 
 productInterceptor.get(environment.context +'/product')  
 .then( resp => {
@@ -198,10 +192,16 @@ productInterceptor.get(environment.context +'/product')
 
   })
 
+  const filterdByStatus = filteredByType.filter((p:any)=>{
+
+    return p.status.toLowerCase().indexOf('available') !== -1;
+  
+  })
+
 
   dispatch({
     payload: {
-      productList: filteredByType
+      productList: filterdByStatus
     },
     type: productTypes.GET_BY_TYPE
   })

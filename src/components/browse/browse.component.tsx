@@ -6,7 +6,7 @@ import { setTimeout } from "timers";
 // import { SortOptions } from "./sorting-options.component";
 
 
-// I guess we don't NEED the interface
+
 interface IProp extends IProduct {
 
   getByName: (name: string)=>void;
@@ -22,7 +22,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
     this.state ={
       
       categorySelected:false,
-      checkRadio:"none",  
       currentCategory:'',
       currentCategorySortingList:[],
       currentSearchCriteria:'name',
@@ -33,8 +32,10 @@ export class BrowseComponent extends React.Component<IProp, any> {
       filteredList:[],
       searchText: '',
       selected:true,
+      selectedOption: '',
       typeSelected:false,
       unfilteredList:[]
+      
       
       
       
@@ -46,13 +47,24 @@ export class BrowseComponent extends React.Component<IProp, any> {
   }
 
 
+  
+  public componentDidMount() {
+    this.props.getByName(this.state.searchText);
+    setTimeout (this.setFiltered,1500)
+   
+    this.setState({filteredList:this.props.productList})
+
+    
+    
+  }
 
 
 
  public updateSearch=(e:any) =>{
 
     this.setState({searchText: e.target.value});
-    
+
+        
   }
 
 
@@ -150,49 +162,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
   } // end set state
 
  
-  // public updateAndSortCategory = (e:any)=>{
-
-  //   this.setState ({currentCategory:e.target.value});
-  //   this.sortCategory(e);
-
-  // } // end update and sort 
-
-  // public sortCategory =(e:any)=>{
-
-  //   const filtered  = this.state.filteredList.filter((p:any)=>{
-
-  //     return p.category.indexOf(e.target.value) !== -1;
   
-  //   }) 
-
-  //   this.setState({filteredList:filtered})
-
-  // } // end sort category
-
-// public sortCategory=(e:any)=>{
-//    console.log(this.state.selected); 
-//    console.log(e.target.value);
-//    const checked =  this.state.selected
-    
-//    // this.setState({selected:!checked});
-//   let filtered :any =[]
-
-//     if (this.state.selected){
-//       this.setState({unfiltered:this.state.filteredList})
-//       filtered  = this.state.filteredList.filter((p:any)=>{
-
-//         return p.category.indexOf(e.target.value) !== -1;
-        
-//     }) 
-//     this.setState({filteredList:filtered})
-//     // this.setState({selected:!checked});
-//   }  else {
-
-//     this.setState({filteredList:this.state.unfiltered})
-       
-//     // this.setState({selected:!checked});
-//   }
-//   this.setState({selected:!checked});
 
 public sortCategoryName=(e:any)=>{
        
@@ -272,8 +242,9 @@ public sortTypeName=(e:any)=>{
         this.setState({filteredList:filtered})  
        
     }
-    this.setState({currentSortingType:e.target.value})
+    
     this.setState({typeSelected:true})
+    this.setState({currentSortingType:e.target.value})
   
 } //  end sortType 
 
@@ -357,7 +328,12 @@ public  reset =(e:any) =>{
 
 
   this.setState({filteredList:this.state.unfiltered})
-  this.setState({checkRadio:"none"})
+  this.setState({currentSortingType:'m'})
+  this.setState({currentSortingCategory:""})
+  this.setState({categorySelected:false})
+  this.setState({typeSelected:true})
+ 
+   
    
    
    
@@ -366,22 +342,7 @@ public  reset =(e:any) =>{
 
 
 
-// public sortByName =(e:any) =>{
-
-
-//   this.setState({searchText: e.target.value});
-
-//   const filtered  = this.state.filteredList.filter((p:any)=>{
-
-//     return p.name.toLowerCase().indexOf(this.state.searchText) !== -1; 
-
-    
-// })    
-
-// this.setState({filteredList: filtered});
-
-// }
-
+ 
 
   public render() {
     return (
@@ -458,7 +419,8 @@ public  reset =(e:any) =>{
                       <td>{p.buyNowPrice }</td>
                       <td>{p.category }</td>
                       <td>{p.condition }</td>
-                      <td>{p.type }</td>                    
+                      <td>{p.type }</td>           
+                      <td>{p.status }</td>              
                     </tr>
                   )
                 }
@@ -476,27 +438,27 @@ public  reset =(e:any) =>{
                             <div>
                             <h4>Category</h4>
                             {/* <input checked ={this.state.checkRadio} name='categotyChoice' type="radio" value='none' />none */}
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="animation"/>Animation
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="apparel"/>Apparel
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="games"/>Games
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="heroes"/>Heroes
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="home"/>Home
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="movies"/>Movies
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="music"/>Music
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="rides"/>Rides
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="sports"/>Sports
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="television"/>Television
-                          <input onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="star wars"/>Star Wars  
+                          <input checked={this.state.currentSortingCategory==='animation'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="animation"/>Animation
+                          <input checked={this.state.currentSortingCategory==='apprel'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="apparel"/>Apparel
+                          <input checked={this.state.currentSortingCategory==='games'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="games"/>Games
+                          <input checked={this.state.currentSortingCategory==='heroes'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="heroes"/>Heroes
+                          <input checked={this.state.currentSortingCategory==='home'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="home"/>Home
+                          <input checked={this.state.currentSortingCategory==='movies'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="movies"/>Movies
+                          <input checked={this.state.currentSortingCategory==='music'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="music"/>Music
+                          <input checked={this.state.currentSortingCategory==='rides'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="rides"/>Rides
+                          <input checked={this.state.currentSortingCategory==='sports'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="sports"/>Sports
+                          <input checked={this.state.currentSortingCategory==='television'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="television"/>Television
+                          <input checked={this.state.currentSortingCategory==='star wars'} onChange={this.sortCategoryName} name='categotyChoice' type="radio"  value="star wars"/>Star Wars  
                           </div>    
-
+ 
                         <div> 
                        
                           <h4>Types</h4>    
                           {/* <input   name='typeChoice' type="radio" value='none' />none                     */}
-                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pop"/>POP!
-                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pocket"/>Pocket
-                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
-                          <input onChange={this.sortTypeName} name='typeChoice' type="radio"  value="plush"/>Plush
+                          <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pop"/>POP!
+                          <input checked={this.state.currentSortingType === 'pocket'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="pocket"/>Pocket
+                          <input checked={this.state.currentSortingType === 'vinyl'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="vinyl"/>Vinyl
+                          <input checked={this.state.currentSortingType === 'plush'} onChange={this.sortTypeName} name='typeChoice' type="radio"  value="plush"/>Plush
                         </div>
 
 
@@ -530,15 +492,7 @@ public  reset =(e:any) =>{
                   
                   </div>
 
-                  {/* <select onChange={this.updatetype}>
-                  <option value=""></option>
-                  <option value="pop">POP!</option>
-                  <option value="pocket">Pocket</option>
-                  <option value="vinyl">Vinyl</option>
-                  <option value="plush">Plush</option>
-                  </select> */}
-
-
+                  
               </div>
 
               }
