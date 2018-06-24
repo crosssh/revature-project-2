@@ -54,12 +54,6 @@
 /*****************************
   NAV
 *****************************/
-.rev-logo {
-  width: auto;
-  height: 2em;
-  margin-right: 2em;
-}
-
 .margin-nav {
   margin-right: 2em
 }
@@ -140,13 +134,23 @@ nav {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   cursor: pointer;
   transition: 0.3s;
-   margin: .25em;
+  margin: .25em;
+}
+
+.home-pop-card {
+  max-width: 23.25em;
+  min-width: 23.25em;
+}
+
+.browse-pop-card {
+  max-width: 23.25em;
+  min-width: 23.25em;
 }
 
 .pop-card-img {
   max-width: 25em;
-  max-height: 20em;
-  min-height: 20em;
+  max-height: 21em;
+  min-height: 21em;
 }
 
 /**********************
