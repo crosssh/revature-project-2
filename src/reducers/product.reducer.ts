@@ -28,8 +28,8 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.UPDATE_BIDDER:
       return {
         ...state,
-        currentProduct: {
-          ...state.currentProduct,
+        chosenItem: {
+          ...state.chosenItem,
           currentBidder: action.payload.bidder
         }
       };
@@ -54,8 +54,8 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.UPDATE_CURRENT_BID:
       return {
         ...state,
-        currentProduct: {
-          ...state.currentProduct,
+        chosenItem: {
+          ...state.chosenItem,
           currentBidPrice: action.payload.currentBid
         }
       };
@@ -191,8 +191,8 @@ export const productReducer = (state = initialState, action: any) => {
 
     case productTypes.PUT_PRODUCT:
       return {
-        ...state,
-        chosenItem: {}
+        ...state
+        // chosenItem: {}
       };
 
     case productTypes.ADD_PRODUCT:

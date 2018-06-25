@@ -8,14 +8,13 @@ interface IProp extends IBuyer, IProduct, IUser {
   addToBought: (boughtItem: any, boughtItems: any[]) => void;
   getBuyer: (username: string) => void;
   putNewBid: (currentBuyer: any) => void;
-  putProduct: (chosenProduct: string) => void;
+  putProduct: (chosenProduct: any) => void;
   updateBoughtPrice: (price: number) => void;
   updateBoughtSeller: (seller: string) => void;
   updateBoughtTime: (time: number) => void;
   updateItemNameBought: (itemName: string) => void;
   updatePostTimeBought: (time: number) => void;
   updateStatus: (status: string) => void;
-
 }
 
 export class CheckoutComponent extends React.Component<IProp, any> {
@@ -45,10 +44,13 @@ export class CheckoutComponent extends React.Component<IProp, any> {
 
   public checkout = (e: any) => {
     e.preventDefault();
-    this.props.addToBought(this.props.buyer.newBoughtItem, this.props.buyer.currentBuyer.boughtItems);
+    this.props.addToBought(
+      this.props.buyer.newBoughtItem,
+      this.props.buyer.currentBuyer.boughtItems
+    );
     this.forceUpdate(() => {
-      this.props.putNewBid(this.props.buyer.currentBuyer)
-    })
+      this.props.putNewBid(this.props.buyer.currentBuyer);
+    });
     this.props.putProduct(this.props.product.chosenItem);
   }
 

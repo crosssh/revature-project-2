@@ -48,15 +48,6 @@ export const updateBoughtTime = (boughtTime: string) => {
   };
 };
 
-export const updateHighest = () => {
-  return {
-    payload: {
-      highestBid: false
-    },
-    type: buyerTypes.UPDATE_HIGHEST
-  };
-};
-
 export const updateItemNameBought = (itemNameBought: string) => {
   return {
     payload: {
