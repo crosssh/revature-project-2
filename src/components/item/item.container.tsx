@@ -10,6 +10,7 @@ import {
 } from "../../actions/buyer/buyer.actions";
 import {
   getBySellerAndTime,
+  putProduct,
   updateBidder,
   updateCurrentBid
 } from "../../actions/product/product.actions";
@@ -26,6 +27,7 @@ export const mapDispatchToProps = {
   getBuyer,
   getBySellerAndTime,
   putNewBid,
+  putProduct,
   updateBidPrice,
   updateBidSeller,
   updateBidder,

@@ -8,14 +8,13 @@ interface IProp extends IBuyer, IProduct, IUser {
   addToBought: (boughtItem: any, boughtItems: any[]) => void;
   getBuyer: (username: string) => void;
   putNewBid: (currentBuyer: any) => void;
-  putProduct: (chosenProduct: string) => void;
+  putProduct: (chosenProduct: any) => void;
   updateBoughtPrice: (price: number) => void;
   updateBoughtSeller: (seller: string) => void;
   updateBoughtTime: (time: number) => void;
   updateItemNameBought: (itemName: string) => void;
   updatePostTimeBought: (time: number) => void;
   updateStatus: (status: string) => void;
-  
 }
 
 export class CheckoutComponent extends React.Component<IProp, any> {
@@ -36,15 +35,18 @@ export class CheckoutComponent extends React.Component<IProp, any> {
 
   public checkout = (e: any) => {
     e.preventDefault();
-    this.props.addToBought(this.props.buyer.newBoughtItem, this.props.buyer.currentBuyer.boughtItems);
+    this.props.addToBought(
+      this.props.buyer.newBoughtItem,
+      this.props.buyer.currentBuyer.boughtItems
+    );
     this.forceUpdate(() => {
-      this.props.putNewBid(this.props.buyer.currentBuyer)
-    })
+      this.props.putNewBid(this.props.buyer.currentBuyer);
+    });
     this.props.putProduct(this.props.product.chosenItem);
-    // call api for pay pal if that succeeds then 
+    // call api for pay pal if that succeeds then
     // all the funciton will be called here to update the bought item information
     // if the pay pal fails display error message
-  }
+  };
 
   public render() {
     return (
@@ -66,7 +68,13 @@ export class CheckoutComponent extends React.Component<IProp, any> {
           </div>
           <div className="row">
             <div className="col">
-              <button type="button" className="btn btn-secondary btn-sm float-right" onClick={this.checkout}>checkout</button>
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm float-right"
+                onClick={this.checkout}
+              >
+                checkout
+              </button>
             </div>
           </div>
         </div>
@@ -75,8 +83,8 @@ export class CheckoutComponent extends React.Component<IProp, any> {
   }
 }
 
-
-{/* <br />
+{
+  /* <br />
         We need to add lots of the little updating functions, but not the ones
         for Time.
         <br />
@@ -86,4 +94,5 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         this.props.buyer.currentBuyer.boughtItems)
         <br />
         If you think this is kind of a long way to get at things, well, you're
-        not wrong. */}
+        not wrong. */
+}
