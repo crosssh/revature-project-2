@@ -5,7 +5,7 @@ import { IBuyer, IUser } from "../../reducers";
 interface IProp extends IBuyer, IUser {
   buyer: any;
   user: any;
-  getBuyer: (username: string) => void;
+  getBuyer: (username: string) => Promise <any>;
 }
 
 export class BidsComponent extends React.Component<IProp, any> {
@@ -15,7 +15,13 @@ export class BidsComponent extends React.Component<IProp, any> {
   }
 
   public componentDidMount() {
-    this.props.getBuyer(this.props.user.username);
+    this.props.getBuyer(this.props.user.username)
+    .then(resp => {
+      console.log('');
+    })
+    .catch(err => {
+      console.log('');
+    })
   }
 
   public render() {
@@ -32,7 +38,7 @@ export class BidsComponent extends React.Component<IProp, any> {
           <div className="row">
             <div className="col">{this.props.buyer.currentBuyer.username}</div>
             Here is what is stored in bids:
-            <div className="col">{this.props.buyer.currentBuyer.bids}</div>
+            {/* <div className="col">{this.props.buyer.currentBuyer.bids}</div> */}
           </div>
         </div>
       </div>

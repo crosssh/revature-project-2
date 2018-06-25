@@ -2,7 +2,7 @@ import { IProduct } from ".";
 import { productTypes } from "../actions/product/product.types";
 
 const initialState: IProduct = {
-  chosenItem: {},
+  chosenItem: null,
   currentProduct: {
     auctionEndTime: 0,
     buyNowPrice: 0,
