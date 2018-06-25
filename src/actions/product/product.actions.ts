@@ -129,24 +129,18 @@ export const setTimePosted = (timePosted: number) => (dispatch: any) => {
 };
 
 export const getByCategory = (category: string) => (dispatch: any) => {
-  //   return {
-  //     payload: {
-  //       productList: []
-  //     },
-  //     type: productTypes.GET_BY_CATEGORY
-  //   };
-  // };
-
   productInterceptor
     .get(environment.context + "/product")
     .then(resp => {
       const filteredByCategory = resp.data.filter((p: any) => {
-        return p.category.indexOf(category) !== -1;
+        return p.category.toLowerCase().indexOf(category.toLowerCase()) !== -1;
       });
-
+      const filterdByStatus = filteredByCategory.filter((p: any) => {
+        return p.status.toLowerCase().indexOf("available") !== -1;
+      });
       dispatch({
         payload: {
-          productList: filteredByCategory
+          productList: filterdByStatus
         },
         type: productTypes.GET_BY_CATEGORY
       });
@@ -157,23 +151,19 @@ export const getByCategory = (category: string) => (dispatch: any) => {
 };
 
 export const getByName = (name: string) => (dispatch: any) => {
-  // return {
-  //   payload: {
-  //     productList: []
-  //   },
-  //   type: productTypes.GET_BY_NAME
-  // };
-
   productInterceptor
     .get(environment.context + "/product")
     .then(resp => {
       const filteredByName = resp.data.filter((p: any) => {
-        return p.name.indexOf(name) !== -1;
+        return p.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
+      });
+      const filterdByStatus = filteredByName.filter((p: any) => {
+        return p.status.toLowerCase().indexOf("available") !== -1;
       });
 
       dispatch({
         payload: {
-          productList: filteredByName
+          productList: filterdByStatus
         },
         type: productTypes.GET_BY_NAME
       });
@@ -184,24 +174,18 @@ export const getByName = (name: string) => (dispatch: any) => {
 };
 
 export const getByType = (type: string) => (dispatch: any) => {
-  //   return {
-  //     payload: {
-  //       productList: []
-  //     },
-  //     type: productTypes.GET_BY_TYPE
-  //   };
-  // };
-
   productInterceptor
     .get(environment.context + "/product")
     .then(resp => {
       const filteredByType = resp.data.filter((p: any) => {
-        return p.type.indexOf(type) !== -1;
+        return p.type.toLowerCase().indexOf(type.toLowerCase()) !== -1;
       });
-
+      const filterdByStatus = filteredByType.filter((p: any) => {
+        return p.status.toLowerCase().indexOf("available") !== -1;
+      });
       dispatch({
         payload: {
-          productList: filteredByType
+          productList: filterdByStatus
         },
         type: productTypes.GET_BY_TYPE
       });
