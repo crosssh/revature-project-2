@@ -212,3 +212,15 @@ nav {
   color: red;
   font-style: italic;
 }
+
+
+/**********************
+*Items
+**********************/
+.item-img {
+  max-width: 3.5em;
+  max-height: 3.5em;
+  margin: .1em;
+  border: solid;
+  border-width: thin;
+}
