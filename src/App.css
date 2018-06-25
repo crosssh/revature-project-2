@@ -23,8 +23,12 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .centered-content-container {
@@ -50,22 +54,21 @@
   cursor: not-allowed;
 }
 
-
 /*****************************
   NAV
 *****************************/
 .margin-nav {
-  margin-right: 2em
+  margin-right: 2em;
 }
 
-
-.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-  color: rgba(0,0,0,.7);
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .navbar-expand-md .navbar-nav .nav-link {
-  padding-right: .75rem !important;
-  padding-left: .75rem !important;
+  padding-right: 0.75rem !important;
+  padding-left: 0.75rem !important;
 }
 
 .bg-light {
@@ -79,7 +82,6 @@ nav {
   -moz-box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);
   box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);
 }
-
 
 /*****************************
   SIGN IN
@@ -114,7 +116,6 @@ nav {
   border-top-right-radius: 0;
 }
 
-
 #error-message {
   color: red;
 }
@@ -131,10 +132,10 @@ nav {
 * Pop Card
 **********************/
 .pop-card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: 0.3s;
-  margin: .25em;
+  margin: 0.25em;
 }
 
 .home-pop-card {
@@ -174,6 +175,11 @@ nav {
 }
 
 .vertical-menu a.active {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
+}
+
+.error-words {
+  color: red;
+  font-style: italic;
 }
