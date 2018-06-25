@@ -127,9 +127,14 @@ export const buyerReducer = (state = initialState, action: any) => {
 
     case buyerTypes.PUT_NEW_BID:
       return {
-        // ...state,
-
-        initialState
+        ...state,
+        newBoughtItem: {
+          boughtPrice: 0,
+          itemName: "",
+          seller: "",
+          timeBought: 0,
+          timePosted: 0
+        }
       };
 
     case buyerTypes.POST_NEW_BUYER:

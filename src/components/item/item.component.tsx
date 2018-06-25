@@ -7,7 +7,7 @@ interface IProp extends IBuyer, IProduct, IUser {
   product: any;
   user: any;
   addToBids: (newBid: any, bids: any[]) => void;
-  getBuyer: (username: string) => void;
+  getBuyer: (username: string) => Promise<any>;
   getBySellerAndTime: (username: string, time: number) => void;
   putNewBid: (currentBuyer: any) => void;
   updateBidPrice: (price: number) => void;
@@ -18,6 +18,7 @@ interface IProp extends IBuyer, IProduct, IUser {
 }
 
 let holdBuyer: any = {};
+// let isReady: boolean = false;
 
 export class ItemComponent extends React.Component<IProp, any> {
   constructor(props: any) {
@@ -37,37 +38,58 @@ export class ItemComponent extends React.Component<IProp, any> {
   };
 
   public submitBid = (e: any) => {
+    e.preventDefault();
+    console.log(this.props.product.chosenItem.currentBidder);
     if (this.props.product.chosenItem.currentBidder !== "N/A") {
-      this.props.getBuyer(this.props.product.chosenItem.currentBidder);
-      this.forceUpdate(() => {
-        // this.props.updateHighest(); I think not!
-        holdBuyer = this.props.buyer.currentBuyer;
-        for (let i = 0; i < holdBuyer.bids.length; i++) {
-          if (
-            holdBuyer.bids[i].seller ===
-              this.props.product.chosenItem.username &&
-            holdBuyer.bids[i].timePosted ===
-              this.props.product.chosenItem.timePosted
-          ) {
-            holdBuyer.bids[i].highestBid = false;
+      this.props
+        .getBuyer(this.props.product.chosenItem.currentBidder)
+        .then(resp => {
+          // this.props.updateHighest(); I think not!
+          holdBuyer = this.props.buyer.currentBuyer;
+          console.log(holdBuyer);
+          for (let i = 0; i < holdBuyer.bids.length; i++) {
+            if (
+              holdBuyer.bids[i].seller ===
+                this.props.product.chosenItem.username &&
+              holdBuyer.bids[i].timePosted ===
+                this.props.product.chosenItem.timePosted
+            ) {
+              console.log(holdBuyer.bids[i]);
+              holdBuyer.bids[i].highestBid = false;
+            }
           }
-        }
-      });
-      this.props.putNewBid(holdBuyer);
+          // isReady = true;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      setTimeout(() => {
+        this.props.putNewBid(holdBuyer);
+      }, 1000);
     }
 
-    this.props.getBuyer(this.props.user.username);
-    this.props.this.forceUpdate(() => {
-      this.props.addToBids(
-        this.props.buyer.newBid,
-        this.props.buyer.currentBuyer.bids
-      );
-    });
+    this.props
+      .getBuyer(this.props.user.username)
+      .then(resp => {
+        this.props.addToBids(
+          this.props.buyer.newBid,
+          this.props.buyer.currentBuyer.bids
+        );
+        this.forceUpdate(() => {
+          console.log(this.props.buyer.currentBuyer);
+          this.props.putNewBid(this.props.buyer.currentBuyer);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        // add error message saying you must log in
+      });
   };
 
   public componentDidMount() {
     this.props.updateBidSeller(this.props.product.chosenItem.username);
     this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
+    // make error message = ''
   }
 
   public render() {
@@ -103,15 +125,21 @@ export class ItemComponent extends React.Component<IProp, any> {
                 </li>
                 <li className="list-group-item">
                   <div className="row">
-                    <h3>
-                      Current Bidding Price: ${this.props.product.chosenItem
-                        .currentBidPrice + "  "}
-                    </h3>
-                    <button className="btn btn-link" onClick={this.isBidding}>
-                      {" "}
-                      Place a bid{" "}
-                    </button>
+                    <div className="col-4">
+                      <h3>
+                        Current Bidding Price: ${this.props.product.chosenItem
+                          .currentBidPrice + "  "}
+                      </h3>
+                    </div>
+                    <div className="col">
+                      <button className="btn btn-link" onClick={this.isBidding}>
+                        {" "}
+                        Place a bid{" "}
+                      </button>
+                    </div>
                   </div>
+                  {/* Here add additional or extend guard operator 
+                  so that if authtoken isn't a thing, you can't bid and message is displayed */}
                   {this.state.bidding && (
                     <form onSubmit={this.submitBid}>
                       <div className="row">
@@ -122,7 +150,11 @@ export class ItemComponent extends React.Component<IProp, any> {
                           className="form-control"
                           placeholder="Amount"
                         />
-                        {/* add BUTTON and success message*/}
+                        <button className="btn btn-warning" type="submit">
+                          {" "}
+                          Submit Bid{" "}
+                        </button>
+                        {/* add  success message*/}
                       </div>
                     </form>
                   )}
