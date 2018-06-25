@@ -19,177 +19,214 @@ interface IProp extends IBuyer, IProduct, IUser {
 }
 
 let holdBuyer: any = {};
-// let isReady: boolean = false;
 
 export class ItemComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      bidding: false
+      bidding: false,
+      errMsg: ""
     };
   }
 
   public isBidding = (e: any) => {
-    this.setState({ bidding: true });
+    console.log(this.props.user.authToken);
+    if (this.props.user.authToken) {
+      this.setState({
+        bidding: true
+      });
+    } else {
+      this.setState({
+        errMsg: "You must log in to bid"
+      });
+    }
   };
 
   public updateBidPrice = (e: any) => {
-    const price = parseInt(e.target.value, 10);
+    const price = parseFloat(e.target.value);
     this.props.updateBidPrice(price);
   };
 
   public submitBid = (e: any) => {
     e.preventDefault();
-    console.log(this.props.product.chosenItem.currentBidder);
-    if (this.props.product.chosenItem.currentBidder !== "N/A") {
-      this.props
-        .getBuyer(this.props.product.chosenItem.currentBidder)
-        .then(resp => {
-          // this.props.updateHighest(); I think not!
-          holdBuyer = this.props.buyer.currentBuyer;
-          console.log(holdBuyer);
-          for (let i = 0; i < holdBuyer.bids.length; i++) {
-            if (
-              holdBuyer.bids[i].seller ===
-                this.props.product.chosenItem.username &&
-              holdBuyer.bids[i].timePosted ===
-                this.props.product.chosenItem.timePosted
-            ) {
-              console.log(holdBuyer.bids[i]);
-              holdBuyer.bids[i].highestBid = false;
+    if (this.props.user.username === this.props.product.chosenItem.username) {
+      this.setState({
+        errMsg: "You may not not bid on your own item"
+      });
+    } else if (
+      this.props.buyer.newBid.bidPrice <=
+        this.props.product.chosenItem.currentBidPrice ||
+      this.props.buyer.newBid.bidPrice <
+        this.props.product.chosenItem.minimumBidPrice
+    ) {
+      this.setState({
+        errMsg: "Bid must be greater than current bid price"
+      });
+    } else {
+      if (this.props.product.chosenItem.currentBidder !== "N/A") {
+        this.props
+          .getBuyer(this.props.product.chosenItem.currentBidder)
+          .then(resp => {
+            holdBuyer = this.props.buyer.currentBuyer;
+            console.log(holdBuyer);
+            for (let i = 0; i < holdBuyer.bids.length; i++) {
+              if (
+                holdBuyer.bids[i].seller ===
+                  this.props.product.chosenItem.username &&
+                holdBuyer.bids[i].timePosted ===
+                  this.props.product.chosenItem.timePosted
+              ) {
+                console.log(holdBuyer.bids[i]);
+                holdBuyer.bids[i].highestBid = false;
+              }
             }
-          }
-          // isReady = true;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        setTimeout(() => {
+          this.props.putNewBid(holdBuyer);
+        }, 1000);
+      }
+      this.props.updateBidder(this.props.user.username);
+      this.props.updateCurrentBid(this.props.buyer.newBid.bidPrice);
+
+      this.props
+        .getBuyer(this.props.user.username)
+        .then(resp => {
+          this.props.addToBids(
+            this.props.buyer.newBid,
+            this.props.buyer.currentBuyer.bids
+          );
+          this.forceUpdate(() => {
+            this.props.putNewBid(this.props.buyer.currentBuyer);
+            this.props.putProduct(this.props.product.chosenItem);
+            this.setState({
+              errMsg: "Bid submitted"
+            });
+          });
         })
         .catch(err => {
           console.log(err);
         });
-      setTimeout(() => {
-        this.props.putNewBid(holdBuyer);
-      }, 1000);
     }
-    this.props.updateBidder(this.props.user.username);
-    this.props.updateCurrentBid(this.props.buyer.newBid.bidPrice);
-
-    this.props
-      .getBuyer(this.props.user.username)
-      .then(resp => {
-        this.props.addToBids(
-          this.props.buyer.newBid,
-          this.props.buyer.currentBuyer.bids
-        );
-        this.forceUpdate(() => {
-          this.props.putNewBid(this.props.buyer.currentBuyer);
-          this.props.putProduct(this.props.product.chosenItem);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        // add error message saying you must log in
-      });
   };
 
   public componentDidMount() {
-    this.props.updateBidSeller(this.props.product.chosenItem.username);
-    this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
-    // make error message = ''
+    if (this.props.product.chosenItem) {
+      this.props.updateBidSeller(this.props.product.chosenItem.username);
+      this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
+    }
+
+    this.setState({
+      errMsg: ""
+    });
+  }
+
+  public componentWillUnmount() {
+    this.props.updateBidPrice(0);
   }
 
   public render() {
     return (
       <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-6">
-              <img
-                className="card-img-top"
-                src={
-                  "http://popbay-photo-storage.s3.amazonaws.com/" +
-                  this.props.product.chosenItem.photoNames[0]
-                }
-                alt="Card image cap"
-              />
-            </div>
-            <div className="card col-6">
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <h1>{this.props.product.chosenItem.name}</h1>
-                </li>
-                <li className="list-group-item">
-                  <div className="row">
-                    <div className="col-6">
+        {this.props.product.chosenItem !== null && (
+          <div className="container">
+            <div className="row">
+              <div className="col-6">
+                <img
+                  className="card-img-top"
+                  src={
+                    "http://popbay-photo-storage.s3.amazonaws.com/" +
+                    this.props.product.chosenItem.photoNames[0]
+                  }
+                  alt="Card image cap"
+                />
+              </div>
+              <div className="card col-6">
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item">
+                    <h1>{this.props.product.chosenItem.name}</h1>
+                  </li>
+                  <li className="list-group-item">
+                    <div className="row">
+                      <div className="col-6">
+                        <h3>
+                          Buy Now: ${this.props.product.chosenItem.buyNowPrice +
+                            "  "}
+                        </h3>
+                      </div>
+                      <div className="col">
+                        <Link to="/checkout">
+                          <button className="btn btn-success"> Buy Now</button>
+                        </Link>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="list-group-item">
+                    <div className="row">
                       <h3>
-                        Buy Now: ${this.props.product.chosenItem.buyNowPrice +
-                          "  "}
+                        Current Bidding Price: $
+                        {this.props.product.chosenItem.currentBidPrice
+                          ? this.props.product.chosenItem.currentBidPrice
+                          : this.props.product.chosenItem.minimumBidPrice}
                       </h3>
                     </div>
-                    <div className="col">
-                      <Link to="/checkout">
-                        <button className="btn btn-success"> Buy </button>
-                      </Link>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item">
-                  <div className="row">
-                    <h3>
-                      Current Bidding Price: $
-                      {this.props.product.chosenItem.currentBidPrice
-                        ? this.props.product.chosenItem.currentBidPrice
-                        : this.props.product.chosenItem.minimumBidPrice}
-                    </h3>
-
-                    <button className="btn btn-link" onClick={this.isBidding}>
-                      {" "}
-                      Place a bid{" "}
-                    </button>
-                  </div>
-
-                  {/* Here add additional or extend guard operator 
-                  so that if authtoken isn't a thing, you can't bid and message is displayed */}
-                  {this.state.bidding && (
-                    <form onSubmit={this.submitBid}>
-                      <div className="row">
-                        <div className="col-4">
-                          <input
-                            value={this.props.buyer.newBid.bidPrice}
-                            onChange={this.updateBidPrice}
-                            type="number"
-                            className="form-control"
-                            placeholder="Amount"
-                          />
+                    {this.state.bidding && (
+                      <form onSubmit={this.submitBid}>
+                        <div className="row">
+                          <div className="col-4">
+                            <input
+                              value={this.props.buyer.newBid.bidPrice}
+                              onChange={this.updateBidPrice}
+                              type="number"
+                              className="form-control"
+                              placeholder="Amount"
+                            />
+                          </div>
+                          <div className="col">
+                            <button className="btn btn-warning" type="submit">
+                              {" "}
+                              Submit Bid{" "}
+                            </button>
+                          </div>
                         </div>
-                        <div className="col">
-                          <button className="btn btn-warning" type="submit">
-                            {" "}
-                            Submit Bid{" "}
-                          </button>
-                        </div>
-                        {/* add  success message*/}
-                      </div>
-                    </form>
-                  )}
-                </li>
-                <li className="list-group-item">
-                  <h5>
-                    Auction ends in{" "}
-                    {this.props.product.chosenItem.auctionEndTime} hours
-                  </h5>
-                </li>
-                <li className="list-group-item">
-                  <h5>Category: {this.props.product.chosenItem.category}</h5>
-                </li>
-                <li className="list-group-item">
-                  <h5>Type: {this.props.product.chosenItem.type}</h5>
-                </li>
-                <li className="list-group-item">
-                  <h5>Condition: {this.props.product.chosenItem.condition}</h5>
-                </li>
-              </ul>
-              <div className="card-body">a couple items</div>
+                      </form>
+                    )}
+                  </li>
+                  <li className="list-group-item error-words">
+                    {this.state.bidding ? (
+                      this.state.errMsg
+                    ) : (
+                      <button className="btn btn-link" onClick={this.isBidding}>
+                        {" "}
+                        Place a bid{" "}
+                      </button>
+                    )}
+                  </li>
+                  <li className="list-group-item">
+                    <h5>
+                      Auction ends in{" "}
+                      {this.props.product.chosenItem.auctionEndTime} hours
+                    </h5>
+                  </li>
+                  <li className="list-group-item">
+                    <h5>Category: {this.props.product.chosenItem.category}</h5>
+                  </li>
+                  <li className="list-group-item">
+                    <h5>Type: {this.props.product.chosenItem.type}</h5>
+                  </li>
+                  <li className="list-group-item">
+                    <h5>
+                      Condition: {this.props.product.chosenItem.condition}
+                    </h5>
+                  </li>
+                </ul>
+                <div className="card-body">a couple items</div>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
