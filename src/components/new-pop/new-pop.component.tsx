@@ -16,7 +16,6 @@ interface IProp extends IProduct {
   setTimePosted: (timePosted: number) => void;
   updateCategory: (category: string) => void;
   updateCondition: (condition: string) => void;
-  updateCurrentBid: (currentBid: number) => void;
   updateName: (name: string) => void;
   updatePhotos: (file: any, photos: any[]) => void;
   updatePhotoNames: (fileName: string, photoNames: string[]) => void;
@@ -84,7 +83,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
   public setMinBid = (e: any) => {
     const minBid = e.target.value;
     this.props.setMinBid(parseInt(minBid, 10));
-    this.props.updateCurrentBid(parseInt(minBid, 10)); // idea!
   };
 
   public updateCategory = (e: any) => {
@@ -114,7 +112,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
       this.sendPhotos(this.props.product.photos[i]);
     }
     // this.props.setTimePosted(Date.now());
-    // this.props.updateCurrentBid(this.props.product.currentProduct.minBid);
     // this.props.updateProductUsername(this.props.user.username);
     this.props.addProduct(this.props.product.currentProduct);
   };

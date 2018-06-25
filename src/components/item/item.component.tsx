@@ -10,10 +10,12 @@ interface IProp extends IBuyer, IProduct, IUser {
   getBuyer: (username: string) => Promise<any>;
   getBySellerAndTime: (username: string, time: number) => void;
   putNewBid: (currentBuyer: any) => void;
+  putProduct: (chosenItem: any) => void;
   updateBidPrice: (price: number) => void;
   updateBidSeller: (seller: string) => void;
-  updateHighest: () => void;
   updatePostTimeBid: (time: number) => void;
+  updateCurrentBid: (price: number) => void;
+  updateBidder: (username: string) => void;
 }
 
 let holdBuyer: any = {};
@@ -66,6 +68,8 @@ export class ItemComponent extends React.Component<IProp, any> {
         this.props.putNewBid(holdBuyer);
       }, 1000);
     }
+    this.props.updateBidder(this.props.user.username);
+    this.props.updateCurrentBid(this.props.buyer.newBid.bidPrice);
 
     this.props
       .getBuyer(this.props.user.username)
@@ -75,8 +79,8 @@ export class ItemComponent extends React.Component<IProp, any> {
           this.props.buyer.currentBuyer.bids
         );
         this.forceUpdate(() => {
-          console.log(this.props.buyer.currentBuyer);
           this.props.putNewBid(this.props.buyer.currentBuyer);
+          this.props.putProduct(this.props.product.chosenItem);
         });
       })
       .catch(err => {
@@ -113,46 +117,54 @@ export class ItemComponent extends React.Component<IProp, any> {
                 </li>
                 <li className="list-group-item">
                   <div className="row">
-                    <h3>
-                      Buy Now: ${this.props.product.chosenItem.buyNowPrice +
-                        "  "}
-                    </h3>
-                    <Link to="/checkout">
-                      <button className="btn btn-success"> Buy </button>
-                    </Link>
+                    <div className="col-6">
+                      <h3>
+                        Buy Now: ${this.props.product.chosenItem.buyNowPrice +
+                          "  "}
+                      </h3>
+                    </div>
+                    <div className="col">
+                      <Link to="/checkout">
+                        <button className="btn btn-success"> Buy </button>
+                      </Link>
+                    </div>
                   </div>
                 </li>
                 <li className="list-group-item">
                   <div className="row">
-                    <div className="col-4">
-                      <h3>
-                        Current Bidding Price: ${this.props.product.chosenItem
-                          .currentBidPrice + "  "}
-                      </h3>
-                    </div>
-                    <div className="col">
-                      <button className="btn btn-link" onClick={this.isBidding}>
-                        {" "}
-                        Place a bid{" "}
-                      </button>
-                    </div>
+                    <h3>
+                      Current Bidding Price: $
+                      {this.props.product.chosenItem.currentBidPrice
+                        ? this.props.product.chosenItem.currentBidPrice
+                        : this.props.product.chosenItem.minimumBidPrice}
+                    </h3>
+
+                    <button className="btn btn-link" onClick={this.isBidding}>
+                      {" "}
+                      Place a bid{" "}
+                    </button>
                   </div>
+
                   {/* Here add additional or extend guard operator 
                   so that if authtoken isn't a thing, you can't bid and message is displayed */}
                   {this.state.bidding && (
                     <form onSubmit={this.submitBid}>
                       <div className="row">
-                        <input
-                          value={this.props.buyer.newBid.bidPrice}
-                          onChange={this.updateBidPrice}
-                          type="number"
-                          className="form-control"
-                          placeholder="Amount"
-                        />
-                        <button className="btn btn-warning" type="submit">
-                          {" "}
-                          Submit Bid{" "}
-                        </button>
+                        <div className="col-4">
+                          <input
+                            value={this.props.buyer.newBid.bidPrice}
+                            onChange={this.updateBidPrice}
+                            type="number"
+                            className="form-control"
+                            placeholder="Amount"
+                          />
+                        </div>
+                        <div className="col">
+                          <button className="btn btn-warning" type="submit">
+                            {" "}
+                            Submit Bid{" "}
+                          </button>
+                        </div>
                         {/* add  success message*/}
                       </div>
                     </form>
