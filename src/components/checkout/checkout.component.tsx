@@ -1,5 +1,10 @@
 import * as React from "react";
 import { IBuyer, IUser, IProduct } from "../../reducers";
+import Layout from 'src/components/checkout/layout-component';
+// import PayButton from 'src/components/checkout/pay-button.component'
+import StripeCheckout from 'react-stripe-checkout';
+import config from 'src/components/checkout/config';
+import Axios from "axios";
 
 interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
@@ -15,14 +20,61 @@ interface IProp extends IBuyer, IProduct, IUser {
   updateItemNameBought: (itemName: string) => void;
   updatePostTimeBought: (time: number) => void;
   updateStatus: (status: string) => void;
-  
+
 }
+
+
 
 export class CheckoutComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
     console.log(props);
+    this.state={
+
+      amount:200
+    }
   }
+
+
+
+
+  public onToken= (token:any) => { // Token returned from Stripe
+    // const res = await fetch(config.stripe.apiUrl, { // Backend API url
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     token,
+    //     charge: {
+    //       amount: this.props.amount,
+    //       currency: config.stripe.currency,
+    //     },
+    //   }),
+    // });
+
+    Axios.post(config.stripe.apiUrl,{
+
+      body: JSON.stringify({
+            
+            charge: {
+              amount: this.state.amount,
+              currency: config.stripe.currency,
+            },
+            token,
+          }),
+})
+    
+    .then(resp => {
+      const data = resp;
+    console.log('onToken'); // Logs for ease of debugging
+    console.log(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    
+  }
+
+
+
 
   public componentDidMount() {
     this.props.getBuyer(this.props.user.username);
@@ -70,10 +122,37 @@ export class CheckoutComponent extends React.Component<IProp, any> {
             </div>
           </div>
         </div>
+
+
+
+         <div>
+         
+          <h1>Serverless Stripe Checkout</h1>
+          <p>Use test@email.com, 4242 4242 4242 4242, and any CVC and future expiration date.</p>
+        <Layout>
+          <StripeCheckout
+        name="Serverless Stripe Store Inc."
+        token={this.onToken}
+        amount={this.state.amount}
+        currency={config.stripe.currency}
+        stripeKey={config.stripe.apiKey} // Stripe publishable API key
+        allowRememberMe={false}
+      />
+
+
+           
+           
+        
+        </Layout>
+        
+        
+        </div>
       </div>
     );
   }
 }
+
+
 
 
 {/* <br />
