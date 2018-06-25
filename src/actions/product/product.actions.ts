@@ -247,10 +247,6 @@ export const getBySellerAndTime = (username: string, timePosted: number) => (
   dispatch: any
 ) =>
   new Promise(function(resolve, reject) {
-    // dispatch({
-    //   // some...thing?
-    //   type: productTypes.GET_BY_SELLER_AND_TIME
-    // });
     productInterceptor
       .get(
         environment.context +
@@ -309,17 +305,22 @@ export const reinitializeProduct = () => {
 
 export const putProduct = (chosenItem: any) => (dispatch: any) => {
   productInterceptor
-  .put(environment.context + 'product/update-product-status/username/'+ chosenItem.username + '/time/' + chosenItem.timePosted, chosenItem)
-  .then(resp => {
-    console.log(resp);
-    dispatch({
-      payload: {
-  
-      },
-      type: productTypes.PUT_PRODUCT
+    .put(
+      environment.context +
+        "product/update-product-status/username/" +
+        chosenItem.username +
+        "/time/" +
+        chosenItem.timePosted,
+      chosenItem
+    )
+    .then(resp => {
+      console.log(resp);
+      dispatch({
+        payload: {},
+        type: productTypes.PUT_PRODUCT
+      });
+    })
+    .catch(err => {
+      console.log(err);
     });
-  })
-  .catch(err => {
-    console.log(err);
-  });
-}
+};
