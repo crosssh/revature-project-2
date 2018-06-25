@@ -32,14 +32,6 @@ export const buyerReducer = (state = initialState, action: any) => {
           bidPrice: action.payload.bidPrice
         }
       };
-    case buyerTypes.UPDATE_HIGHEST:
-      return {
-        ...state,
-        newBid: {
-          ...state.newBid,
-          highestBid: action.payload.highestBid
-        }
-      };
 
     case buyerTypes.UPDATE_BID_SELLER:
       return {
@@ -167,8 +159,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         }
       };
   } // end switch
-
-
 
   return state;
 };

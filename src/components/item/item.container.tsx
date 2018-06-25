@@ -6,10 +6,13 @@ import {
   putNewBid,
   updateBidPrice,
   updateBidSeller,
-  updatePostTimeBid,
-  updateHighest
+  updatePostTimeBid
 } from "../../actions/buyer/buyer.actions";
-import { getBySellerAndTime } from "../../actions/product/product.actions";
+import {
+  getBySellerAndTime,
+  updateBidder,
+  updateCurrentBid
+} from "../../actions/product/product.actions";
 import { ItemComponent } from "./item.component";
 
 const mapStateToProps = (state: IState) => ({
@@ -25,7 +28,8 @@ export const mapDispatchToProps = {
   putNewBid,
   updateBidPrice,
   updateBidSeller,
-  updateHighest,
+  updateBidder,
+  updateCurrentBid,
   updatePostTimeBid
 };
 

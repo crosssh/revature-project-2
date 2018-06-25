@@ -12,8 +12,9 @@ interface IProp extends IBuyer, IProduct, IUser {
   putNewBid: (currentBuyer: any) => void;
   updateBidPrice: (price: number) => void;
   updateBidSeller: (seller: string) => void;
-  updateHighest: () => void;
   updatePostTimeBid: (time: number) => void;
+  updateCurrentBid: (price: number) => void;
+  updateBidder: (username: string) => void;
 }
 
 let holdBuyer: any = {};
@@ -56,7 +57,7 @@ export class ItemComponent extends React.Component<IProp, any> {
     }
 
     this.props.getBuyer(this.props.user.username);
-    this.forceUpdate(() => {
+    this.props.this.forceUpdate(() => {
       this.props.addToBids(
         this.props.buyer.newBid,
         this.props.buyer.currentBuyer.bids
