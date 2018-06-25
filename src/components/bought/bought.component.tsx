@@ -34,7 +34,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
           <div className="row">
             <div className="col">{this.props.buyer.currentBuyer.username}</div>
             <div className="col">
-              {this.props.buyer.currentBuyer.boughtItems}
+              {/* {this.props.buyer.currentBuyer.boughtItems} */}
             </div>
           </div>
         </div>

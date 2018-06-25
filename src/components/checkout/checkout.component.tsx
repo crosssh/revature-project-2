@@ -21,16 +21,25 @@ export class CheckoutComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
     console.log(props);
+    this.state = {
+      errorMsg: "",
+    }
   }
 
   public componentDidMount() {
-    this.props.getBuyer(this.props.user.username);
-    this.props.updateBoughtPrice(this.props.product.chosenItem.buyNowPrice);
-    this.props.updateBoughtSeller(this.props.product.chosenItem.username);
-    this.props.updateItemNameBought(this.props.product.chosenItem.name);
-    this.props.updateBoughtTime(Date.now());
-    this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
-    this.props.updateStatus("sold");
+    if (this.props.user.username !== "" && this.props.product.chosenItem !== null) {
+      this.props.getBuyer(this.props.user.username);
+      this.props.updateBoughtPrice(this.props.product.chosenItem.buyNowPrice);
+      this.props.updateBoughtSeller(this.props.product.chosenItem.username);
+      this.props.updateItemNameBought(this.props.product.chosenItem.name);
+      this.props.updateBoughtTime(Date.now());
+      this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
+      this.props.updateStatus("sold");
+    } else {
+      this.setState({
+        errorMsg: "Must be logged in to checkout."
+      })
+    }
   }
 
   public checkout = (e: any) => {
@@ -43,56 +52,62 @@ export class CheckoutComponent extends React.Component<IProp, any> {
       this.props.putNewBid(this.props.buyer.currentBuyer);
     });
     this.props.putProduct(this.props.product.chosenItem);
-    // call api for pay pal if that succeeds then
-    // all the funciton will be called here to update the bought item information
-    // if the pay pal fails display error message
-  };
+  }
+
+  public getPrice = () => {
+    if (this.props.product.chosenItem.buyNowPrice > this.props.product.chosenItem.currentBidPrice) {
+      return this.props.product.chosenItem.buyNowPrice;
+    } else {
+      return this.props.product.chosenItem.currentBidPrice;
+    }
+  }
 
   public render() {
     return (
       <div className="container">
-        <h5>Checkout.</h5>
-        <div className="container checkout">
-          <div className="item-information row">
-            <div className="col-8">
-              <p>Item to be purchased will go here></p>
+        {this.props.user.username !== "" && this.props.product.chosenItem !== null &&
+          <div className="row checkout">
+            <div className="col-5">
+              <div className="checkout-pop-card">
+                <img
+                  className="card-img-top img-fluid"
+                  src={
+                    "http://popbay-photo-storage.s3.amazonaws.com/" + this.props.product.chosenItem.photoNames[0]
+                  }
+                  alt="Card image cap"
+                />
+                <div className="card-title">
+                  <h5>{this.props.product.chosenItem.name}</h5>
+                </div>
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item">
+                    Category: {this.props.product.chosenItem.category}
+                  </li>
+                  <li className="list-group-item">Type: {this.props.product.chosenItem.type}</li>
+                  <li className="list-group-item">
+                    Condition: {this.props.product.chosenItem.condition}
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="col-4">
-              <p>cost of item will go here</p>
+            <div className="col-7 checkout-seller-info">
+              <div className="row">
+                <h5 className="checkout-seller font-weight-bold">Seller: </h5><h5 className="checkout-seller">{this.props.product.chosenItem.username}</h5>
+              </div><div className="row">
+                <h5 className="checkout-seller font-weight-bold">Price: </h5><h5 className="checkout-seller">{this.getPrice()}</h5>
+              </div>
+              <div className="row bottom">
+                <div className="col-auto">
+                  <button className="btn btn-secondary" onClick={this.checkout}>Checkout</button>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-4">
-              <p>seller name goes here</p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm float-right"
-                onClick={this.checkout}
-              >
-                checkout
-              </button>
-            </div>
-          </div>
+        }
+        <div>
+          <h5 className="checkout-err" id="error-message">{this.state.errorMsg}</h5>
         </div>
       </div>
     );
   }
-}
-
-{
-  /* <br />
-        We need to add lots of the little updating functions, but not the ones
-        for Time.
-        <br />
-        We will call this.props.getBuyer(this.props.user.username)
-        <br />
-        So that we can this.props.addToBought(this.props.buyer.newBoughtItem,
-        this.props.buyer.currentBuyer.boughtItems)
-        <br />
-        If you think this is kind of a long way to get at things, well, you're
-        not wrong. */
 }
