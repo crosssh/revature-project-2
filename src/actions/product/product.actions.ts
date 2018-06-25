@@ -129,20 +129,21 @@ export const setTimePosted = (timePosted: number) => (dispatch: any) => {
 };
 
 export const getByCategory = (category: string) => (dispatch: any) => {
-  productInterceptor.get(environment.context + '/product')
+  productInterceptor
+    .get(environment.context + "/product")
     .then(resp => {
       const filteredByCategory = resp.data.filter((p: any) => {
         return p.category.toLowerCase().indexOf(category.toLowerCase()) !== -1;
-      })
+      });
       const filterdByStatus = filteredByCategory.filter((p: any) => {
-        return p.status.toLowerCase().indexOf('available') !== -1;
-      })
+        return p.status.toLowerCase().indexOf("available") !== -1;
+      });
       dispatch({
         payload: {
           productList: filterdByStatus
         },
         type: productTypes.GET_BY_CATEGORY
-      })
+      });
     })
     .catch(err => {
       console.log(err);
@@ -150,21 +151,22 @@ export const getByCategory = (category: string) => (dispatch: any) => {
 };
 
 export const getByName = (name: string) => (dispatch: any) => {
-  productInterceptor.get(environment.context + '/product')
+  productInterceptor
+    .get(environment.context + "/product")
     .then(resp => {
       const filteredByName = resp.data.filter((p: any) => {
         return p.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
-      })
+      });
       const filterdByStatus = filteredByName.filter((p: any) => {
-        return p.status.toLowerCase().indexOf('available') !== -1;
-      })
+        return p.status.toLowerCase().indexOf("available") !== -1;
+      });
 
       dispatch({
         payload: {
           productList: filterdByStatus
         },
         type: productTypes.GET_BY_NAME
-      })
+      });
     })
     .catch(err => {
       console.log(err);
@@ -172,25 +174,26 @@ export const getByName = (name: string) => (dispatch: any) => {
 };
 
 export const getByType = (type: string) => (dispatch: any) => {
-  productInterceptor.get(environment.context + '/product')
+  productInterceptor
+    .get(environment.context + "/product")
     .then(resp => {
       const filteredByType = resp.data.filter((p: any) => {
         return p.type.toLowerCase().indexOf(type.toLowerCase()) !== -1;
-      })
+      });
       const filterdByStatus = filteredByType.filter((p: any) => {
-        return p.status.toLowerCase().indexOf('available') !== -1;
-      })
+        return p.status.toLowerCase().indexOf("available") !== -1;
+      });
       dispatch({
         payload: {
           productList: filterdByStatus
         },
         type: productTypes.GET_BY_TYPE
-      })
+      });
     })
     .catch(err => {
       console.log(err);
     });
-}
+};
 
 export const getRecent = () => (dispatch: any) => {
   productInterceptor
@@ -224,19 +227,17 @@ export const getSeller = (username: string) => (dispatch: any) => {
     });
 };
 
-export const getBySellerAndTime = (username: string, timePosted: number) => (dispatch: any) =>
-  new Promise(function (resolve, reject) {
-    // dispatch({
-    //   // some...thing?
-    //   type: productTypes.GET_BY_SELLER_AND_TIME
-    // });
+export const getBySellerAndTime = (username: string, timePosted: number) => (
+  dispatch: any
+) =>
+  new Promise(function(resolve, reject) {
     productInterceptor
       .get(
         environment.context +
-        "product/get-seller/" +
-        username +
-        "/time/" +
-        timePosted
+          "product/get-seller/" +
+          username +
+          "/time/" +
+          timePosted
       )
       .then(resp => {
         dispatch({
@@ -288,17 +289,22 @@ export const reinitializeProduct = () => {
 
 export const putProduct = (chosenItem: any) => (dispatch: any) => {
   productInterceptor
-    .put(environment.context + 'product/update-product-status/username/' + chosenItem.username + '/time/' + chosenItem.timePosted, chosenItem)
+    .put(
+      environment.context +
+        "product/update-product-status/username/" +
+        chosenItem.username +
+        "/time/" +
+        chosenItem.timePosted,
+      chosenItem
+    )
     .then(resp => {
       console.log(resp);
       dispatch({
-        payload: {
-
-        },
+        payload: {},
         type: productTypes.PUT_PRODUCT
       });
     })
     .catch(err => {
       console.log(err);
     });
-}
+};

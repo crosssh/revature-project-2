@@ -32,14 +32,6 @@ export const buyerReducer = (state = initialState, action: any) => {
           bidPrice: action.payload.bidPrice
         }
       };
-    case buyerTypes.UPDATE_HIGHEST:
-      return {
-        ...state,
-        newBid: {
-          ...state.newBid,
-          highestBid: action.payload.highestBid
-        }
-      };
 
     case buyerTypes.UPDATE_BID_SELLER:
       return {
@@ -135,9 +127,14 @@ export const buyerReducer = (state = initialState, action: any) => {
 
     case buyerTypes.PUT_NEW_BID:
       return {
-        // ...state,
-
-        initialState
+        ...state,
+        newBoughtItem: {
+          boughtPrice: 0,
+          itemName: "",
+          seller: "",
+          timeBought: 0,
+          timePosted: 0
+        }
       };
 
     case buyerTypes.POST_NEW_BUYER:
@@ -167,8 +164,6 @@ export const buyerReducer = (state = initialState, action: any) => {
         }
       };
   } // end switch
-
-
 
   return state;
 };

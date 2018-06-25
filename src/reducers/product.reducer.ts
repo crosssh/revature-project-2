@@ -2,23 +2,7 @@ import { IProduct } from ".";
 import { productTypes } from "../actions/product/product.types";
 
 const initialState: IProduct = {
-  chosenItem: {
-    auctionEndTime: 9,
-    buyNowPrice: 26,
-    category: "sports",
-    condition: "new",
-    currentBidPrice: 17,
-    currentBidder: "N/A",
-    minimumBidPrice: 17,
-    name: "Ben Roethlisberger",
-    photoNames: [
-      "ben-pop.jpeg"
-    ],
-    status: "available",
-    timePosted: 1529682629529,
-    type: "vinyl",
-    username: "Crosssh"
-  },
+  chosenItem: null,
   currentProduct: {
     auctionEndTime: 0,
     buyNowPrice: 0,
@@ -44,8 +28,8 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.UPDATE_BIDDER:
       return {
         ...state,
-        currentProduct: {
-          ...state.currentProduct,
+        chosenItem: {
+          ...state.chosenItem,
           currentBidder: action.payload.bidder
         }
       };
@@ -70,8 +54,8 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.UPDATE_CURRENT_BID:
       return {
         ...state,
-        currentProduct: {
-          ...state.currentProduct,
+        chosenItem: {
+          ...state.chosenItem,
           currentBidPrice: action.payload.currentBid
         }
       };
@@ -207,8 +191,8 @@ export const productReducer = (state = initialState, action: any) => {
 
     case productTypes.PUT_PRODUCT:
       return {
-        ...state,
-        chosenItem: {}
+        ...state
+        // chosenItem: {}
       };
 
     case productTypes.ADD_PRODUCT:

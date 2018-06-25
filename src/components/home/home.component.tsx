@@ -53,7 +53,7 @@ export class HomeComponent extends React.Component<IProps, any> {
           {this.props.productList.length > 0 &&
             this.props.productList.map((product: any) => (
               <div
-                className="card col-3 pop-card"
+                className="card pop-card home-pop-card"
                 key={product.timePosted}
                 onClick={this.selectItem(product.username, product.timePosted)}
               >

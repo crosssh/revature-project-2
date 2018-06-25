@@ -48,15 +48,6 @@ export const updateBoughtTime = (boughtTime: string) => {
   };
 };
 
-export const updateHighest = () => {
-  return {
-    payload: {
-      highestBid: false
-    },
-    type: buyerTypes.UPDATE_HIGHEST
-  };
-};
-
 export const updateItemNameBought = (itemNameBought: string) => {
   return {
     payload: {
@@ -85,14 +76,12 @@ export const updatePostTimeBought = (postTimeBought: string) => {
 };
 
 export const putNewBid = (currentBuyer: any) => (dispatch: any) => {
-  console.log(currentBuyer);
   buyerInterceptor
     .put(
       environment.context + "buyer/update-bought-info/" + currentBuyer.username,
       currentBuyer
     )
     .then(resp => {
-      console.log(resp);
       dispatch({
         payload: {},
         type: buyerTypes.PUT_NEW_BID
@@ -123,21 +112,24 @@ export const postNewBuyer = (currentBuyer: any) => (dispatch: any) => {
     });
 };
 
-export const getBuyer = (username: string) => (dispatch: any) => {
-  buyerInterceptor
-    .get(environment.context + "buyer/get-buyer/" + username)
-    .then((resp: any) => {
-      dispatch({
-        payload: {
-          currentBuyer: resp.data
-        },
-        type: buyerTypes.GET_BUYER
+export const getBuyer = (username: string) => (dispatch: any) =>
+  new Promise(function(resolve, reject) {
+    buyerInterceptor
+      .get(environment.context + "buyer/get-buyer/" + username)
+      .then((resp: any) => {
+        dispatch({
+          payload: {
+            currentBuyer: resp.data
+          },
+          type: buyerTypes.GET_BUYER
+        });
+        resolve(resp);
+      })
+      .catch((err: any) => {
+        console.log(err);
+        reject(err);
       });
-    })
-    .catch((err: any) => {
-      console.log(err);
-    });
-};
+  });
 
 export const addToBids = (newBid: any, bids: any[]) => {
   return {
