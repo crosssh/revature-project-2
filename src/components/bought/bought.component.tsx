@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ProfileNavComponent } from "../profile-nav.component";
 import { IBuyer, IUser, IProduct } from "../../reducers";
+import { Link } from "react-router-dom";
 
 interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
@@ -55,7 +56,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
                 </h1>
               </div>
               <div className="row">
-                {this.props.product.photos.length > 0 &&
+                {this.props.product.photos.length > 0 ?
                   this.props.product.photos.map((product: any) => (
                     <div
                       className="card pop-card home-pop-card"
@@ -87,7 +88,14 @@ export class BoughtComponent extends React.Component<IProp, any> {
 
                       </div>
                     </div>
-                  ))}
+                  )) :
+                  <div className="row">
+                    <h2 className="indented">No purchases yet? Take a look at our browse page to see what's available!</h2>
+                    <Link to='/browse'>
+                      <button className="btn btn-danger">Browse</button>
+                    </Link>
+                  </div>
+                }
               </div>
             </div>
             : <h1>Sign in to see your previously purchased items</h1>
