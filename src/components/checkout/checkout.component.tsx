@@ -20,6 +20,7 @@ interface IProp extends IBuyer, IProduct, IUser {
   updateItemNameBought: (itemName: string) => void;
   updatePostTimeBought: (time: number) => void;
   updateStatus: (status: string) => void;
+  
 }
 
 export class CheckoutComponent extends React.Component<IProp, any> {
@@ -27,8 +28,8 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     super(props);
     console.log(props);
 
-    this.state = {
-      amount: 200,
+    this.state={
+      amount:1000,
       errorMsg: "",
     }
   }
@@ -45,9 +46,31 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     //   }),
     // });
 
-    Axios.post(config.stripe.apiUrl, {
+    Axios.post(config.stripe.apiUrl,
+      
+      JSON.stringify({
+            
+            charge: {
+              amount: this.state.amount,
+              currency: config.stripe.currency,
+            },
+            token,
+          }),
 
-      body: JSON.stringify({
+         
+)
+    
+    .then(resp => {
+      const data = (resp);
+       
+    console.log('onToken'); // Logs for ease of debugging
+    console.log(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    
+  }
 
         charge: {
           amount: this.state.amount,
@@ -77,6 +100,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
       this.props.updateBoughtTime(Date.now());
       this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
       this.props.updateStatus("sold");
+      this.setState({amount:this.props.product.chosenItem.buyNowPrice})
     } else {
       this.setState({
         errorMsg: "Must be logged in to checkout."

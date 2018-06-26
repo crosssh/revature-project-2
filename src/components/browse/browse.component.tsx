@@ -213,29 +213,33 @@ export class BrowseComponent extends React.Component<IProp, any> {
             this.state.currentSearchCriteria === 'name' &&
             <div>
               <h3> Sort options </h3>
-              <div><input onClick={this.reset} name='categoryChoice' type="button" />Reset Filter</div>
+              <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categotyChoice'>Reset Filter</button></div>
               <div>
                 <h4>Category</h4>
-                {/* <input checked ={this.state.checkRadio} name='categoryChoice' type="radio" value='none' />none */}
-                <input checked={this.state.currentSortingCategory === 'animation'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="animation" />Animation
-                         <input checked={this.state.currentSortingCategory === 'games'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="games" />Games
-                         <input checked={this.state.currentSortingCategory === 'heroes'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="heroes" />Heroes
-                         <input checked={this.state.currentSortingCategory === 'movies'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="movies" />Movies
-                         <input checked={this.state.currentSortingCategory === 'music'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="music" />Music
-                         <input checked={this.state.currentSortingCategory === 'rides'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="rides" />Rides
-                         <input checked={this.state.currentSortingCategory === 'sports'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="sports" />Sports
-                         <input checked={this.state.currentSortingCategory === 'television'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="television" />Television
-                         <input checked={this.state.currentSortingCategory === 'star wars'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="star wars" />Star Wars
-                         <input checked={this.state.currentSortingCategory === 'other'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="other" />Other
+                {/* <input checked ={this.state.checkRadio} name='categotyChoice' type="radio" value='none' />none */}
+                <ul className="list-group">
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'animation'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="animation" />Animation</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'apprel'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="apparel" />Apparel</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'games'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="games" />Games</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'heroes'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="heroes" />Heroes</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'home'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="home" />Home</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'movies'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="movies" />Movies</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'music'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="music" />Music</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'rides'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="rides" />Rides</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'sports'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="sports" />Sports</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'television'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="television" />Television</li>
+                         <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'star wars'} onChange={this.sortCategoryName} name='categotyChoice' type="radio" value="star wars" />Star Wars</li>
+                         </ul>
                          </div>
               <div>
                 <h4>Types</h4>
+                <ul className="list-group">
                 {/* <input   name='typeChoice' type="radio" value='none' />none                     */}
-                <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pop" />POP!
-                         <input checked={this.state.currentSortingType === 'pocket'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pocket" />Pocket
-                         <input checked={this.state.currentSortingType === 'vinyl'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="vinyl" />Vinyl
-                         <input checked={this.state.currentSortingType === 'keychain'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="keychain" />Keychain
-                         <input checked={this.state.currentSortingType === 'plush'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="plush" />Plush
+                         <li className="list-group-item"> <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pop" />POP!</li>
+                         <li className="list-group-item"> <input checked={this.state.currentSortingType === 'pocket'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pocket" />Pocket</li>
+                         <li className="list-group-item"> <input checked={this.state.currentSortingType === 'vinyl'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="vinyl" />Vinyl</li>
+                         <li className="list-group-item"> <input checked={this.state.currentSortingType === 'plush'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="plush" />Plush</li>
+                         </ul>
                        </div>
             </div>
           }
@@ -245,11 +249,13 @@ export class BrowseComponent extends React.Component<IProp, any> {
               <div>
                 <h3> Sort options </h3>
                 <h4>Types</h4>
-                <input onChange={this.getUnfilteredTypeList} name='typeChoice' type="radio" value="" />none
-                         <input onChange={this.sortType} name='typeChoice' type="radio" value="pop" />POP!
-                         <input onChange={this.sortType} name='typeChoice' type="radio" value="pocket" />Pocket
-                         <input onChange={this.sortType} name='typeChoice' type="radio" value="vinyl" />Vinyl
-                         <input onChange={this.sortType} name='typeChoice' type="radio" value="plush" />Plush
+                   <ul className="list-group">
+                          <li className="list-group-item"> <input onChange={this.getUnfilteredTypeList} name='typeChoice' type="radio" value="" />none</li>
+                          <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="pop" />POP!</li>
+                          <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="pocket" />Pocket</li>
+                          <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="vinyl" />Vinyl</li>
+                          <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="plush" />Plush</li>
+                    </ul>
                  </div>
             </div>
 
@@ -260,18 +266,20 @@ export class BrowseComponent extends React.Component<IProp, any> {
               <div>
                 <h3> Sort options </h3>
                 <h4>Category</h4>
-                <input onChange={this.getUnfilteredCategoryList} name='categoryChoice' type="radio" />none
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="animation" />Animation
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="apparel" />Apparel
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="games" />Games
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="heroes" />Heroes
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="home" />Home
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="movies" />Movies
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="music" />Music
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="rides" />Rides
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="sports" />Sports
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="television" />Television
-                         <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="star wars" />Star Wars
+                       <ul className="list-group">
+                          <li className="list-group-item"><input onChange={this.getUnfilteredCategoryList} name='categotyChoice' type="radio" />none</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="animation" />Animation</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="apparel" />Apparel</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="games" />Games</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="heroes" />Heroes</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="home" />Home</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="movies" />Movies</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="music" />Music</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="rides" />Rides</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="sports" />Sports</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="television" />Television</li>
+                          <li className="list-group-item"> <input onChange={this.sortCategory} name='categotyChoice' type="radio" value="star wars" />Star Wars</li>
+                        </ul>
                        </div>
             </div>
           }
