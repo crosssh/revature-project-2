@@ -6,10 +6,6 @@ import {
   getByName,
   getBySellerAndTime,
   getByType,
-  getRecent,
-  getSeller,
-
-
 } from "../../actions/product/product.actions";
 import { BrowseComponent } from "./browse.component";
 
@@ -19,10 +15,8 @@ export const mapDispatchToProps = {
   clearList,
   getByCategory,
   getByName,
-  getBySellerAndTime, // to help with the clicking on one, maybe?
+  getBySellerAndTime,
   getByType,
-  getRecent, // you never know
-  getSeller // you never know, we might need it.
 };
 
 export const BrowseContainer = connect(

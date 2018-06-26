@@ -95,23 +95,20 @@ export class CreateUserComponent extends React.Component<IProp, any> {
   public render() {
     return (
       <div>
-        This will be the create user form.
+        <h3>Become a member of our page! </h3>
         <form onSubmit={this.submit}>
           Username: <br />
-          <input type="text" className="username" placeholder="username" onChange={this.updateUsername} required /> <br />
+          <input type="text" className="username" placeholder="Username" onChange={this.updateUsername} required /> <br />
           Password: <br />
-          <input type="password" className="password" placeholder="password" onChange={this.updatePassword} required /> <br />
+          <input type="password" className="password" placeholder="Password" onChange={this.updatePassword} required /> <br />
           Email: <br />
-          <input type="email" className="username" placeholder="username" onChange={this.updateEmail} required /> <br />
+          <input type="email" className="username" placeholder="example@example.com" onChange={this.updateEmail} required /> <br />
           First Name: <br />
-          <input type="text" className="firstname" placeholder="firstname" onChange={this.updateGivenName} required /> <br />
+          <input type="text" className="firstname" placeholder="First name" onChange={this.updateGivenName} required /> <br />
           Last Name: <br />
-          <input type="text" className="lastname" placeholder="lastname" onChange={this.updateFamilyName} required /> <br />
-          <button type="submit" className="create-user-btn" >Register</button>
+          <input type="text" className="lastname" placeholder="Last name" onChange={this.updateFamilyName} required /> <br />
+          <button type="submit" className="btn btn-secondary create-user-btn" >Register</button>
         </form>
-        <br />
-        Also don't forget to do the new buyer thing to the db on account
-        creation.
       </div>
     );
   }
