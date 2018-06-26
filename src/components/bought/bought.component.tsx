@@ -8,17 +8,17 @@ interface IProp extends IBuyer, IProduct, IUser {
   user: any;
   getBuyer: (username: string) => Promise<any>;
   getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
+  reinitializeProduct: () => void;
+  updatePhotos: (file: any, photos: any[]) => void;
 }
 
 export class BoughtComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      itemList: []
-    };
   }
 
   public componentDidMount() {
+    this.props.reinitializeProduct();
     this.props.getBuyer(this.props.user.username)
       .then(resp => {
         for (let i = 0; i < this.props.buyer.currentBuyer.boughtItems.length; i++) {
@@ -28,10 +28,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
               this.props.buyer.currentBuyer.boughtItems[i].timePosted
             )
             .then(res => {
-              this.setState({
-                itemList: this.state.itemList.push(this.props.product.chosenItem)
-              });
-              console.log(this.state.itemList);
+              this.props.updatePhotos(this.props.product.chosenItem, this.props.product.photos);
             })
             .catch(err => console.log(err)); // Tell them we can't load info?
         }
@@ -40,60 +37,61 @@ export class BoughtComponent extends React.Component<IProp, any> {
         console.log("");
       });
   }
+  public componentWillUnmount() {
+    this.props.reinitializeProduct();
+  }
 
   public render() {
     return (
       <div className="row">
-        {/* {this.props.buyer.currentBuyer.boughtItems} */}
         <ProfileNavComponent />
         <div className="col-10">
-          {/* HERE make conditional on being logged in so it doesn't break. */}
+          {this.props.user.authToken ?
+            <div className="container">
+              <div className="row">
+                <h1>
+                  Previously purchased items for{" "}
+                  {this.props.buyer.currentBuyer.username}
+                </h1>
+              </div>
+              <div className="row">
+                {this.props.product.photos.length > 0 &&
+                  this.props.product.photos.map((product: any) => (
+                    <div
+                      className="card pop-card home-pop-card"
+                      key={product.timePosted}
+                    >
 
-          <div className="row">
-            <h2>
-              Previously purchased items for{" "}
-              {this.props.buyer.currentBuyer.username}
-            </h2>
-          </div>
-          <div className="row">
-            {this.state.itemList.length > 0 &&
-              this.state.itemList.map((product: any) => (
-                <div
-                  className="card pop-card home-pop-card"
-                  key={product.timePosted}
-                >
-                  {/* <div className="card-title">
-                  <h5>{product.name}</h5>
-                </div> */}
-                  <img
-                    className="card-img-top pop-card-img"
-                    src={
-                      "http://popbay-photo-storage.s3.amazonaws.com/" +
-                      product.photoNames[0]
-                    }
-                    alt="Card image cap"
-                  />
-                  <div className="card-title">
-                    <h5>{product.name}</h5>
-                  </div>
-                  <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
-                      Category: {product.category}
-                    </li>
-                    <li className="list-group-item">Type: {product.type}</li>
-                    <li className="list-group-item">
-                      Condition: {product.condition}
-                    </li>
-                  </ul>
-                  <div className="card-body">
-                    a couple items
-                    {/* insert React-router-dom links instead
-                  <a href="#" className="card-link">Card link</a>
-                  <a href="#" className="card-link">Another link</a> */}
-                  </div>
-                </div>
-              ))}
-          </div>
+                      <img
+                        className="card-img-top pop-card-img"
+                        src={
+                          "http://popbay-photo-storage.s3.amazonaws.com/" +
+                          product.photoNames[0]
+                        }
+                        alt="Card image cap"
+                      />
+                      <div className="card-title">
+                        <h5>{product.name}</h5>
+                      </div>
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item">
+                          Item Price: ${product.buyNowPrice}
+                        </li>
+                        <li className="list-group-item">Type: {product.type}</li>
+                        <li className="list-group-item">
+                          Condition: {product.condition}
+                        </li>
+                      </ul>
+                      <div className="card-body">
+                        Seller: {product.username}
+
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+            : <h1>Sign in to see your previously purchased items</h1>
+          }
         </div>
       </div>
     );

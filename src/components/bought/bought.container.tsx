@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
 import { getBuyer } from "../../actions/buyer/buyer.actions";
-import { getBySellerAndTime } from "../../actions/product/product.actions";
+import { getBySellerAndTime, reinitializeProduct, updatePhotos } from "../../actions/product/product.actions";
 import { BoughtComponent } from "./bought.component";
 
 const mapStateToProps = (state: IState) => ({
@@ -12,7 +12,9 @@ const mapStateToProps = (state: IState) => ({
 
 export const mapDispatchToProps = {
   getBuyer,
-  getBySellerAndTime
+  getBySellerAndTime,
+  reinitializeProduct,
+  updatePhotos
 };
 
 export const BoughtContainer = connect(
