@@ -64,6 +64,7 @@ export class SignInComponent extends React.Component<any, any> {
           err.code === "NotAuthorizedException"
         ) {
           this.props.updateError("Invalid Credentials, try again.");
+          tempPass = "";
         } else {
           this.props.updateError(
             "Unable to login at this time, please try again later"
@@ -112,7 +113,7 @@ export class SignInComponent extends React.Component<any, any> {
           required
         />
         {this.props.errorMessage !== "" && (
-          <div id="error-message">{this.props.errorMessage}</div>
+          <div id="error-message italic">{this.props.errorMessage}</div>
         )}
         <button className="btn btn-lg btn-primary btn-block" type="submit">
           Sign in

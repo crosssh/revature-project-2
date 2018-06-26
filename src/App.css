@@ -183,6 +183,11 @@ nav {
   min-height: 21em;
 }
 
+.profile-pop-card {
+  max-width: 20.25em;
+  min-width: 20.25em;
+}
+
 /**********************
 * Verical Menu
 **********************/

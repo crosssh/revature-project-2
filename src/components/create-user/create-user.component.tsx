@@ -88,25 +88,25 @@ export class CreateUserComponent extends React.Component<IProp, any> {
       }
       cognitoUser = result.user;
       this.postNewBuyer(this.props.user.username);
-      this.props.history.push('/home');
+      this.props.history.push('/sign-in');
     })
   };
 
   public render() {
     return (
       <div>
-        <h3>Become a member of our page! </h3>
-        <form onSubmit={this.submit}>
+        <h3 className="indented">Become a member of our page! </h3>
+        <form className="form-group indented col-4" onSubmit={this.submit}>
           Username: <br />
-          <input type="text" className="username" placeholder="Username" onChange={this.updateUsername} required /> <br />
+          <input type="text" className="username form-control" placeholder="Username" onChange={this.updateUsername} required /> <br />
           Password: <br />
-          <input type="password" className="password" placeholder="Password" onChange={this.updatePassword} required /> <br />
+          <input type="password" className="password form-control" placeholder="Password" onChange={this.updatePassword} required /> <br />
           Email: <br />
-          <input type="email" className="username" placeholder="example@example.com" onChange={this.updateEmail} required /> <br />
+          <input type="email" className="username form-control" placeholder="example@example.com" onChange={this.updateEmail} required /> <br />
           First Name: <br />
-          <input type="text" className="firstname" placeholder="First name" onChange={this.updateGivenName} required /> <br />
+          <input type="text" className="firstname form-control" placeholder="First name" onChange={this.updateGivenName} required /> <br />
           Last Name: <br />
-          <input type="text" className="lastname" placeholder="Last name" onChange={this.updateFamilyName} required /> <br />
+          <input type="text" className="lastname form-control" placeholder="Last name" onChange={this.updateFamilyName} required /> <br />
           <button type="submit" className="btn btn-secondary create-user-btn" >Register</button>
         </form>
       </div>

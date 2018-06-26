@@ -27,14 +27,15 @@ export class SellingComponent extends React.Component<IProp, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        <div className="col-10">
-          <h1>{this.props.user.username}'s posted items</h1>
-          {this.props.user.authToken ?
+        {this.props.user.authToken ?
+          <div className="col-10">
+            <h1>{this.props.user.username}'s posted items</h1>
             <div className="row">
+
               {this.props.product.productList.length > 0 ?
                 this.props.product.productList.map((product: any) => (
                   <div
-                    className="card pop-card"
+                    className="card pop-card profile-pop-card"
                     key={product.timePosted}
                   >
                     <img
@@ -76,9 +77,9 @@ export class SellingComponent extends React.Component<IProp, any> {
                 <h5 className="indented">Aren't selling anything right now? Click on "Add New POP" in the sidebar to get started!</h5>
               }
             </div>
-            : <h1>Sign in to see the POPS you are selling!</h1>
-          }
-        </div>
+          </div>
+          : <h1>Sign in to see the POPS you are selling!</h1>
+        }
       </div>
     );
   }

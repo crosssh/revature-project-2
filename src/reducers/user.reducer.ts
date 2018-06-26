@@ -18,9 +18,7 @@ export const userReducer = (state = initialState, action: any) => {
     case userTypes.UPDATE_ERROR:
       return {
         ...state,
-        errorMessage: action.payload.errorMessage,
-        password: "",
-        username: ""
+        errorMessage: action.payload.errorMessage
       };
     case userTypes.UPDATE_AUTH_TOKEN:
       return {
@@ -32,7 +30,7 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         username: action.payload.username
       };
-      case userTypes.UPDATE_EMAIL:
+    case userTypes.UPDATE_EMAIL:
       return {
         ...state,
         attribute: {
@@ -40,7 +38,7 @@ export const userReducer = (state = initialState, action: any) => {
           email: action.payload.email
         }
       };
-      case userTypes.UPDATE_FAMILY_NAME:
+    case userTypes.UPDATE_FAMILY_NAME:
       return {
         ...state,
         attribute: {
@@ -48,7 +46,7 @@ export const userReducer = (state = initialState, action: any) => {
           family_name: action.payload.familyName
         }
       };
-      case userTypes.UPDATE_GIVEN_NAME:
+    case userTypes.UPDATE_GIVEN_NAME:
       return {
         ...state,
         attribute: {
@@ -56,23 +54,23 @@ export const userReducer = (state = initialState, action: any) => {
           given_name: action.payload.givenName
         }
       };
-      case userTypes.UPDATE_PASSWORD:
-        return {
-          ...state,
-          password: action.payload.password
-        };
-        case userTypes.REINITIALIZE_USER:
-        return {
-          attribute: {
-            email: "",
-            family_name: "",
-            given_name: "",
-          },
-          authToken: "",
-          errorMessage: "",
-          password: "",
-          username: ""
-        };
+    case userTypes.UPDATE_PASSWORD:
+      return {
+        ...state,
+        password: action.payload.password
+      };
+    case userTypes.REINITIALIZE_USER:
+      return {
+        attribute: {
+          email: "",
+          family_name: "",
+          given_name: "",
+        },
+        authToken: "",
+        errorMessage: "",
+        password: "",
+        username: ""
+      };
   }
 
   return state;

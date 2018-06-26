@@ -4,6 +4,7 @@ import { productInterceptor } from "../../interceptors/product.interceptor";
 import { environment } from "../../environment";
 import Axios from "axios";
 import Dropzone from "react-dropzone";
+import { ProfileNavComponent } from "../profile-nav.component";
 
 interface IProp extends IProduct, IUser {
   user: any;
@@ -105,6 +106,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
   public updateName = (e: any) => {
     const name = e.target.value;
     this.props.updateName(name);
+    this.props.updateError("");
   };
 
   public updateType = (e: any) => {
@@ -123,131 +125,136 @@ export class NewPopComponent extends React.Component<IProp, any> {
 
   public render() {
     return (
-      <div className="container">
+      <div className="row">
+        <ProfileNavComponent />
         {this.props.user.authToken ?
-          <form onSubmit={this.addProduct}>
-            <h3>Post one of your POPS on our site: </h3>
-            <div className="row">
-              <div className="col">
-                Product Name: <br />
-                <input
-                  value={this.props.product.currentProduct.name}
-                  type="text"
-                  className="product-name form-control"
-                  onChange={this.updateName}
-                />{" "}
-                <label>Type of Pop:</label>
-                <select
-                  value={this.props.product.currentProduct.type}
-                  onChange={this.updateType}
-                  className="form-control pop-type"
-                  id="FormControlSelect1"
-                >
-                  <option value="choose" hidden>
-                    Select
+          <div className="col-10">
+            <form onSubmit={this.addProduct}>
+              <h3>Post one of your POPS on our site: </h3>
+              <div className="row">
+                <div className="col">
+                  Product Name: <br />
+                  <input
+                    value={this.props.product.currentProduct.name}
+                    type="text"
+                    className="product-name form-control"
+                    onChange={this.updateName}
+                  />{" "}
+                  <label>Type of Pop:</label>
+                  <select
+                    value={this.props.product.currentProduct.type}
+                    onChange={this.updateType}
+                    className="form-control pop-type"
+                    id="FormControlSelect1"
+                  >
+                    <option value="choose" hidden>
+                      Select
                 </option>
-                  <option value="pop">POP!</option>
-                  <option value="vinyl">vinyl/vnyl</option>
-                  <option value="keychain">keychain</option>
-                  <option value="plush">plush</option>
-                  <option value="pocket">pocket</option>
-                </select>
-                <label>Category:</label>
-                <select
-                  value={this.props.product.currentProduct.category}
-                  onChange={this.updateCategory}
-                  className="form-control category"
-                  id="FormControlSelect1"
-                >
-                  <option value="choose" hidden>
-                    Select
+                    <option value="pop">POP!</option>
+                    <option value="vinyl">vinyl/vnyl</option>
+                    <option value="keychain">keychain</option>
+                    <option value="plush">plush</option>
+                    <option value="pocket">pocket</option>
+                  </select>
+                  <label>Category:</label>
+                  <select
+                    value={this.props.product.currentProduct.category}
+                    onChange={this.updateCategory}
+                    className="form-control category"
+                    id="FormControlSelect1"
+                  >
+                    <option value="choose" hidden>
+                      Select
                 </option>
-                  <option value="animation">Animation</option>
-                  <option value="games">Games</option>
-                  <option value="heroes">Heroes</option>
-                  <option value="movies">Movies</option>
-                  <option value="music">Music</option>
-                  <option value="sports">Sports</option>
-                  <option value="Star Wars">Star Wars</option>
-                  <option value="television">Television</option>
-                  <option value="other">Other</option>
-                </select>
-                <label>Condition:</label>
-                <select
-                  value={this.props.product.currentProduct.condition}
-                  onChange={this.updateCondition}
-                  className="form-control condition"
-                  id="FormControlSelect1"
-                >
-                  <option value="choose" hidden>
-                    Select
+                    <option value="animation">Animation</option>
+                    <option value="games">Games</option>
+                    <option value="heroes">Heroes</option>
+                    <option value="movies">Movies</option>
+                    <option value="music">Music</option>
+                    <option value="sports">Sports</option>
+                    <option value="Star Wars">Star Wars</option>
+                    <option value="television">Television</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <label>Condition:</label>
+                  <select
+                    value={this.props.product.currentProduct.condition}
+                    onChange={this.updateCondition}
+                    className="form-control condition"
+                    id="FormControlSelect1"
+                  >
+                    <option value="choose" hidden>
+                      Select
                 </option>
-                  <option value="new">new</option>
-                  <option value="opened">opened</option>
-                  <option value="damaged">damaged</option>
-                  <option value="missing box">missing box</option>
-                </select>
-                Minimum bid price: <br />
-                <input
-                  value={this.props.product.currentProduct.minimumBidPrice}
-                  type="number"
-                  className="min-bid form-control"
-                  onChange={this.setMinBid}
-                />{" "}
-                Buy-now price: <br />
-                <input
-                  value={this.props.product.currentProduct.buyNowPrice}
-                  type="number"
-                  className="buy-now-price form-control"
-                  onChange={this.setBuyNow}
-                />{" "}
-                Auction length (hours): <br />
-                <input
-                  value={this.props.product.currentProduct.auctionEndTime}
-                  type="text"
-                  className="auction-length form-control"
-                  onChange={this.setAuctionEnd}
-                />{" "}
-              </div>
-              <div className="col">
-                <Dropzone onDrop={this.onDrop}>
+                    <option value="new">new</option>
+                    <option value="opened">opened</option>
+                    <option value="damaged">damaged</option>
+                    <option value="missing box">missing box</option>
+                  </select>
+                  Minimum bid price: <br />
+                  <input
+                    value={this.props.product.currentProduct.minimumBidPrice}
+                    type="number"
+                    className="min-bid form-control"
+                    onChange={this.setMinBid}
+                  />{" "}
+                  Buy-now price: <br />
+                  <input
+                    value={this.props.product.currentProduct.buyNowPrice}
+                    type="number"
+                    className="buy-now-price form-control"
+                    onChange={this.setBuyNow}
+                  />{" "}
+                  Auction length (hours): <br />
+                  <input
+                    value={this.props.product.currentProduct.auctionEndTime}
+                    type="text"
+                    className="auction-length form-control"
+                    onChange={this.setAuctionEnd}
+                  />{" "}
+                </div>
+                <div className="col">
+                  <Dropzone onDrop={this.onDrop}>
 
-                  Drop your files here,
+                    Drop your files here,
                   <br />
-                  or click to select one.
+                    or click to select one.
                   <br />
-                  Drop or select
+                    Drop or select
                   <br />
-                  one file at a time.
+                    one file at a time.
 
               </Dropzone>
-                {this.props.product.currentProduct.photoNames.length > 0 && (
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Items Submitted:</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.props.product.currentProduct.photoNames.map(
-                        (file: any) => (
-                          <tr key={file}>
-                            <td>{file}</td>
-                          </tr>
-                        )
-                      )}
-                    </tbody>
-                  </table>
-                )}
-                <br />
-                <button className="btn btn-success centered" type="submit">
-                  Add Product
+                  {this.props.product.currentProduct.photoNames.length > 0 && (
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Items Submitted:</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {this.props.product.currentProduct.photoNames.map(
+                          (file: any) => (
+                            <tr key={file}>
+                              <td>{file}</td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  )}
+                  <br />
+                  <button className="btn btn-success centered" type="submit">
+                    Add Product
               </button>
-                <h4 className="italic">{this.props.user.errMsg}</h4>
+                  <br />
+                  <h4 className="italic">{this.props.user.errorMessage}</h4>
+                </div>
               </div>
-            </div>
-            <br />
-          </form>
+              <br />
+              <br />
+            </form>
+          </div>
           : <h1>With a user account, you can post POPS to sell!</h1>
         }
       </div>

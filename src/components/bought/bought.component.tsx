@@ -59,7 +59,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
                 {this.props.product.photos.length > 0 ?
                   this.props.product.photos.map((product: any) => (
                     <div
-                      className="card pop-card home-pop-card"
+                      className="card pop-card profile-pop-card"
                       key={product.timePosted}
                     >
 
