@@ -215,6 +215,11 @@ export const productReducer = (state = initialState, action: any) => {
         },
         photos: []
       };
+    case productTypes.CLEAR_LIST:
+      return {
+        ...state,
+        productList: []
+      }
     case productTypes.REINITIALIZE_PRODUCT:
       return {
         ...state,
