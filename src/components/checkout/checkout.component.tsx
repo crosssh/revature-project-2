@@ -1,7 +1,6 @@
 import * as React from "react";
 import { IBuyer, IUser, IProduct } from "../../reducers";
 import Layout from 'src/components/checkout/layout-component';
-// import PayButton from 'src/components/checkout/pay-button.component'
 import StripeCheckout from 'react-stripe-checkout';
 import config from 'src/components/checkout/config';
 import Axios from "axios";
@@ -20,6 +19,7 @@ interface IProp extends IBuyer, IProduct, IUser {
   updateItemNameBought: (itemName: string) => void;
   updatePostTimeBought: (time: number) => void;
   updateStatus: (status: string) => void;
+
 }
 
 export class CheckoutComponent extends React.Component<IProp, any> {
@@ -28,26 +28,15 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     console.log(props);
 
     this.state = {
-      amount: 200,
+      amount: 1000,
       errorMsg: "",
     }
   }
 
-  public onToken = (token: any) => { // Token returned from Stripe
-    // const res = await fetch(config.stripe.apiUrl, { // Backend API url
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     token,
-    //     charge: {
-    //       amount: this.props.amount,
-    //       currency: config.stripe.currency,
-    //     },
-    //   }),
-    // });
+  public onToken = (token: any) => {
+    Axios.post(config.stripe.apiUrl,
 
-    Axios.post(config.stripe.apiUrl, {
-
-      body: JSON.stringify({
+      JSON.stringify({
 
         charge: {
           amount: this.state.amount,
@@ -55,17 +44,16 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         },
         token,
       }),
-    })
-
+    )
       .then(resp => {
-        const data = resp;
+        const data = (resp);
+
         console.log('onToken'); // Logs for ease of debugging
         console.log(data);
       })
       .catch(err => {
         console.log(err);
       });
-
   }
 
   public componentDidMount() {
@@ -77,6 +65,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
       this.props.updateBoughtTime(Date.now());
       this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
       this.props.updateStatus("sold");
+      this.setState({ amount: this.props.product.chosenItem.buyNowPrice })
     } else {
       this.setState({
         errorMsg: "Must be logged in to checkout."
