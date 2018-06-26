@@ -122,7 +122,7 @@ export class SignInComponent extends React.Component<any, any> {
         <button className="btn btn-lg btn-primary btn-block" type="submit">
           Sign in
         </button>
-        <p className="mt-5 mb-3">Create new account 
+        <p className="mt-5 mb-3">Create new account
         <Link to="/create-user" className="unset-anchor nav-link">Sign Up</Link>
         </p>
       </form>
