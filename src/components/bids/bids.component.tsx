@@ -93,7 +93,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                     </div>
                   )) :
                   <div className="row">
-                    <h2 className="indented">Don't have any bids yet? Head over to our browse page to see what's available!</h2>
+                    <h5 className="indented">Don't have any bids yet? Head over to our browse page to see what's available!</h5>
                     <Link to='/browse'>
                       <button className="btn btn-danger">Browse</button>
                     </Link>

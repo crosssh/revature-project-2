@@ -90,7 +90,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
                     </div>
                   )) :
                   <div className="row">
-                    <h2 className="indented">No purchases yet? Take a look at our browse page to see what's available!</h2>
+                    <h5 className="indented">No purchases yet? Take a look at our browse page to see what's available!</h5>
                     <Link to='/browse'>
                       <button className="btn btn-danger">Browse</button>
                     </Link>
