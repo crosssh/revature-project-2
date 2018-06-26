@@ -212,7 +212,8 @@ export const productReducer = (state = initialState, action: any) => {
           timePosted: 0,
           type: "",
           username: ""
-        }
+        },
+        photos: []
       };
     case productTypes.REINITIALIZE_PRODUCT:
       return {

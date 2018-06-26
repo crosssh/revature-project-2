@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
-
+import { updateError } from "../../actions/user/user.actions";
 import {
   addProduct,
   reinitializeProduct,
@@ -35,6 +35,7 @@ export const mapDispatchToProps = {
   updateBidder,
   updateCategory,
   updateCondition,
+  updateError,
   updateName,
   updatePhotoNames,
   updatePhotos,

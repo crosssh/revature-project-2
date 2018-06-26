@@ -114,11 +114,6 @@ export class SignInComponent extends React.Component<any, any> {
         {this.props.errorMessage !== "" && (
           <div id="error-message">{this.props.errorMessage}</div>
         )}
-        <div className="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div>
         <button className="btn btn-lg btn-primary btn-block" type="submit">
           Sign in
         </button>
