@@ -1,11 +1,13 @@
 import * as React from "react";
 import { IBuyer, IProduct, IUser } from "../../reducers";
-import { Link } from "react-router-dom";
+import { RouteProps } from "react-router";
+// import { Link } from "react-router-dom";
 
-interface IProp extends IBuyer, IProduct, IUser {
+interface IProp extends IBuyer, IProduct, IUser, RouteProps {
   buyer: any;
   product: any;
   user: any;
+  history: any;
   addToBids: (newBid: any, bids: any[]) => void;
   getBuyer: (username: string) => Promise<any>;
   getBySellerAndTime: (username: string, time: number) => void;
@@ -117,7 +119,7 @@ export class ItemComponent extends React.Component<IProp, any> {
     if (this.props.product.chosenItem) {
       this.props.updateBidSeller(this.props.product.chosenItem.username);
       this.props.updatePostTimeBid(this.props.product.chosenItem.timePosted);
-      if(this.props.product.chosenItem.photoNames[0] !== null) {
+      if (this.props.product.chosenItem.photoNames[0] !== null) {
         this.changeImage(this.props.product.chosenItem.photoNames[0])
       }
     }
@@ -127,11 +129,23 @@ export class ItemComponent extends React.Component<IProp, any> {
     });
   }
 
+  public goBuy = (e: any) => {
+    if (this.props.user.username === this.props.product.chosenItem.username) {
+
+      this.setState({
+        bidding: true,
+        errMsg: "You may not not purchase your own item"
+      });
+    } else {
+      this.props.history.push('/checkout');
+    }
+  }
+
   public componentWillUnmount() {
     this.props.updateBidPrice(0);
   }
 
-  public changeImage = (img: string) =>{
+  public changeImage = (img: string) => {
     console.log(img)
     this.setState({
       currentPhoto: img,
@@ -143,7 +157,7 @@ export class ItemComponent extends React.Component<IProp, any> {
     this.setState({
       currentPhoto: img,
     })
-  } 
+  }
 
   public render() {
     return (
@@ -190,9 +204,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                         </h3>
                       </div>
                       <div className="col">
-                        <Link to="/checkout">
-                          <button className="btn btn-success"> Buy Now</button>
-                        </Link>
+                        <button className="btn btn-success" onClick={this.goBuy}> Buy Now</button>
                       </div>
                     </div>
                   </li>
@@ -228,7 +240,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                     )}
                   </li>
                   <li className="list-group-item error-words">
-                    {this.state.bidding ? (
+                    {this.state.errMsg ? (
                       this.state.errMsg
                     ) : (
                         <button className="btn btn-link" onClick={this.isBidding}>
@@ -255,7 +267,9 @@ export class ItemComponent extends React.Component<IProp, any> {
                     </h5>
                   </li>
                 </ul>
-                <div className="card-body">a couple items</div>
+                <div className="card-body">
+                  <h5> Seller: {this.props.product.chosenItem.username} </h5>
+                </div>
               </div>
             </div>
           </div>

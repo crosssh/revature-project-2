@@ -1,21 +1,44 @@
 import * as React from "react";
 import { ProfileNavComponent } from "../profile-nav.component";
-import { IBuyer, IUser } from "../../reducers";
+import { IBuyer, IUser, IProduct } from "../../reducers";
 
-interface IProp extends IBuyer, IUser {
+interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
+  product: any;
   user: any;
-  getBuyer: (username: string) => void;
+  getBuyer: (username: string) => Promise<any>;
+  getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
+  reinitializeProduct: () => void;
+  updatePhotos: (file: any, photos: any[]) => void;
 }
 
 export class BoughtComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   public componentDidMount() {
-    this.props.getBuyer(this.props.user.username);
+    this.props.reinitializeProduct();
+    this.props.getBuyer(this.props.user.username)
+      .then(resp => {
+        for (let i = 0; i < this.props.buyer.currentBuyer.boughtItems.length; i++) {
+          this.props
+            .getBySellerAndTime(
+              this.props.buyer.currentBuyer.boughtItems[i].seller,
+              this.props.buyer.currentBuyer.boughtItems[i].timePosted
+            )
+            .then(res => {
+              this.props.updatePhotos(this.props.product.chosenItem, this.props.product.photos);
+            })
+            .catch(err => console.log(err)); // Tell them we can't load info?
+        }
+      })
+      .catch(err => {
+        console.log("");
+      });
+  }
+  public componentWillUnmount() {
+    this.props.reinitializeProduct();
   }
 
   public render() {
@@ -23,20 +46,52 @@ export class BoughtComponent extends React.Component<IProp, any> {
       <div className="row">
         <ProfileNavComponent />
         <div className="col-10">
-          This is the bought items Page.{" "}
-          {this.props.buyer.currentBuyer.username}'s previously purchased items
-          will be shown here.
-          <br />
-          We can access them with this.props.buyer.currentBuyer.boughtItems,
-          which is an array. We will insert a table to make it presentable and
-          map the info.
-          <br />
-          <div className="row">
-            <div className="col">{this.props.buyer.currentBuyer.username}</div>
-            <div className="col">
-              {/* {this.props.buyer.currentBuyer.boughtItems} */}
+          {this.props.user.authToken ?
+            <div className="container">
+              <div className="row">
+                <h1>
+                  Previously purchased items for{" "}
+                  {this.props.buyer.currentBuyer.username}
+                </h1>
+              </div>
+              <div className="row">
+                {this.props.product.photos.length > 0 &&
+                  this.props.product.photos.map((product: any) => (
+                    <div
+                      className="card pop-card home-pop-card"
+                      key={product.timePosted}
+                    >
+
+                      <img
+                        className="card-img-top pop-card-img"
+                        src={
+                          "http://popbay-photo-storage.s3.amazonaws.com/" +
+                          product.photoNames[0]
+                        }
+                        alt="Card image cap"
+                      />
+                      <div className="card-title">
+                        <h5>{product.name}</h5>
+                      </div>
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item">
+                          Item Price: ${product.buyNowPrice}
+                        </li>
+                        <li className="list-group-item">Type: {product.type}</li>
+                        <li className="list-group-item">
+                          Condition: {product.condition}
+                        </li>
+                      </ul>
+                      <div className="card-body">
+                        Seller: {product.username}
+
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
-          </div>
+            : <h1>Sign in to see your previously purchased items</h1>
+          }
         </div>
       </div>
     );

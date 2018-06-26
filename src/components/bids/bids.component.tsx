@@ -5,23 +5,23 @@ import { IBuyer, IUser } from "../../reducers";
 interface IProp extends IBuyer, IUser {
   buyer: any;
   user: any;
-  getBuyer: (username: string) => Promise <any>;
+  getBuyer: (username: string) => Promise<any>;
 }
 
 export class BidsComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   public componentDidMount() {
-    this.props.getBuyer(this.props.user.username)
-    .then(resp => {
-      console.log('');
-    })
-    .catch(err => {
-      console.log('');
-    })
+    this.props
+      .getBuyer(this.props.user.username)
+      .then(resp => {
+        console.log("");
+      })
+      .catch(err => {
+        console.log("");
+      });
   }
 
   public render() {
