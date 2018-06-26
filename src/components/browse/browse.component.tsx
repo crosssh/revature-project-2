@@ -208,26 +208,26 @@ export class BrowseComponent extends React.Component<IProp, any> {
           {
             this.state.currentSearchCriteria === 'name' &&
             <div>
-              <h3> Sort options </h3>
+              <h4> Sort options </h4>
               <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categoryChoice'>Reset Filter</button></div>
               <div>
-                <h4>Category</h4>
+                <h5>Category</h5>
                 {/* <input checked ={this.state.checkRadio} name='categoryChoice' type="radio" value='none' />none */}
                 <ul className="list-group">
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'animation'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="animation" />Animation</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'games'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="games" />Games</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'heroes'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="heroes" />Heroes</li>
-                  <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'other'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="other" />Other</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'movies'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="movies" />Movies</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'music'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="music" />Music</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'rides'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="rides" />Rides</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'sports'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="sports" />Sports</li>
-                  <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'television'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="television" />Television</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'star wars'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="star wars" />Star Wars</li>
+                  <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'television'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="television" />Television</li>
+                  <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'other'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="other" />Other</li>
                 </ul>
               </div>
               <div>
-                <h4>Types</h4>
+                <h5>Types</h5>
                 <ul className="list-group">
                   {/* <input   name='typeChoice' type="radio" value='none' />none                     */}
                   <li className="list-group-item"> <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pop" />POP!</li>
@@ -244,10 +244,11 @@ export class BrowseComponent extends React.Component<IProp, any> {
             <div>
               <div>
                 <h3> Sort options </h3>
-                <h4>Types</h4>
+                <h5>Types</h5>
                 <ul className="list-group">
                   <li className="list-group-item"> <input onChange={this.getUnfilteredTypeList} name='typeChoice' type="radio" value="" />none</li>
                   <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="pop" />POP!</li>
+                  <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="keychain" />Keychain</li>
                   <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="pocket" />Pocket</li>
                   <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="vinyl" />Vinyl</li>
                   <li className="list-group-item"> <input onChange={this.sortType} name='typeChoice' type="radio" value="plush" />Plush</li>
@@ -261,20 +262,19 @@ export class BrowseComponent extends React.Component<IProp, any> {
             <div>
               <div>
                 <h3> Sort options </h3>
-                <h4>Category</h4>
+                <h5>Category</h5>
                 <ul className="list-group">
                   <li className="list-group-item"><input onChange={this.getUnfilteredCategoryList} name='categoryChoice' type="radio" />none</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="animation" />Animation</li>
-                  <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="apparel" />Apparel</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="games" />Games</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="heroes" />Heroes</li>
-                  <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="home" />Home</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="movies" />Movies</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="music" />Music</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="rides" />Rides</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="sports" />Sports</li>
-                  <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="television" />Television</li>
                   <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="star wars" />Star Wars</li>
+                  <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="television" />Television</li>
+                  <li className="list-group-item"> <input onChange={this.sortCategory} name='categoryChoice' type="radio" value="other" />Other</li>
                 </ul>
               </div>
             </div>
@@ -284,54 +284,64 @@ export class BrowseComponent extends React.Component<IProp, any> {
         </div>
         <div className="col-10">
           {/* POP! display Starts here */}
-          This is the browse Page. It will display searched Pops.
-        <br />
-          <form onSubmit={this.submitSearch}>
-            <select onChange={this.updateCriteria}>
-              <option value="name">Name</option>
-              <option value="category">Category</option>
-              <option value="type">Type</option>
-            </select>
-            {this.state.currentSearchCriteria === "name" && (
-              <input
-                type="text"
-                placeholder="Search POP!"
-                value={this.state.searchText}
-                onChange={this.updateSearch}
-              />
-            )}
-            {this.state.currentSearchCriteria === "category" && (
-              <div>
-                <select onChange={this.updateCategory}>
-                  <option value="" />
-                  <option value="animation">Animation</option>
-                  <option value="apparel">Apparel</option>
-                  <option value="games">Games</option>
-                  <option value="heroes">Heroes</option>
-                  <option value="home">Home</option>
-                  <option value="movies">Movies</option>
-                  <option value="music">Music</option>
-                  <option value="rides">Rides</option>
-                  <option value="sports">Sports</option>
-                  <option value="television">Television</option>
-                  <option value="Star Wars">Star Wars</option>
-                </select>
+          <h1>Browse our collection of POPS for sale</h1>
+          <br />
+          <div className="container">
+            <form className="form-group" onSubmit={this.submitSearch}>
+              <div className="row">
+                <div className="col-2">
+                  <select className="form-control" onChange={this.updateCriteria}>
+                    <option value="name">Name</option>
+                    <option value="category">Category</option>
+                    <option value="type">Type</option>
+                  </select>
+                </div>
+                <div className="col-2">
+                  {this.state.currentSearchCriteria === "name" && (
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="Search POP!"
+                      value={this.state.searchText}
+                      onChange={this.updateSearch}
+                    />
+                  )}
+                  {this.state.currentSearchCriteria === "category" && (
+                    <div>
+                      <select className="form-control" onChange={this.updateCategory}>
+                        <option value="" />
+                        <option value="animation">Animation</option>
+                        <option value="games">Games</option>
+                        <option value="heroes">Heroes</option>
+                        <option value="movies">Movies</option>
+                        <option value="music">Music</option>
+                        <option value="rides">Rides</option>
+                        <option value="sports">Sports</option>
+                        <option value="Star Wars">Star Wars</option>
+                        <option value="television">Television</option>
+                        <option value="home">Other</option>
+                      </select>
+                    </div>
+                  )}
+                  {this.state.currentSearchCriteria === "type" && (
+                    <div>
+                      <select className="form-control" onChange={this.updatetype}>
+                        <option value="" />
+                        <option value="pop">POP!</option>
+                        <option value="pocket">Pocket</option>
+                        <option value="vinyl">Vinyl</option>
+                        <option value="plush">Plush</option>
+                        <option value="keychain">Keychain</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+                <div className="col">
+                  <button className="btn btn-secondary" type="submit">Search Now</button>
+                </div>
               </div>
-            )}
-            {this.state.currentSearchCriteria === "type" && (
-              <div>
-                <select onChange={this.updatetype}>
-                  <option value="" />
-                  <option value="pop">POP!</option>
-                  <option value="pocket">Pocket</option>
-                  <option value="vinyl">Vinyl</option>
-                  <option value="plush">Plush</option>
-                  <option value="keychain">Keychain</option>
-                </select>
-              </div>
-            )}
-            <button type="submit">Search Now</button>
-          </form>
+            </form>
+          </div>
           <div className="container">
             <div className="row">
               {this.state.filteredList.length > 0 &&
