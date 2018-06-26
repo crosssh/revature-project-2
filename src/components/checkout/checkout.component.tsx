@@ -2,13 +2,15 @@ import * as React from "react";
 import { IBuyer, IUser, IProduct } from "../../reducers";
 import Layout from 'src/components/checkout/layout-component';
 import StripeCheckout from 'react-stripe-checkout';
+import { RouteProps } from 'react-router';
 import config from 'src/components/checkout/config';
 import Axios from "axios";
 
-interface IProp extends IBuyer, IProduct, IUser {
+interface IProp extends IBuyer, IProduct, IUser, RouteProps {
   buyer: any;
   product: any;
   user: any;
+  history: any;
   addToBought: (boughtItem: any, boughtItems: any[]) => void;
   getBuyer: (username: string) => void;
   putNewBid: (currentBuyer: any) => void;
@@ -47,9 +49,9 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     )
       .then(resp => {
         const data = (resp);
-
         console.log('onToken'); // Logs for ease of debugging
         console.log(data);
+        this.props.history.push('/bought');
       })
       .catch(err => {
         console.log(err);
@@ -65,7 +67,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
       this.props.updateBoughtTime(Date.now());
       this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
       this.props.updateStatus("sold");
-      this.setState({ amount: this.props.product.chosenItem.buyNowPrice })
+      this.setState({amount: this.props.product.chosenItem.buyNowPrice*100})
     } else {
       this.setState({
         errorMsg: "Must be logged in to checkout."
@@ -128,8 +130,17 @@ export class CheckoutComponent extends React.Component<IProp, any> {
                 <h5 className="checkout-seller font-weight-bold">Price: </h5><h5 className="checkout-seller">{this.getPrice()}</h5>
               </div>
               <div className="row bottom">
-                <div className="col-auto">
-                  <button className="btn btn-secondary" onClick={this.checkout}>Checkout</button>
+                <div className="col-auto"  onClick={this.checkout}>
+                  <Layout>
+                    <StripeCheckout 
+                      name="Serverless Stripe Store Inc."
+                      token={this.onToken}
+                      amount={this.state.amount}
+                      currency={config.stripe.currency}
+                      stripeKey={config.stripe.apiKey} // Stripe publishable API key
+                      allowRememberMe={false}
+                    />
+                  </Layout>
                 </div>
               </div>
             </div>
@@ -137,20 +148,6 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         }
         <div>
           <h5 className="checkout-err" id="error-message">{this.state.errorMsg}</h5>
-        </div>
-        <div>
-          <h1>Serverless Stripe Checkout</h1>
-          <p>Use test@email.com, 4242 4242 4242 4242, and any CVC and future expiration date.</p>
-          <Layout>
-            <StripeCheckout
-              name="Serverless Stripe Store Inc."
-              token={this.onToken}
-              amount={this.state.amount}
-              currency={config.stripe.currency}
-              stripeKey={config.stripe.apiKey} // Stripe publishable API key
-              allowRememberMe={false}
-            />
-          </Layout>
         </div>
       </div>
     );
