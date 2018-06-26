@@ -23,8 +23,6 @@ interface IProp extends IBuyer, IProduct, IUser {
   
 }
 
-
-
 export class CheckoutComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
@@ -33,11 +31,10 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     this.state={
       amount:1000,
       errorMsg: "",
-     
     }
   }
 
-  public onToken= (token:any) => { // Token returned from Stripe
+  public onToken = (token: any) => { // Token returned from Stripe
     // const res = await fetch(config.stripe.apiUrl, { // Backend API url
     //   method: 'POST',
     //   body: JSON.stringify({
@@ -75,8 +72,24 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     
   }
 
+        charge: {
+          amount: this.state.amount,
+          currency: config.stripe.currency,
+        },
+        token,
+      }),
+    })
 
+      .then(resp => {
+        const data = resp;
+        console.log('onToken'); // Logs for ease of debugging
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
+  }
 
   public componentDidMount() {
     if (this.props.user.username !== "" && this.props.product.chosenItem !== null) {
@@ -160,30 +173,19 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         <div>
           <h5 className="checkout-err" id="error-message">{this.state.errorMsg}</h5>
         </div>
-
-
-
-         <div>
-         
+        <div>
           <h1>Serverless Stripe Checkout</h1>
           <p>Use test@email.com, 4242 4242 4242 4242, and any CVC and future expiration date.</p>
-        <Layout>
-          <StripeCheckout
-        name="Serverless Stripe Store Inc."
-        token={this.onToken}
-        amount={this.state.amount}
-        currency={config.stripe.currency}
-        stripeKey={config.stripe.apiKey} // Stripe publishable API key
-        allowRememberMe={false}
-      />
-
-
-           
-           
-        
-        </Layout>
-        
-        
+          <Layout>
+            <StripeCheckout
+              name="Serverless Stripe Store Inc."
+              token={this.onToken}
+              amount={this.state.amount}
+              currency={config.stripe.currency}
+              stripeKey={config.stripe.apiKey} // Stripe publishable API key
+              allowRememberMe={false}
+            />
+          </Layout>
         </div>
       </div>
     );

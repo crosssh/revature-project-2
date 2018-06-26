@@ -8,6 +8,7 @@ import { RouteProps } from "react-router";
 
 interface IProp extends IProduct, RouteProps {
   history: any;
+  clearList: () => void;
   getByName: (name: string) => void;
   getByCategory: (category: string) => void;
   getByType: (type: string) => void;
@@ -48,6 +49,10 @@ export class BrowseComponent extends React.Component<IProp, any> {
     this.setState({ filteredList: this.props.productList })
   }
 
+  public componentWillUnmount() {
+    this.props.clearList();
+  }
+
   public submitSearch = (e: any) => {
     e.preventDefault();
     if (this.state.currentSearchCriteria === "name") {
@@ -72,223 +77,122 @@ export class BrowseComponent extends React.Component<IProp, any> {
       this.props.getByType(this.state.currentType)
 
     }
-
     setTimeout(this.setFiltered, 1500)
-
     this.setState({ filteredList: this.props.productList })
     this.setState({ searchText: '' })
     this.reset()
-
-  } // end submit search 
-
-
-
-
-
+  }
 
   public updateCriteria = (e: any) => {
-
-
     this.setState({ currentSearchCriteria: e.target.value });
     console.log(this.state.currentSearchCriteria);
-
-  } // end update criteria 
+  }
 
   public updateCategory = (e: any) => {
-
-
     this.setState({ currentCategory: e.target.value });
     console.log(this.state.currentCategory);
-
-  } // end update criteria 
-
-
-  public updatetype = (e: any) => {
-
-
-    this.setState({ currentType: e.target.value });
-    console.log(this.state.currentType);
-
-  } // end update criteria 
-
-
-
-
-
-
-  public sort = (e: any) => {
-
-    console.log(e.target.value)
-    const filtered = this.state.filteredList.filter((p: any) => {
-
-      return p.name.indexOf(e.target.value) !== -1;
-
-    }) // end sort
-
-    this.setState({ filteredList: filtered })
-
   }
 
 
+  public updatetype = (e: any) => {
+    this.setState({ currentType: e.target.value });
+    console.log(this.state.currentType);
+  }
 
+  public sort = (e: any) => {
+    console.log(e.target.value)
+    const filtered = this.state.filteredList.filter((p: any) => {
+      return p.name.indexOf(e.target.value) !== -1;
+    })
+    this.setState({ filteredList: filtered })
+  }
 
   public setFiltered = () => {
-
     this.setState({ filteredList: this.props.productList })
     this.setState({ unfiltered: this.props.productList })
     console.log(this.state.filteredList)
-
-  } // end set state
-
-
-
+  }
 
   public sortCategoryName = (e: any) => {
-
-
     if (this.state.typeSelected) {
-
-
-
       console.log('type was selected')
       console.log(`type was selected ${this.state.currentType}`)
       const filtered = this.state.currentTypeSortingList.filter((p: any) => {
-
         return p.category.indexOf(e.target.value) !== -1;
-
       })
-
       this.setState({ filteredList: filtered })
-
-
-
     } else {
-
       console.log(this.state.selected);
       console.log(e.target.value);
-
       const filtered = this.state.unfiltered.filter((p: any) => {
-
         return p.category.indexOf(e.target.value) !== -1;
-
       })
-
       this.setState({ currentCategorySortingList: filtered })
       this.setState({ filteredList: filtered })
-
     }
     this.setState({ categorySelected: true })
     this.setState({ currentSortingCategory: e.target.value })
-
-  } //  end sortCategory 
+  }
 
   public sortTypeName = (e: any) => {
-
     if (this.state.categorySelected) {
-
-
-
       console.log(`category was selected ${this.state.currentCategory}`)
       const filtered = this.state.currentCategorySortingList.filter((p: any) => {
-
         return p.type.indexOf(e.target.value) !== -1;
-
       })
-
       this.setState({ filteredList: filtered })
-
     } else {
-
       console.log(this.state.selected);
       console.log(e.target.value);
-
       const filtered = this.state.unfiltered.filter((p: any) => {
-
         return p.type.indexOf(e.target.value) !== -1;
-
       })
       this.setState({ currentTypeSortingList: filtered })
       this.setState({ filteredList: filtered })
-
     }
-
     this.setState({ typeSelected: true })
     this.setState({ currentSortingType: e.target.value })
-
-  } //  end sortType 
+  }
 
   public sortCategory = (e: any) => {
-
     console.log(this.state.selected);
     console.log(e.target.value);
-
     const filtered = this.state.unfiltered.filter((p: any) => {
-
       return p.category.indexOf(e.target.value) !== -1;
-
     })
-
     this.setState({ filteredList: filtered })
-
-
-
-  } //  end sortCategory 
-
+  }
 
   public sortType = (e: any) => {
-
-
     console.log(this.state.selected);
     console.log(e.target.value);
-
     const filtered = this.state.unfiltered.filter((p: any) => {
-
       return p.type.indexOf(e.target.value) !== -1;
-
     })
-
     this.setState({ filteredList: filtered })
-
-
-
-  } //  end sortCategory 
-
-
-
+  }
 
   public getUnfilteredTypeList = () => {
-
-
     this.setState({ filteredList: this.state.unfiltered })
     // this.state.currentSortingCategory
     // this.state.currentSortingType
-
-
-
-  } // end getUnfilteredTypeList
-
+  }
 
 
   public getUnfilteredCategoryList = (e: any) => {
-
-
     this.setState({ filteredList: this.state.unfiltered })
     // this.setState({currentSortingType:"pocket"})
     // this.setState({currentSortingCategory:"animation"})
     e.target.value = "";
-
-  } // end  getUnfilteredCategoryList
+  }
 
   public reset = () => {
-
-
     this.setState({ filteredList: this.state.unfiltered })
     this.setState({ currentSortingType: '' })
     this.setState({ currentSortingCategory: "" })
     this.setState({ categorySelected: false })
     this.setState({ typeSelected: false })
-  } // end  getUnfilteredCategoryList
-
+  }
 
   public selectItem = (username: string, timePosted: number) => (e: any) => {
     this.props
@@ -299,12 +203,8 @@ export class BrowseComponent extends React.Component<IProp, any> {
       .catch(err => console.log(err));
   };
 
-
-
   public render() {
     return (
-
-
       // <div className="container">
       <div className="row">
         <div className="col-2">
@@ -477,4 +377,4 @@ export class BrowseComponent extends React.Component<IProp, any> {
       </div>
     );
   }
-}  // end of component 
+} 

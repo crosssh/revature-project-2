@@ -230,14 +230,14 @@ export const getSeller = (username: string) => (dispatch: any) => {
 export const getBySellerAndTime = (username: string, timePosted: number) => (
   dispatch: any
 ) =>
-  new Promise(function(resolve, reject) {
+  new Promise(function (resolve, reject) {
     productInterceptor
       .get(
         environment.context +
-          "product/get-seller/" +
-          username +
-          "/time/" +
-          timePosted
+        "product/get-seller/" +
+        username +
+        "/time/" +
+        timePosted
       )
       .then(resp => {
         dispatch({
@@ -287,14 +287,21 @@ export const reinitializeProduct = () => {
   };
 };
 
+export const clearList = () => {
+  return {
+    payload: {},
+    type: productTypes.CLEAR_LIST
+  };
+};
+
 export const putProduct = (chosenItem: any) => (dispatch: any) => {
   productInterceptor
     .put(
       environment.context +
-        "product/update-product-status/username/" +
-        chosenItem.username +
-        "/time/" +
-        chosenItem.timePosted,
+      "product/update-product-status/username/" +
+      chosenItem.username +
+      "/time/" +
+      chosenItem.timePosted,
       chosenItem
     )
     .then(resp => {

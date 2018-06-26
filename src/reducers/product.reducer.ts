@@ -212,8 +212,14 @@ export const productReducer = (state = initialState, action: any) => {
           timePosted: 0,
           type: "",
           username: ""
-        }
+        },
+        photos: []
       };
+    case productTypes.CLEAR_LIST:
+      return {
+        ...state,
+        productList: []
+      }
     case productTypes.REINITIALIZE_PRODUCT:
       return {
         ...state,
