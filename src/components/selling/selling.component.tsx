@@ -22,9 +22,10 @@ export class SellingComponent extends React.Component<IProp, any> {
       <div className="row">
         <ProfileNavComponent />
         <div className="col-10">
+          <h1>{this.props.user.username}'s posted items</h1>
           {this.props.user.authToken ?
             <div className="row">
-              {this.props.product.productList.length > 0 &&
+              {this.props.product.productList.length > 0 ?
                 this.props.product.productList.map((product: any) => (
                   <div
                     className="card pop-card"
@@ -65,7 +66,9 @@ export class SellingComponent extends React.Component<IProp, any> {
                       </li>
                     </ul>
                   </div>
-                ))}
+                )) :
+                <h5 className="indented">Aren't selling anything right now? Click on "Add New POP" in the sidebar to get started!</h5>
+              }
             </div>
             : <h1>Sign in to see the POPS you are selling!</h1>
           }
