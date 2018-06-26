@@ -20,7 +20,8 @@ export class BidsComponent extends React.Component<IProp, any> {
 
   public componentDidMount() {
     this.props.reinitializeProduct();
-    this.props.getBuyer(this.props.user.username)
+    const username: any = localStorage.getItem('username');
+    this.props.getBuyer(username)
       .then(resp => {
         for (let i = 0; i < this.props.buyer.currentBuyer.bids.length; i++) {
           this.props
@@ -46,7 +47,7 @@ export class BidsComponent extends React.Component<IProp, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        {this.props.user.authToken ?
+        {localStorage.getItem('token') ?
           <div className="col-10">
             <div className="row">
               <div className="col">
@@ -55,7 +56,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                   {this.props.buyer.currentBuyer.username}
                 </h1>
               </div>
-              <div className="col-8">
+              <div className="col-7">
                 <h6 className="italic indented">Don't see a bid you're expecting? It may have already been bought by someone.</h6>
               </div>
             </div>

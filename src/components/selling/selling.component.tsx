@@ -9,6 +9,7 @@ interface IProp extends IProduct, IUser {
   getSeller: (username: string) => void;
 }
 
+
 export class SellingComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
@@ -16,7 +17,8 @@ export class SellingComponent extends React.Component<IProp, any> {
 
   public componentDidMount() {
     this.props.clearList();
-    this.props.getSeller(this.props.user.username)
+    const username: any = localStorage.getItem('username');
+    this.props.getSeller(username)
   }
 
   public componentWillUnmount() {
@@ -27,9 +29,9 @@ export class SellingComponent extends React.Component<IProp, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        {this.props.user.authToken ?
+        {localStorage.getItem('token') ?
           <div className="col-10">
-            <h1>{this.props.user.username}'s posted items</h1>
+            <h1>{localStorage.getItem('username')}'s posted items</h1>
             <div className="row">
 
               {this.props.product.productList.length > 0 ?

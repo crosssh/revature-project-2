@@ -48,13 +48,14 @@ export class SignInComponent extends React.Component<any, any> {
         const token = result.getIdToken().getJwtToken();
         localStorage.setItem("token", token);
         this.updateAuthToken(token);
+        localStorage.setItem("username", this.props.username);
         // console.log(userPool.getCurrentUser());
         // console.log(result.getIdToken().decodePayload())
         // const idtok: any = result.getIdToken();
         // console.log(idtok.payload['cognito:groups']) //payload has the user info on it
 
         // navigate pages now that we have successfully logged in
-        this.props.history.push("/homes");
+        this.props.history.push("/home");
       },
 
       onFailure: err => {

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { IBuyer, IProduct, IUser } from "../../reducers";
 import { RouteProps } from "react-router";
-// import { Link } from "react-router-dom";
 
 interface IProp extends IBuyer, IProduct, IUser, RouteProps {
   buyer: any;
@@ -33,8 +32,7 @@ export class ItemComponent extends React.Component<IProp, any> {
   }
 
   public isBidding = (e: any) => {
-    console.log(this.props.user.authToken);
-    if (this.props.user.authToken) {
+    if (localStorage.getItem('token')) {
       this.setState({
         bidding: true
       });
@@ -52,7 +50,9 @@ export class ItemComponent extends React.Component<IProp, any> {
 
   public submitBid = (e: any) => {
     e.preventDefault();
-    if (this.props.user.username === this.props.product.chosenItem.username) {
+
+    const username: any = localStorage.getItem('username');
+    if (username === this.props.product.chosenItem.username) {
       this.setState({
         errMsg: "You may not not bid on your own item"
       });
@@ -91,11 +91,12 @@ export class ItemComponent extends React.Component<IProp, any> {
           this.props.putNewBid(holdBuyer);
         }, 1000);
       }
-      this.props.updateBidder(this.props.user.username);
+
+      this.props.updateBidder(username);
       this.props.updateCurrentBid(this.props.buyer.newBid.bidPrice);
 
       this.props
-        .getBuyer(this.props.user.username)
+        .getBuyer(username)
         .then(resp => {
           this.props.addToBids(
             this.props.buyer.newBid,
@@ -130,7 +131,9 @@ export class ItemComponent extends React.Component<IProp, any> {
   }
 
   public goBuy = (e: any) => {
-    if (this.props.user.username === this.props.product.chosenItem.username) {
+
+    const username: any = localStorage.getItem('username');
+    if (username === this.props.product.chosenItem.username) {
 
       this.setState({
         bidding: true,

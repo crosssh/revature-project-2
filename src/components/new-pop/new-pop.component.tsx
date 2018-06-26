@@ -80,7 +80,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
   public setAuctionEnd = (e: any) => {
     const end = e.target.value;
     this.props.setAuctionEnd(parseInt(end, 10));
-    this.props.updateProductUsername(this.props.user.username); // idea!
   };
 
   public setBuyNow = (e: any) => {
@@ -96,6 +95,8 @@ export class NewPopComponent extends React.Component<IProp, any> {
   public updateCategory = (e: any) => {
     const category = e.target.value;
     this.props.updateCategory(category);
+    const username: any = localStorage.getItem('username');
+    this.props.updateProductUsername(username);
   };
 
   public updateCondition = (e: any) => {
@@ -127,7 +128,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        {this.props.user.authToken ?
+        {localStorage.getItem('token') ?
           <div className="col-10">
             <form onSubmit={this.addProduct}>
               <h3>Post one of your POPS on our site: </h3>

@@ -27,6 +27,7 @@ export class SignOutComponent extends React.Component<IProps, any> {
     this.props.reinitializeProduct();
     this.props.reinitializeUser();
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
 
     const poolData = {
       ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here

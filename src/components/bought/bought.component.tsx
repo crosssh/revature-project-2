@@ -20,7 +20,8 @@ export class BoughtComponent extends React.Component<IProp, any> {
 
   public componentDidMount() {
     this.props.reinitializeProduct();
-    this.props.getBuyer(this.props.user.username)
+    const username: any = localStorage.getItem('username');
+    this.props.getBuyer(username)
       .then(resp => {
         for (let i = 0; i < this.props.buyer.currentBuyer.boughtItems.length; i++) {
           this.props
@@ -47,7 +48,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
       <div className="row">
         <ProfileNavComponent />
         <div className="col-10">
-          {this.props.user.authToken ?
+          {localStorage.getItem('token') ?
             <div className="container">
               <div className="row">
                 <h1>
