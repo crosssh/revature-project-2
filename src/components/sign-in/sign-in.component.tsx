@@ -89,7 +89,7 @@ export class SignInComponent extends React.Component<any, any> {
           width="72"
           height="72"
         />
-        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 className="h3 mb-3 font-weight-normal">Please sign in for the full PopBay experience!</h1>
         <label htmlFor="inputUsername" className="sr-only">
           Username
         </label>
@@ -116,10 +116,10 @@ export class SignInComponent extends React.Component<any, any> {
         {this.props.errorMessage !== "" && (
           <div id="error-message italic">{this.props.errorMessage}</div>
         )}
-        <button className="btn btn-lg btn-primary btn-block" type="submit">
+        <button className="btn btn-lg btn-danger btn-block" type="submit">
           Sign in
         </button>
-        <p className="mt-5 mb-3">Create new account
+        <p className="mt-5 mb-3">Don't have an account yet?
         <Link to="/create-user" className="unset-anchor nav-link">Sign Up</Link>
         </p>
       </form>

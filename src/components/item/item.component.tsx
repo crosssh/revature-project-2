@@ -53,6 +53,7 @@ export class ItemComponent extends React.Component<IProp, any> {
 
     const username: any = localStorage.getItem('username');
     if (username === this.props.product.chosenItem.username) {
+      this.props.updateBidPrice(0);
       this.setState({
         errMsg: "You may not not bid on your own item"
       });
