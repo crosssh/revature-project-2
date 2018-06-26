@@ -27,8 +27,6 @@ interface IProp extends IBuyer, IProduct, IUser, RouteProps {
 export class CheckoutComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
-
     this.state = {
       amount: 1000,
       errorMsg: "",
@@ -59,15 +57,17 @@ export class CheckoutComponent extends React.Component<IProp, any> {
   }
 
   public componentDidMount() {
-    if (this.props.user.username !== "" && this.props.product.chosenItem !== null) {
-      this.props.getBuyer(this.props.user.username);
+
+    const username: any = localStorage.getItem('username');
+    if (username && this.props.product.chosenItem !== null) {
+      this.props.getBuyer(username);
       this.props.updateBoughtPrice(this.props.product.chosenItem.buyNowPrice);
       this.props.updateBoughtSeller(this.props.product.chosenItem.username);
       this.props.updateItemNameBought(this.props.product.chosenItem.name);
       this.props.updateBoughtTime(Date.now());
       this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
       this.props.updateStatus("sold");
-      this.setState({amount: this.props.product.chosenItem.buyNowPrice*100})
+      this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
     } else {
       this.setState({
         errorMsg: "Must be logged in to checkout."
@@ -98,7 +98,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
   public render() {
     return (
       <div className="container">
-        {this.props.user.username !== "" && this.props.product.chosenItem !== null &&
+        {localStorage.getItem('username') && this.props.product.chosenItem !== null &&
           <div className="row checkout">
             <div className="col-5">
               <div className="checkout-pop-card">
@@ -130,9 +130,9 @@ export class CheckoutComponent extends React.Component<IProp, any> {
                 <h5 className="checkout-seller font-weight-bold">Price: </h5><h5 className="checkout-seller">{this.getPrice()}</h5>
               </div>
               <div className="row bottom">
-                <div className="col-auto"  onClick={this.checkout}>
+                <div className="col-auto" onClick={this.checkout}>
                   <Layout>
-                    <StripeCheckout 
+                    <StripeCheckout
                       name="Serverless Stripe Store Inc."
                       token={this.onToken}
                       amount={this.state.amount}

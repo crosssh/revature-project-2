@@ -9,6 +9,7 @@ interface IProp extends IProduct, IUser {
   getSeller: (username: string) => void;
 }
 
+
 export class SellingComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
@@ -16,7 +17,8 @@ export class SellingComponent extends React.Component<IProp, any> {
 
   public componentDidMount() {
     this.props.clearList();
-    this.props.getSeller(this.props.user.username)
+    const username: any = localStorage.getItem('username');
+    this.props.getSeller(username)
   }
 
   public componentWillUnmount() {
@@ -27,14 +29,15 @@ export class SellingComponent extends React.Component<IProp, any> {
     return (
       <div className="row">
         <ProfileNavComponent />
-        <div className="col-10">
-          <h1>{this.props.user.username}'s posted items</h1>
-          {this.props.user.authToken ?
+        {localStorage.getItem('token') ?
+          <div className="col-10">
+            <h1>{localStorage.getItem('username')}'s posted items</h1>
             <div className="row">
+
               {this.props.product.productList.length > 0 ?
                 this.props.product.productList.map((product: any) => (
                   <div
-                    className="card pop-card"
+                    className="card pop-card profile-pop-card"
                     key={product.timePosted}
                   >
                     <img
@@ -76,9 +79,9 @@ export class SellingComponent extends React.Component<IProp, any> {
                 <h5 className="indented">Aren't selling anything right now? Click on "Add New POP" in the sidebar to get started!</h5>
               }
             </div>
-            : <h1>Sign in to see the POPS you are selling!</h1>
-          }
-        </div>
+          </div>
+          : <h1>Sign in to see the POPS you are selling!</h1>
+        }
       </div>
     );
   }
