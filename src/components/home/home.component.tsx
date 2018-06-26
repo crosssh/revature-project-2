@@ -46,6 +46,11 @@ export class HomeComponent extends React.Component<IProps, any> {
       .catch(err => console.log(err));
   };
 
+  public formatTime = (time: any) => {
+    const newTime = new Date(time);
+    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+  }
+
   public render() {
     return (
       <div className="container">
@@ -79,6 +84,7 @@ export class HomeComponent extends React.Component<IProps, any> {
                   <li className="list-group-item">
                     Condition: {product.condition}
                   </li>
+                  <li className="list-group-item">Bid End: {this.formatTime(product.timePosted)}</li>
                 </ul>
                 <div className="card-body">
                   a couple items
