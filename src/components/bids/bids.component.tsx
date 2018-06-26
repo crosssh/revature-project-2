@@ -57,12 +57,14 @@ export class BidsComponent extends React.Component<IProp, any> {
               </div>
               <div className="row">
                 {this.props.product.photos.length > 0 ?
+
                   this.props.product.photos.map((product: any) => (
+                    product.status === "available" &&
                     <div
                       className="card pop-card home-pop-card"
                       key={product.timePosted}
                     >
-
+                      <h6 className="italic">Don't see a bid you're expecting? It may have already been bought by someone</h6>
                       <img
                         className="card-img-top pop-card-img"
                         src={
@@ -95,7 +97,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                   <div className="row">
                     <h5 className="indented">Don't have any bids yet? Head over to our browse page to see what's available!</h5>
                     <Link to='/browse'>
-                      <button className="btn btn-danger">Browse</button>
+                      <button className=" indented btn btn-danger">Browse</button>
                     </Link>
                   </div>
                 }

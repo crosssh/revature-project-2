@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { IState } from "../../reducers";
-import { getSeller } from "../../actions/product/product.actions";
+import { clearList, getSeller } from "../../actions/product/product.actions";
 import { SellingComponent } from "./selling.component";
 
 const mapStateToProps = (state: IState) => ({
@@ -9,6 +9,7 @@ const mapStateToProps = (state: IState) => ({
 });
 
 export const mapDispatchToProps = {
+  clearList,
   getSeller
 };
 

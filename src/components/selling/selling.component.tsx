@@ -5,6 +5,7 @@ import { IProduct, IUser } from "../../reducers";
 interface IProp extends IProduct, IUser {
   product: any;
   user: any;
+  clearList: () => void;
   getSeller: (username: string) => void;
 }
 
@@ -14,7 +15,12 @@ export class SellingComponent extends React.Component<IProp, any> {
   }
 
   public componentDidMount() {
+    this.props.clearList();
     this.props.getSeller(this.props.user.username)
+  }
+
+  public componentWillUnmount() {
+    this.props.clearList();
   }
 
   public render() {
