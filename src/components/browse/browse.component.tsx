@@ -2,9 +2,6 @@ import * as React from "react";
 import { IProduct } from "../../reducers";
 import { setTimeout } from "timers";
 import { RouteProps } from "react-router";
-// import { TypeOptions } from "./type-options.component";
-// import { CategotyOptions } from "./category-options.component";
-// import { SortOptions } from "./sorting-options.component";
 
 interface IProp extends IProduct, RouteProps {
   history: any;
