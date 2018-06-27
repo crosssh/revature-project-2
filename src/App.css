@@ -250,3 +250,50 @@ nav {
 .change-password-form {
   margin: .25em;
 }
+
+/****************
+* Navbar Sign-in
+****************/
+.margin-button {
+  margin-left: .25em;
+}
+
+.form-control {
+  box-shadow: none;		
+  font-weight: normal;
+  font-size: 14px;
+}
+.form-control:focus {
+  border-color: crimson;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+.navbar .dropdown-menu {
+  border-radius: 1px;
+  border-color: #e5e5e5;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.navbar .nav .dropdown-menu li {
+  color: #999;
+  font-weight: normal;
+}
+.navbar .nav .dropdown-menu li a, .navbar .nav .dropdown-menu li a:hover, .navbar .nav .dropdown-menu li a:focus {
+  padding: 8px 20px;
+  line-height: normal;
+}
+.navbar .navbar-form {
+  border: none;
+}
+.navbar .dropdown-menu.form-wrapper {
+  width: 280px;
+  padding: 20px;
+  left: auto;
+  right: 0;
+      font-size: 14px;
+}
+.navbar .dropdown-menu.form-wrapper a {		
+  color: black;
+  padding: 0 !important;
+}
+.navbar .dropdown-menu.form-wrapper a:hover{
+  text-decoration: underline;
+}
