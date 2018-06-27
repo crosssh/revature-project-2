@@ -79,7 +79,9 @@ export class NewPopComponent extends React.Component<IProp, any> {
 
   public setAuctionEnd = (e: any) => {
     const end = e.target.value;
-    this.props.setAuctionEnd(parseInt(end, 10));
+    const val = parseInt(end, 10) * 3600000
+    this.props.setAuctionEnd(Date.now() + val)
+    console.log(Date.now() + val)
   };
 
   public setBuyNow = (e: any) => {
@@ -117,11 +119,12 @@ export class NewPopComponent extends React.Component<IProp, any> {
 
   public addProduct = (e: any) => {
     e.preventDefault();
+    this.props.addProduct(this.props.product.currentProduct);
     for (let i = 0; i < this.props.product.photos.length; i++) {
       console.log(this.props.product.photos[i]);
       this.sendPhotos(this.props.product.photos[i]);
     }
-    this.props.addProduct(this.props.product.currentProduct);
+
   };
 
   public render() {
@@ -208,7 +211,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
                   />{" "}
                   Auction length (hours): <br />
                   <input
-                    value={this.props.product.currentProduct.auctionEndTime}
+                    // value={this.props.product.currentProduct.auctionEndTime}
                     type="text"
                     className="auction-length form-control"
                     onChange={this.setAuctionEnd}
@@ -249,10 +252,10 @@ export class NewPopComponent extends React.Component<IProp, any> {
                     Add Product
               </button>
                   <br />
+                  <br />
                   <h4 className="italic">{this.props.user.errorMessage}</h4>
                 </div>
               </div>
-              <br />
               <br />
             </form>
           </div>
