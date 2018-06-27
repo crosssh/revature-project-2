@@ -2,6 +2,7 @@ import * as React from "react";
 import { RouteProps } from "react-router";
 import { IProduct } from "../../reducers";
 import { environment } from "../../environment";
+import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Axios from "axios";
 
 interface IProps extends IProduct, RouteProps {
@@ -57,6 +58,9 @@ export class HomeComponent extends React.Component<IProps, any> {
         <div className="row">
           {this.props.productList.length > 0 &&
             this.props.productList.map((product: any) => (
+              <ReactCSSTransitionGroup transitionName = "example"
+                  transitionAppear = {true} transitionAppearTimeout = {700}
+                  transitionEnter = {false} transitionLeave = {false}>
               <div
                 className="card pop-card home-pop-card"
                 key={product.timePosted}
@@ -93,6 +97,7 @@ export class HomeComponent extends React.Component<IProps, any> {
                   <a href="#" className="card-link">Another link</a> */}
                 </div>
               </div>
+              </ReactCSSTransitionGroup>
             ))}
         </div>
       </div>

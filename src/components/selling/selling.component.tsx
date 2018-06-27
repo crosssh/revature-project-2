@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ProfileNavComponent } from "../profile-nav.component";
 import { IProduct, IUser } from "../../reducers";
+import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 interface IProp extends IProduct, IUser {
   product: any;
@@ -36,6 +37,9 @@ export class SellingComponent extends React.Component<IProp, any> {
 
               {this.props.product.productList.length > 0 ?
                 this.props.product.productList.map((product: any) => (
+                  <ReactCSSTransitionGroup transitionName = "example"
+                  transitionAppear = {true} transitionAppearTimeout = {700}
+                  transitionEnter = {false} transitionLeave = {false}>
                   <div
                     className="card pop-card profile-pop-card"
                     key={product.timePosted}
@@ -75,6 +79,7 @@ export class SellingComponent extends React.Component<IProp, any> {
                       </li>
                     </ul>
                   </div>
+                  </ReactCSSTransitionGroup>
                 )) :
                 <h5 className="indented">Aren't selling anything right now? Click on "Add New POP" in the sidebar to get started!</h5>
               }
