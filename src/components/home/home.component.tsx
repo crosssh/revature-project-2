@@ -48,7 +48,7 @@ export class HomeComponent extends React.Component<IProps, any> {
 
   public formatTime = (time: any) => {
     const newTime = new Date(time);
-    return 'on \n' + newTime.toDateString() + ' at ' + newTime.toLocaleTimeString()
+    return newTime.toDateString() + ' at ' + newTime.toLocaleTimeString()
   }
 
   public render() {
@@ -86,9 +86,7 @@ export class HomeComponent extends React.Component<IProps, any> {
                   </li>
                   <li className="list-group-item"> Auction ends {this.formatTime(product.auctionEndTime)}</li>
                 </ul>
-                {/* <div className="card-body">
-                  
-                </div> */}
+
               </div>
             ))}
         </div>
