@@ -7,6 +7,7 @@ interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
   product: any;
   user: any;
+  clearItem: () => void;
   getBuyer: (username: string) => Promise<any>;
   getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   reinitializeProduct: () => void;
@@ -41,6 +42,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
   }
   public componentWillUnmount() {
     this.props.reinitializeProduct();
+    this.props.clearItem();
   }
 
   public render() {

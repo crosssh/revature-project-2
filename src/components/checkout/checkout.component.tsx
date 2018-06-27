@@ -12,6 +12,7 @@ interface IProp extends IBuyer, IProduct, IUser, RouteProps {
   user: any;
   history: any;
   addToBought: (boughtItem: any, boughtItems: any[]) => void;
+  clearItem: () => void;
   getBuyer: (username: string) => void;
   putNewBid: (currentBuyer: any) => void;
   putProduct: (chosenProduct: any) => void;
@@ -113,6 +114,10 @@ export class CheckoutComponent extends React.Component<IProp, any> {
       continueGuest: true,
     })
   }
+  
+  public componentWillUnmount() {
+    this.props.clearItem();
+  }
 
   public render() {
     return (
@@ -166,9 +171,9 @@ export class CheckoutComponent extends React.Component<IProp, any> {
           </div>
         }
         {
-          this.props.product.chosenItem !== null && this.state.continueGuest !== true && 
+          this.props.product.chosenItem !== null && this.state.continueGuest !== true &&
           <div className="contianer">
-            <h5> You are not currently signed in. If you have an account and would like to sign in please do so. If 
+            <h5> You are not currently signed in. If you have an account and would like to sign in please do so. If
               you would like to check out as a guest please press continue.</h5>
             <button className="btn btn-secondary btn-sm" onClick={this.setContinueTrue}>Continue</button>
           </div>

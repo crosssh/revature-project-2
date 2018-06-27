@@ -6,7 +6,10 @@ interface IProp extends IProduct, IUser {
   product: any;
   user: any;
   clearList: () => void;
+  getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   getSeller: (username: string) => void;
+  putProduct: (product: any) => void;
+  updateStatus: (status: string) => void;
 }
 
 
@@ -23,6 +26,27 @@ export class SellingComponent extends React.Component<IProp, any> {
 
   public componentWillUnmount() {
     this.props.clearList();
+  }
+
+  public formatTime = (time: any) => {
+    const newTime = new Date(time);
+    return newTime.toDateString() + ' at ' + newTime.toLocaleTimeString()
+  }
+
+  public removeProduct = (username: string, timePosted: number) => (e: any) => {
+    this.props
+      .getBySellerAndTime(
+        username,
+        timePosted
+      )
+      .then(res => {
+        this.props.updateStatus('removed from sale');
+
+        this.forceUpdate(() => {
+          this.props.putProduct(this.props.product.chosenItem);
+        })
+      })
+      .catch(err => console.log(err));
   }
 
   public render() {
@@ -53,13 +77,9 @@ export class SellingComponent extends React.Component<IProp, any> {
                     </div>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        Category: {product.category}
-                      </li>
-                      <li className="list-group-item">
-                        Type: {product.type}
-                      </li>
-                      <li className="list-group-item">
-                        Condition: {product.condition}
+                        Auction {product.status === 'available'
+                          ? 'ends ' + this.formatTime(product.auctionEndTime)
+                          : 'has ended'}
                       </li>
                       <li className="list-group-item">
                         Current Bid: ${product.currentBidPrice
@@ -73,7 +93,21 @@ export class SellingComponent extends React.Component<IProp, any> {
                       <li className="list-group-item">
                         Status: {product.status}
                       </li>
+                      <li className="list-group-item">
+                        Category: {product.category}
+                      </li>
+                      <li className="list-group-item">
+                        Type: {product.type}
+                      </li>
+                      <li className="list-group-item">
+                        Condition: {product.condition}
+                      </li>
                     </ul>
+                    <div className="card-body">
+                      {product.status === "available" &&
+                        <button className="btn btn-sm btn-secondary" onClick={this.removeProduct(product.username, product.timePosted)}>Withdraw from sale</button>
+                      }
+                    </div>
                   </div>
                 )) :
                 <h5 className="indented">Aren't selling anything right now? Click on "Add New POP" in the sidebar to get started!</h5>

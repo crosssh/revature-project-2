@@ -220,6 +220,11 @@ export const productReducer = (state = initialState, action: any) => {
         ...state,
         productList: []
       }
+    case productTypes.CLEAR_ITEM:
+      return {
+        ...state,
+        chosenItem: null
+      }
     case productTypes.REINITIALIZE_PRODUCT:
       return {
         ...state,

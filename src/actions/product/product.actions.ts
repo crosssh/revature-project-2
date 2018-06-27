@@ -294,6 +294,13 @@ export const clearList = () => {
   };
 };
 
+export const clearItem = () => {
+  return {
+    payload: {},
+    type: productTypes.CLEAR_ITEM
+  };
+};
+
 export const putProduct = (chosenItem: any) => (dispatch: any) => {
   productInterceptor
     .put(

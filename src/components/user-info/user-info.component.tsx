@@ -136,7 +136,7 @@ export class UserInfoComponent extends React.Component<any, any> {
             <p className="font-weight-bold text-center">Last Name: {this.state.lastName}</p>
             <p className="font-weight-bold text-center">Email: {this.state.email}</p>
             <br />
-            <button className="btn btn-secondary btn-sm" onClick={this.showChangePassword}> changePassword </button>
+            <button className="btn btn-secondary btn-sm" onClick={this.showChangePassword}> Change Password </button>
             {
               this.state.showChangePassword !== false &&
               <div className="change-password">
@@ -146,9 +146,9 @@ export class UserInfoComponent extends React.Component<any, any> {
                   <h6>Please enter your New password</h6>
                   <input type="password" className="form-control" placeholder="New Password" onChange={this.updateNewPassword} required />
                   <h6>Please enter your new password again</h6>
-                  <input type="password" className="form-control" placeholder="Repeat Password" onChange={this.updateRepeatPassword} required />
+                  <input type="password" className="form-control" placeholder="Confirm Password" onChange={this.updateRepeatPassword} required />
                   <div id="error-message">{this.state.errorMsg}</div>
-                  <button type="submit" className="btn btn-secondary btn-sm float-right">submit</button>
+                  <button type="submit" className="btn btn-secondary btn-sm float-right">Submit</button>
                 </form>
               </div>
             }

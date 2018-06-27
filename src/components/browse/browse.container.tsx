@@ -6,8 +6,7 @@ import {
   getByName,
   getBySellerAndTime,
   getByType,
-  putProduct,
-  updateStatus,
+  putProduct
 } from "../../actions/product/product.actions";
 import {
   addToBought,
@@ -16,7 +15,7 @@ import {
 } from "../../actions/buyer/buyer.actions";
 import { BrowseComponent } from "./browse.component";
 
-const mapStateToProps = (state: IState) => ({product: state.product, buyer: state.buyer});
+const mapStateToProps = (state: IState) => ({ product: state.product, buyer: state.buyer });
 
 export const mapDispatchToProps = {
   addToBought,
@@ -27,8 +26,7 @@ export const mapDispatchToProps = {
   getBySellerAndTime,
   getByType,
   putNewBid,
-  putProduct,
-  updateStatus,
+  putProduct
 };
 
 export const BrowseContainer = connect(
