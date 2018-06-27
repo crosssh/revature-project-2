@@ -237,3 +237,16 @@ nav {
   border: solid;
   border-width: thin;
 }
+
+/****************
+* User Info
+****************/
+
+.change-password {
+  max-width: 30em;
+  align-items: center;
+}
+
+.change-password-form {
+  margin: .25em;
+}
