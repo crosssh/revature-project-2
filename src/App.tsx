@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { NavComponent } from "./components/nav.component";
 import "./include/bootstrap";
 import "./App.css";
 import { HashRouter, Switch, Route } from "react-router-dom";
@@ -18,6 +17,7 @@ import { HomeContainer } from "./components/home/home.container";
 import { CreateUserContainer } from "./components/create-user/create-user.container";
 import { BrowseContainer } from "./components/browse/browse.container";
 import { SignOutContainer } from "./components/sign-out/sign-out.container";
+import { NavContainer } from "./components/nav.container";
 
 class App extends React.Component<any, any> {
   public render() {
@@ -25,7 +25,7 @@ class App extends React.Component<any, any> {
       <Provider store={store}>
         <HashRouter>
           <div>
-            <NavComponent />
+            <NavContainer />
             <Switch>
               <Route path="/sign-in" component={SignInContainer} />
               <Route path="/browse" component={BrowseContainer} />

@@ -63,7 +63,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                   {this.props.buyer.currentBuyer.username}
                 </h1>
               </div>
-              <div className="col-7">
+              <div className="col-4">
                 <h6 className="italic indented">Don't see a bid you're expecting? It may have already been bought by someone.</h6>
               </div>
             </div>
@@ -72,7 +72,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                 this.props.product.photos.map((product: any) => (
                   product.status === "available" &&
                   <div
-                    className="card pop-card profile-pop-card"
+                    className="card static-pop-card profile-pop-card"
                     key={product.timePosted}
                   >
                     <img
