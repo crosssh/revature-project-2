@@ -244,6 +244,25 @@ nav {
   border-width: thin;
 }
 
+/********************
+Item Loader smooth
+********************/
+.example-appear {
+  opacity: 0.01;
+}
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+/****************
+item grow when selected 
+****************/
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.1); }
+=======
+
 /****************
 * User Info
 ****************/
@@ -303,3 +322,4 @@ nav {
 .navbar .dropdown-menu.form-wrapper a:hover{
   text-decoration: underline;
 }
+
