@@ -84,7 +84,7 @@ export class HomeComponent extends React.Component<IProps, any> {
                   <li className="list-group-item">
                     Condition: {product.condition}
                   </li>
-                  <li className="list-group-item">Bid End: {this.formatTime(product.timePosted)}</li>
+                  <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
                 </ul>
                 <div className="card-body">
                   a couple items

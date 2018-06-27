@@ -46,7 +46,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
   };
 
   public componentDidMount() {
-    console.log(this.state.searchText)
     this.props.getByName(this.state.searchText);
     setTimeout(this.setFiltered, 1500);
   }
@@ -62,20 +61,14 @@ export class BrowseComponent extends React.Component<IProp, any> {
     }
 
     if (this.state.currentSearchCriteria === "category") {
-      console.log(" entered if category ");
-      console.log(this.state.currentCategory);
       this.props.getByCategory(this.state.currentCategory);
     }
 
     if (this.state.currentSearchCriteria === "type") {
-      console.log(" entered if type ");
-      console.log(this.state.currentType);
       this.props.getByType(this.state.currentType);
     }
 
     if (this.state.currentSearchCriteria === 'type') {
-      console.log(' entered if type ')
-      console.log(this.state.currentType)
       this.props.getByType(this.state.currentType)
 
     }
@@ -87,22 +80,18 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public updateCriteria = (e: any) => {
     this.setState({ currentSearchCriteria: e.target.value });
-    console.log(this.state.currentSearchCriteria);
   }
 
   public updateCategory = (e: any) => {
     this.setState({ currentCategory: e.target.value });
-    console.log(this.state.currentCategory);
   }
 
 
   public updatetype = (e: any) => {
     this.setState({ currentType: e.target.value });
-    console.log(this.state.currentType);
   }
 
   public sort = (e: any) => {
-    console.log(e.target.value)
     const filtered = this.state.filteredList.filter((p: any) => {
       return p.name.indexOf(e.target.value) !== -1;
     })
@@ -112,13 +101,9 @@ export class BrowseComponent extends React.Component<IProp, any> {
   public setFiltered = () => {
     this.setState({ filteredList: this.props.product.productList })
     this.setState({ unfiltered: this.props.product.productList })
-    // console.log(this.state.filteredList)
-
-    console.log(this.state.filteredList);
 
     this.state.filteredList.forEach((product: any) => {
       if (parseInt(product.auctionEndTime, 10) <= Date.now()) {
-        console.log(product);
         const tempProduct = product;
         if (product.currentBidPrice !== 0) {
           tempProduct.status = 'sold';
@@ -142,7 +127,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
               console.log(err)
             })
         } else {
-          console.log('here')
           tempProduct.auctionEndTime = product.auctionEndTime + 86400000;
           this.props.putProduct(tempProduct);
         }
@@ -152,15 +136,11 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public sortCategoryName = (e: any) => {
     if (this.state.typeSelected) {
-      console.log('type was selected')
-      console.log(`type was selected ${this.state.currentType}`)
       const filtered = this.state.currentTypeSortingList.filter((p: any) => {
         return p.category.indexOf(e.target.value) !== -1;
       })
       this.setState({ filteredList: filtered })
     } else {
-      console.log(this.state.selected);
-      console.log(e.target.value);
       const filtered = this.state.unfiltered.filter((p: any) => {
         return p.category.indexOf(e.target.value) !== -1;
       })
@@ -173,14 +153,11 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public sortTypeName = (e: any) => {
     if (this.state.categorySelected) {
-      console.log(`category was selected ${this.state.currentCategory}`)
       const filtered = this.state.currentCategorySortingList.filter((p: any) => {
         return p.type.indexOf(e.target.value) !== -1;
       })
       this.setState({ filteredList: filtered })
     } else {
-      console.log(this.state.selected);
-      console.log(e.target.value);
       const filtered = this.state.unfiltered.filter((p: any) => {
         return p.type.indexOf(e.target.value) !== -1;
       })
@@ -192,8 +169,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
   }
 
   public sortCategory = (e: any) => {
-    console.log(this.state.selected);
-    console.log(e.target.value);
     const filtered = this.state.unfiltered.filter((p: any) => {
       return p.category.indexOf(e.target.value) !== -1;
     })
@@ -201,8 +176,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
   }
 
   public sortType = (e: any) => {
-    console.log(this.state.selected);
-    console.log(e.target.value);
     const filtered = this.state.unfiltered.filter((p: any) => {
       return p.type.indexOf(e.target.value) !== -1;
     })
@@ -211,15 +184,11 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public getUnfilteredTypeList = () => {
     this.setState({ filteredList: this.state.unfiltered })
-    // this.state.currentSortingCategory
-    // this.state.currentSortingType
   }
 
 
   public getUnfilteredCategoryList = (e: any) => {
     this.setState({ filteredList: this.state.unfiltered })
-    // this.setState({currentSortingType:"pocket"})
-    // this.setState({currentSortingCategory:"animation"})
     e.target.value = "";
   }
 
@@ -240,12 +209,15 @@ export class BrowseComponent extends React.Component<IProp, any> {
       .catch(err => console.log(err));
   };
 
+  public formatTime = (time: any) => {
+    const newTime = new Date(time);
+    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+  }
+
   public render() {
     return (
-      // <div className="container">
       <div className="row">
         <div className="col-2">
-          {/* Sorting Options starts here  */}
           {
             this.state.currentSearchCriteria === 'name' &&
             <div>
@@ -253,7 +225,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
               <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categoryChoice'>Reset Filter</button></div>
               <div>
                 <h5>Category</h5>
-                {/* <input checked ={this.state.checkRadio} name='categoryChoice' type="radio" value='none' />none */}
                 <ul className="list-group">
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'animation'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="animation" />Animation</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'games'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="games" />Games</li>
@@ -270,7 +241,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
               <div>
                 <h5>Types</h5>
                 <ul className="list-group">
-                  {/* <input   name='typeChoice' type="radio" value='none' />none                     */}
                   <li className="list-group-item"> <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pop" />POP!</li>
                   <li className="list-group-item"> <input checked={this.state.currentSortingType === 'pocket'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pocket" />Pocket</li>
                   <li className="list-group-item"> <input checked={this.state.currentSortingType === 'vinyl'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="vinyl" />Vinyl</li>
@@ -320,11 +290,8 @@ export class BrowseComponent extends React.Component<IProp, any> {
               </div>
             </div>
           }
-          {/* Sorting Options ends here */}
-          {/* end of first column */}
         </div>
         <div className="col-10">
-          {/* POP! display Starts here */}
           <h1>Browse our collection of POPS for sale</h1>
           <br />
           <div className="container">
@@ -404,22 +371,15 @@ export class BrowseComponent extends React.Component<IProp, any> {
                       <h5>{product.name}</h5>
                     </div>
                     <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        Category: {product.category}
-                      </li>
+                      <li className="list-group-item">Category: {product.category}</li>
                       <li className="list-group-item">Type: {product.type}</li>
-                      <li className="list-group-item">
-                        Condition: {product.condition}
-                      </li>
+                      <li className="list-group-item">Condition: {product.condition}</li>
+                      <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
                     </ul>
                   </div>
                 ))}
-              {/* POP! display ends here */}
-              {/* end second column  */}
             </div>
-            {/* end row */}
           </div>
-          {/* end block */}
         </div>
       </div>
     );
