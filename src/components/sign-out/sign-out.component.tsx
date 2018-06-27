@@ -23,6 +23,7 @@ export class SignOutComponent extends React.Component<IProps, any> {
   public componentDidMount() {
     // add something here
     // call log out function to clear user.state and local storage 
+    console.log('signing out')
     this.props.reinitializeBuyer();
     this.props.reinitializeProduct();
     this.props.reinitializeUser();
@@ -36,20 +37,30 @@ export class SignOutComponent extends React.Component<IProps, any> {
     const userPool = new awsCognito.CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
 
+    if (cognitoUser !== null) {
+      cognitoUser.getSession((err: any, session: any) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log('session: ' + session.isValid());
+      });
+    }
+
     if (cognitoUser != null) {
       console.log(cognitoUser.getUsername())
-      cognitoUser.signOut();
+      cognitoUser.globalSignOut({
+        onFailure: console.log,
+        onSuccess: console.log,
+      });
     }
 
     this.props.history.push('/home');
   }
 
-
   public render() {
     return (
-      <div>
-
-      </div>
+      false
     );
   }
 }
