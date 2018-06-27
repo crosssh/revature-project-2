@@ -58,7 +58,7 @@ export class BidsComponent extends React.Component<IProp, any> {
           <div className="col-10">
             <div className="row">
               <div className="col">
-                <h1>
+                <h1 className="bubble-font">
                   Previous bids for{" "}
                   {this.props.buyer.currentBuyer.username}
                 </h1>
