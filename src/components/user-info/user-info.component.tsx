@@ -71,7 +71,8 @@ export class UserInfoComponent extends React.Component<any, any> {
     })
   }
 
-  public showChangePassword = () => {
+  public showChangePassword = (e: any) => {
+    e.preventDefault();
     if (!this.state.showChangePassword) {
       this.setState({
         showChangePassword: true,
