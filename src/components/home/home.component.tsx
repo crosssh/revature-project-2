@@ -48,7 +48,7 @@ export class HomeComponent extends React.Component<IProps, any> {
 
   public formatTime = (time: any) => {
     const newTime = new Date(time);
-    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+    return 'on \n' + newTime.toDateString() + ' at ' + newTime.toLocaleTimeString()
   }
 
   public render() {
@@ -84,14 +84,11 @@ export class HomeComponent extends React.Component<IProps, any> {
                   <li className="list-group-item">
                     Condition: {product.condition}
                   </li>
-                  <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
+                  <li className="list-group-item"> Auction ends {this.formatTime(product.auctionEndTime)}</li>
                 </ul>
-                <div className="card-body">
-                  a couple items
-                  {/* insert React-router-dom links instead
-                  <a href="#" className="card-link">Card link</a>
-                  <a href="#" className="card-link">Another link</a> */}
-                </div>
+                {/* <div className="card-body">
+                  
+                </div> */}
               </div>
             ))}
         </div>

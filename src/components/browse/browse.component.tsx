@@ -211,7 +211,8 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public formatTime = (time: any) => {
     const newTime = new Date(time);
-    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+    return `on 
+    ${newTime.toDateString()}  at ` + newTime.toLocaleTimeString()
   }
 
   public render() {
@@ -374,7 +375,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
                       <li className="list-group-item">Category: {product.category}</li>
                       <li className="list-group-item">Type: {product.type}</li>
                       <li className="list-group-item">Condition: {product.condition}</li>
-                      <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
+                      <li className="list-group-item">Auction ends {this.formatTime(product.auctionEndTime)}</li>
                     </ul>
                   </div>
                 ))}
