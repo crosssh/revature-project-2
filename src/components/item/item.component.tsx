@@ -163,6 +163,12 @@ export class ItemComponent extends React.Component<IProp, any> {
     })
   }
 
+  public formatTime = (time: any) => {
+    const newTime = new Date(time);
+    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+  }
+
+
   public render() {
     return (
       <div>
@@ -254,9 +260,8 @@ export class ItemComponent extends React.Component<IProp, any> {
                       )}
                   </li>
                   <li className="list-group-item">
-                    <h5>
-                      Auction ends in{" "}
-                      {this.props.product.chosenItem.auctionEndTime} hours
+                    <h5>bid ends 
+                      {this.formatTime(this.props.product.chosenItem.auctionEndTime)}
                     </h5>
                   </li>
                   <li className="list-group-item">
