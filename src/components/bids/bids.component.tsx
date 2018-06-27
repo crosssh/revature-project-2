@@ -43,6 +43,11 @@ export class BidsComponent extends React.Component<IProp, any> {
     this.props.reinitializeProduct();
   }
 
+  public formatTime = (time: any) => {
+    const newTime = new Date(time);
+    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+  }
+
   public render() {
     return (
       <div className="row">
@@ -90,6 +95,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                       <li className="list-group-item">
                         Condition: {product.condition}
                       </li>
+                      <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
                     </ul>
                     <div className="card-body">
                       Seller: {product.username}
