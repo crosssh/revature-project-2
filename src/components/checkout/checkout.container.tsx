@@ -11,6 +11,7 @@ import {
   updatePostTimeBought
 } from "../../actions/buyer/buyer.actions";
 import {
+  clearItem,
   putProduct,
   updateStatus,
 } from "../../actions/product/product.actions";
@@ -24,6 +25,7 @@ const mapStateToProps = (state: IState) => ({
 
 export const mapDispatchToProps = {
   addToBought,
+  clearItem,
   getBuyer,
   putNewBid,
   putProduct,
