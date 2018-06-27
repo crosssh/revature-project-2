@@ -30,6 +30,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     super(props);
     this.state = {
       amount: 1000,
+      continueGuest: false,
       errorMsg: "",
     }
   }
@@ -50,7 +51,12 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         const data = (resp);
         console.log('onToken'); // Logs for ease of debugging
         console.log(data);
-        this.props.history.push('/bought');
+        const username = localStorage.getItem('username');
+        if (username !== null) {
+          this.props.history.push('/bought');
+        } else {
+          this.props.history.push('/home');
+        }
       })
       .catch(err => {
         console.log(err);
@@ -59,32 +65,41 @@ export class CheckoutComponent extends React.Component<IProp, any> {
 
   public componentDidMount() {
 
-    const username: any = localStorage.getItem('username');
-    if (username && this.props.product.chosenItem !== null) {
-      this.props.getBuyer(username);
-      this.props.updateBoughtPrice(this.props.product.chosenItem.buyNowPrice);
-      this.props.updateBoughtSeller(this.props.product.chosenItem.username);
-      this.props.updateItemNameBought(this.props.product.chosenItem.name);
-      this.props.updateBoughtTime(Date.now());
-      this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
-      this.props.updateStatus("sold");
-      this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
-    } else {
-      this.setState({
-        errorMsg: "Must be logged in to checkout."
-      })
-    }
+    this.forceUpdate(() => {
+      const username: any = localStorage.getItem('username');
+      if (username !== null && this.props.product.chosenItem !== null) {
+        this.setContinueTrue();
+        this.props.getBuyer(username);
+        this.props.updateBoughtPrice(this.props.product.chosenItem.buyNowPrice);
+        this.props.updateBoughtSeller(this.props.product.chosenItem.username);
+        this.props.updateItemNameBought(this.props.product.chosenItem.name);
+        this.props.updateBoughtTime(Date.now());
+        this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
+        this.props.updateStatus("sold");
+        this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
+      } else if (this.props.product.chosenItem !== null) {
+        this.props.updateStatus("sold");
+        this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
+      } else {
+        this.setState({
+          errorMsg: "Must select an item berfore checking out."
+        })
+      }
+    })
   }
 
   public checkout = (e: any) => {
     e.preventDefault();
-    this.props.addToBought(
-      this.props.buyer.newBoughtItem,
-      this.props.buyer.currentBuyer.boughtItems
-    );
-    this.forceUpdate(() => {
-      this.props.putNewBid(this.props.buyer.currentBuyer);
-    });
+    const username: any = localStorage.getItem('username');
+    if (username !== null) {
+      this.props.addToBought(
+        this.props.buyer.newBoughtItem,
+        this.props.buyer.currentBuyer.boughtItems
+      );
+      this.forceUpdate(() => {
+        this.props.putNewBid(this.props.buyer.currentBuyer);
+      });
+    }
     this.props.putProduct(this.props.product.chosenItem);
   }
 
@@ -96,6 +111,12 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     }
   }
 
+  public setContinueTrue = () => {
+    this.setState({
+      continueGuest: true,
+    })
+  }
+
   public componentWillUnmount() {
     this.props.clearItem();
   }
@@ -103,7 +124,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
   public render() {
     return (
       <div className="container">
-        {localStorage.getItem('username') && this.props.product.chosenItem !== null &&
+        {this.props.product.chosenItem !== null && this.state.continueGuest === true &&
           <div className="row checkout">
             <div className="col-5">
               <div className="checkout-pop-card">
@@ -149,6 +170,14 @@ export class CheckoutComponent extends React.Component<IProp, any> {
                 </div>
               </div>
             </div>
+          </div>
+        }
+        {
+          this.props.product.chosenItem !== null && this.state.continueGuest !== true &&
+          <div className="contianer">
+            <h5> You are not currently signed in. If you have an account and would like to sign in please do so. If
+              you would like to check out as a guest please press continue.</h5>
+            <button className="btn btn-secondary btn-sm" onClick={this.setContinueTrue}>Continue</button>
           </div>
         }
         <div>
