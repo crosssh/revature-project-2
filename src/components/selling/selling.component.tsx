@@ -65,7 +65,7 @@ export class SellingComponent extends React.Component<IProp, any> {
                   transitionAppear = {true} transitionAppearTimeout = {700}
                   transitionEnter = {false} transitionLeave = {false}>
                   <div
-                    className="card static pop-card profile-pop-card"
+                    className="card static pop-card profile-pop-card grow"
                     key={product.timePosted}
                   >
                     <img

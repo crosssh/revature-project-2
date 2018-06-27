@@ -62,7 +62,7 @@ export class HomeComponent extends React.Component<IProps, any> {
                   transitionAppear = {true} transitionAppearTimeout = {700}
                   transitionEnter = {false} transitionLeave = {false}>
               <div
-                className="card pop-card home-pop-card"
+                className="card pop-card home-pop-card grow"
                 key={product.timePosted}
                 onClick={this.selectItem(product.username, product.timePosted)}
               >
