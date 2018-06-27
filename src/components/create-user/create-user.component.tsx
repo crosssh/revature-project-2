@@ -95,7 +95,7 @@ export class CreateUserComponent extends React.Component<IProp, any> {
   public render() {
     return (
       <div>
-        <h3 className="indented">Become a member of our page! </h3>
+        <h3 className="indented">Become a member of PopBay! </h3>
         <form className="form-group indented col-4" onSubmit={this.submit}>
           Username: <br />
           <input type="text" className="username form-control" placeholder="Username" onChange={this.updateUsername} required /> <br />

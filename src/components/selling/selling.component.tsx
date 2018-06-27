@@ -7,7 +7,10 @@ interface IProp extends IProduct, IUser {
   product: any;
   user: any;
   clearList: () => void;
+  getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   getSeller: (username: string) => void;
+  putProduct: (product: any) => void;
+  updateStatus: (status: string) => void;
 }
 
 
@@ -26,6 +29,27 @@ export class SellingComponent extends React.Component<IProp, any> {
     this.props.clearList();
   }
 
+  public formatTime = (time: any) => {
+    const newTime = new Date(time);
+    return newTime.toDateString() + ' at ' + newTime.toLocaleTimeString()
+  }
+
+  public removeProduct = (username: string, timePosted: number) => (e: any) => {
+    this.props
+      .getBySellerAndTime(
+        username,
+        timePosted
+      )
+      .then(res => {
+        this.props.updateStatus('removed from sale');
+
+        this.forceUpdate(() => {
+          this.props.putProduct(this.props.product.chosenItem);
+        })
+      })
+      .catch(err => console.log(err));
+  }
+
   public render() {
     return (
       <div className="row">
@@ -41,7 +65,7 @@ export class SellingComponent extends React.Component<IProp, any> {
                   transitionAppear = {true} transitionAppearTimeout = {700}
                   transitionEnter = {false} transitionLeave = {false}>
                   <div
-                    className="card pop-card profile-pop-card"
+                    className="card static pop-card profile-pop-card"
                     key={product.timePosted}
                   >
                     <img
@@ -57,13 +81,9 @@ export class SellingComponent extends React.Component<IProp, any> {
                     </div>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        Category: {product.category}
-                      </li>
-                      <li className="list-group-item">
-                        Type: {product.type}
-                      </li>
-                      <li className="list-group-item">
-                        Condition: {product.condition}
+                        Auction {product.status === 'available'
+                          ? 'ends ' + this.formatTime(product.auctionEndTime)
+                          : 'has ended'}
                       </li>
                       <li className="list-group-item">
                         Current Bid: ${product.currentBidPrice
@@ -77,7 +97,21 @@ export class SellingComponent extends React.Component<IProp, any> {
                       <li className="list-group-item">
                         Status: {product.status}
                       </li>
+                      <li className="list-group-item">
+                        Category: {product.category}
+                      </li>
+                      <li className="list-group-item">
+                        Type: {product.type}
+                      </li>
+                      <li className="list-group-item">
+                        Condition: {product.condition}
+                      </li>
                     </ul>
+                    <div className="card-body">
+                      {product.status === "available" &&
+                        <button className="btn btn-sm btn-secondary" onClick={this.removeProduct(product.username, product.timePosted)}>Withdraw from sale</button>
+                      }
+                    </div>
                   </div>
                   </ReactCSSTransitionGroup>
                 )) :

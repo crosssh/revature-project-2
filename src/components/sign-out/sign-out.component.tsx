@@ -11,18 +11,14 @@ interface IProps extends IBuyer, IProduct, IUser, RouteProps {
   reinitializeBuyer: () => void;
   reinitializeProduct: () => void;
   reinitializeUser: () => void;
-  // log out function
 }
 
 export class SignOutComponent extends React.Component<IProps, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   public componentDidMount() {
-    // add something here
-    // call log out function to clear user.state and local storage 
     this.props.reinitializeBuyer();
     this.props.reinitializeProduct();
     this.props.reinitializeUser();
@@ -30,26 +26,36 @@ export class SignOutComponent extends React.Component<IProps, any> {
     localStorage.removeItem('username');
 
     const poolData = {
-      ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here
-      UserPoolId: "us-west-2_S3BP7tO7z" // Your user pool id here
+      ClientId: "5gpn6c10oppbml3hjva90nrjgf",
+      UserPoolId: "us-west-2_S3BP7tO7z"
     };
     const userPool = new awsCognito.CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
 
+    if (cognitoUser !== null) {
+      cognitoUser.getSession((err: any, session: any) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log('session: ' + session.isValid());
+      });
+    }
+
     if (cognitoUser != null) {
       console.log(cognitoUser.getUsername())
-      cognitoUser.signOut();
+      cognitoUser.globalSignOut({
+        onFailure: console.log,
+        onSuccess: console.log,
+      });
     }
 
     this.props.history.push('/home');
   }
 
-
   public render() {
     return (
-      <div>
-
-      </div>
+      false
     );
   }
 }

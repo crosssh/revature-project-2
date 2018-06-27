@@ -8,6 +8,7 @@ interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
   product: any;
   user: any;
+  clearItem: () => void;
   getBuyer: (username: string) => Promise<any>;
   getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   reinitializeProduct: () => void;
@@ -42,11 +43,12 @@ export class BidsComponent extends React.Component<IProp, any> {
   }
   public componentWillUnmount() {
     this.props.reinitializeProduct();
+    this.props.clearItem();
   }
 
   public formatTime = (time: any) => {
     const newTime = new Date(time);
-    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+    return 'on ' + newTime.toDateString() + ' at ' + newTime.toLocaleTimeString()
   }
 
   public render() {
@@ -62,7 +64,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                   {this.props.buyer.currentBuyer.username}
                 </h1>
               </div>
-              <div className="col-7">
+              <div className="col-4">
                 <h6 className="italic indented">Don't see a bid you're expecting? It may have already been bought by someone.</h6>
               </div>
             </div>
@@ -77,7 +79,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                   
                    
                   <div
-                    className="card pop-card profile-pop-card"
+                    className="card static-pop-card profile-pop-card"
                     key={product.timePosted}
                   >
                     <img

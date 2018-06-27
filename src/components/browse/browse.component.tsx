@@ -19,7 +19,6 @@ interface IProp extends IBuyer, IProduct, RouteProps {
   getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
   putNewBid: (currentBuyer: any) => void;
   putProduct: (product: any) => void;
-  updateStatus: (status: string) => void;
 }
 
 export class BrowseComponent extends React.Component<IProp, any> {
@@ -214,36 +213,37 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public formatTime = (time: any) => {
     const newTime = new Date(time);
-    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+    return `on 
+    ${newTime.toDateString()}  at ` + newTime.toLocaleTimeString()
   }
 
-  public getUnfilteredTypeListName = (e:any) => {
+  public getUnfilteredTypeListName = (e: any) => {
 
-    if(!this.state.categorySelected){
+    if (!this.state.categorySelected) {
 
       this.setState({ filteredList: this.state.unfiltered })
       this.setState({ typeSelected: false })
 
     } else {
-    
+
       const filtered = this.state.unfiltered.filter((p: any) => {
         return p.category.toLowerCase().indexOf(this.state.currentSortingCategory) !== -1;
       })
       this.setState({ currentCategorySortingList: filtered })
       this.setState({ filteredList: filtered })
-    // this.setState({ filteredList: this.state.currentCategorySortingList })
-    this.setState({ typeSelected: false })
+      // this.setState({ filteredList: this.state.currentCategorySortingList })
+      this.setState({ typeSelected: false })
 
     }
-    this.setState({currentSortingType: e.target.value })
+    this.setState({ currentSortingType: e.target.value })
 
   }
 
 
   public getUnfilteredCategoryListName = (e: any) => {
-    
-    if (!this.state.typeSelected){
-      this.setState({filteredList: this.state.unfiltered })
+
+    if (!this.state.typeSelected) {
+      this.setState({ filteredList: this.state.unfiltered })
       this.setState({ categorySelected: false })
 
     }
@@ -253,8 +253,8 @@ export class BrowseComponent extends React.Component<IProp, any> {
       })
       this.setState({ currentTypeSortingList: filtered })
       this.setState({ filteredList: filtered })
-    // this.setState({ filteredList: this.state.currentTypeSortingList })
-    this.setState({ categorySelected: false })
+      // this.setState({ filteredList: this.state.currentTypeSortingList })
+      this.setState({ categorySelected: false })
     }
     this.setState({ currentSortingCategory: e.target.value })
   }
@@ -271,7 +271,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
               <div>
                 <h5>Category</h5>
                 <ul className="list-group">
-                <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'none'} onChange={this.getUnfilteredCategoryListName } name='categoryChoice' type="radio" value='none' />none</li>
+                  <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'none'} onChange={this.getUnfilteredCategoryListName} name='categoryChoice' type="radio" value='none' />none</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'animation'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="animation" />Animation</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'games'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="games" />Games</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'heroes'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="heroes" />Heroes</li>
@@ -428,7 +428,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
                       <li className="list-group-item">Category: {product.category}</li>
                       <li className="list-group-item">Type: {product.type}</li>
                       <li className="list-group-item">Condition: {product.condition}</li>
-                      <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
+                      <li className="list-group-item">Auction ends {this.formatTime(product.auctionEndTime)}</li>
                     </ul>
                                                 
                   </div>

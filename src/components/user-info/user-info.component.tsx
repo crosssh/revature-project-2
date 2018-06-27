@@ -14,6 +14,7 @@ export class UserInfoComponent extends React.Component<any, any> {
       newPassword: "",
       oldPassword: "",
       repeatPassword: "",
+      showChangePassword: false,
     }
   }
 
@@ -70,13 +71,23 @@ export class UserInfoComponent extends React.Component<any, any> {
     })
   }
 
+  public showChangePassword = (e: any) => {
+    e.preventDefault();
+    if (!this.state.showChangePassword) {
+      this.setState({
+        showChangePassword: true,
+      })
+    } else {
+      this.setState({
+        showChangePassword: false,
+      })
+    }
+  }
+
   public changePassword = (e: any) => {
     e.preventDefault();
 
-    console.log(this.state.password);
-
     if (this.state.newPassword === this.state.repeatPassword) {
-      console.log(this.state.newPassword);
       const poolData = {
         ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here
         UserPoolId: "us-west-2_S3BP7tO7z" // Your user pool id here
@@ -93,26 +104,27 @@ export class UserInfoComponent extends React.Component<any, any> {
           console.log('session: ' + session.isValid());
         });
 
-        cognitoUser.changePassword('oldPassword', 'newPassword', function (err, result) {
+        cognitoUser.changePassword(this.state.oldPassword, this.state.newPassword, function (err, result) {
           if (err) {
-            alert(err);
+            console.log(err);
             return;
           }
-          console.log('call result: ' + result);
+          console.log(result);
+          return;
         });
       }
       this.setState({
         errorMsg: "",
+        newPassword: "",
+        oldPassword: "",
+        repeatPassword: "",
       })
     } else {
       this.setState({
         errorMsg: "New pass word is not the same as the repeat password",
       })
     }
-
-
   }
-
 
   public render() {
     return (
@@ -124,17 +136,22 @@ export class UserInfoComponent extends React.Component<any, any> {
             <p className="font-weight-bold text-center">Last Name: {this.state.lastName}</p>
             <p className="font-weight-bold text-center">Email: {this.state.email}</p>
             <br />
-            <h5> Change Password </h5>
-            <form onSubmit={this.changePassword}>
-              <h6>Please enter your old password</h6>
-              <input type="text" className="form-control" placeholder="Old Password" onChange={this.updateOldPassword} required />
-              <h6>Please enter your New password</h6>
-              <input type="text" className="form-control" placeholder="New Password" onChange={this.updateNewPassword} required />
-              <h6>Please enter your new password again</h6>
-              <input type="text" className="form-control" placeholder="Repeat Password" onChange={this.updateRepeatPassword} required />
-              <div id="error-message">{this.state.errorMsg}</div>
-              <button type="submit" className="btn btn-secondary">Change Password</button>
-            </form>
+            <button className="btn btn-secondary btn-sm" onClick={this.showChangePassword}> Change Password </button>
+            {
+              this.state.showChangePassword !== false &&
+              <div className="change-password">
+                <form onSubmit={this.changePassword} className="change-password-form">
+                  <h6>Please enter your old password</h6>
+                  <input type="password" className="form-control" placeholder="Old Password" onChange={this.updateOldPassword} required />
+                  <h6>Please enter your New password</h6>
+                  <input type="password" className="form-control" placeholder="New Password" onChange={this.updateNewPassword} required />
+                  <h6>Please enter your new password again</h6>
+                  <input type="password" className="form-control" placeholder="Confirm Password" onChange={this.updateRepeatPassword} required />
+                  <div id="error-message">{this.state.errorMsg}</div>
+                  <button type="submit" className="btn btn-secondary btn-sm float-right">Submit</button>
+                </form>
+              </div>
+            }
           </div>
         </div>
       </div>
