@@ -51,10 +51,13 @@ export class NavComponent extends React.Component<IProp, any> {
     const cognitoUser = new awsCognito.CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: result => {
+        tempPass = "";
         const token = result.getIdToken().getJwtToken();
         localStorage.setItem("token", token);
         this.updateAuthToken(token);
         localStorage.setItem("username", this.props.username);
+        this.props.updateError("Login successful");
+        window.location.reload(false);
       },
 
       onFailure: err => {
@@ -95,9 +98,9 @@ export class NavComponent extends React.Component<IProp, any> {
               <li className="nav-item active">
                 <Link to="/bids" className="unset-anchor nav-link">Profile</Link>
               </li>
-              <li className="nav-item active">
+              {/* <li className="nav-item active">
                 <Link to="/sign-in" className="unset-anchor nav-link">Sign In</Link>
-              </li>
+              </li> */}
 
               <li className="nav-item active">
                 <p id="dropdown-signin" data-toggle="dropdown" className="nav-link dropdown-toggle pointer" >Sign In</p>
@@ -121,7 +124,7 @@ export class NavComponent extends React.Component<IProp, any> {
                       <br />
                       <div className="form-footer row">
                         {this.props.errorMessage !== "" && (
-                          <div id="error-message italic">{this.props.errorMessage}</div>
+                          <div id="error-message" className="italic">{this.props.errorMessage}</div>
                         )}
                         Don't have an account yet?
                         <Link to="/create-user">
