@@ -1,15 +1,22 @@
 import * as React from "react";
-import { IProduct } from "../../reducers";
+import { IProduct, IBuyer } from "../../reducers";
 import { setTimeout } from "timers";
 import { RouteProps } from "react-router";
 
-interface IProp extends IProduct, RouteProps {
+interface IProp extends IBuyer, IProduct, RouteProps {
   history: any;
+  buyer: any;
+  product: any;
+  addToBought: (newBought: any, boughtItems: any[]) => void;
   clearList: () => void;
+  getBuyer: (username: string) => Promise<any>;
   getByName: (name: string) => void;
   getByCategory: (category: string) => void;
   getByType: (type: string) => void;
   getBySellerAndTime: (username: string, timePosted: number) => Promise<any>;
+  putNewBid: (currentBuyer: any) => void;
+  putProduct: (product: any) => void;
+  updateStatus: (status: string) => void;
 }
 
 export class BrowseComponent extends React.Component<IProp, any> {
@@ -39,10 +46,9 @@ export class BrowseComponent extends React.Component<IProp, any> {
   };
 
   public componentDidMount() {
+    console.log(this.state.searchText)
     this.props.getByName(this.state.searchText);
-    setTimeout(this.setFiltered, 1500)
-
-    this.setState({ filteredList: this.props.productList })
+    setTimeout(this.setFiltered, 1500);
   }
 
   public componentWillUnmount() {
@@ -74,7 +80,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
     }
     setTimeout(this.setFiltered, 1500)
-    this.setState({ filteredList: this.props.productList })
+    this.setState({ filteredList: this.props.product.productList })
     this.setState({ searchText: '' })
     this.reset()
   }
@@ -104,9 +110,44 @@ export class BrowseComponent extends React.Component<IProp, any> {
   }
 
   public setFiltered = () => {
-    this.setState({ filteredList: this.props.productList })
-    this.setState({ unfiltered: this.props.productList })
-    console.log(this.state.filteredList)
+    this.setState({ filteredList: this.props.product.productList })
+    this.setState({ unfiltered: this.props.product.productList })
+    // console.log(this.state.filteredList)
+
+    console.log(this.state.filteredList);
+
+    this.state.filteredList.forEach((product: any) => {
+      if (parseInt(product.auctionEndTime, 10) <= Date.now()) {
+        console.log(product);
+        const tempProduct = product;
+        if (product.currentBidPrice !== 0) {
+          tempProduct.status = 'sold';
+          const item = {
+            boughtPrice: product.currentBidPrice,
+            itemName: product.name,
+            seller: product.username,
+            timeBought: Date.now(),
+            timePosted: product.timePosted
+          }
+
+          this.props.getBuyer(product.currentBidder)
+            .then(resp => {
+              this.props.addToBought(item, this.props.buyer.currentBuyer.boughtItems);
+              this.props.putProduct(tempProduct);
+              this.forceUpdate(() => {
+                this.props.putNewBid(this.props.buyer.currentBuyer);
+              })
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        } else {
+          console.log('here')
+          tempProduct.auctionEndTime = product.auctionEndTime + 86400000;
+          this.props.putProduct(tempProduct);
+        }
+      }
+    });
   }
 
   public sortCategoryName = (e: any) => {
