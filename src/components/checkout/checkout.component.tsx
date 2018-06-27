@@ -5,6 +5,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import { RouteProps } from 'react-router';
 import config from 'src/components/checkout/config';
 import Axios from "axios";
+import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 interface IProp extends IBuyer, IProduct, IUser, RouteProps {
   buyer: any;
@@ -127,6 +128,9 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         {this.props.product.chosenItem !== null && this.state.continueGuest === true &&
           <div className="row checkout">
             <div className="col-5">
+            <ReactCSSTransitionGroup transitionName = "example"
+                  transitionAppear = {true} transitionAppearTimeout = {700}
+                  transitionEnter = {false} transitionLeave = {false}>
               <div className="checkout-pop-card">
                 <img
                   className="card-img-top img-fluid"
@@ -148,6 +152,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
                   </li>
                 </ul>
               </div>
+              </ReactCSSTransitionGroup>
             </div>
             <div className="col-7 checkout-seller-info">
               <div className="row">

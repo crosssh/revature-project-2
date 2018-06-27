@@ -2,6 +2,9 @@ import * as React from "react";
 import { IProduct, IBuyer } from "../../reducers";
 import { setTimeout } from "timers";
 import { RouteProps } from "react-router";
+import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// import '../browse/browse.css'
+
 
 interface IProp extends IBuyer, IProduct, RouteProps {
   history: any;
@@ -396,8 +399,15 @@ export class BrowseComponent extends React.Component<IProp, any> {
           </div>
           <div className="container">
             <div className="row">
+            
               {this.state.filteredList.length > 0 &&
+              
+              
                 this.state.filteredList.map((product: any) => (
+                  <ReactCSSTransitionGroup transitionName = "example"
+                  transitionAppear = {true} transitionAppearTimeout = {700}
+                  transitionEnter = {false} transitionLeave = {false}>
+                  
                   <div
                     className="card col-3 pop-card browse-pop-card"
                     key={product.timePosted}
@@ -420,7 +430,9 @@ export class BrowseComponent extends React.Component<IProp, any> {
                       <li className="list-group-item">Condition: {product.condition}</li>
                       <li className="list-group-item">Auction ends {this.formatTime(product.auctionEndTime)}</li>
                     </ul>
+                                                
                   </div>
+                  </ReactCSSTransitionGroup>
                 ))}
             </div>
           </div>

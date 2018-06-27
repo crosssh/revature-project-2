@@ -2,6 +2,7 @@ import * as React from "react";
 import { ProfileNavComponent } from "../profile-nav.component";
 import { IBuyer, IUser, IProduct } from "../../reducers";
 import { Link } from "react-router-dom";
+import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 interface IProp extends IBuyer, IProduct, IUser {
   buyer: any;
@@ -61,6 +62,10 @@ export class BoughtComponent extends React.Component<IProp, any> {
               <div className="row">
                 {this.props.product.photos.length > 0 ?
                   this.props.product.photos.map((product: any) => (
+
+                    <ReactCSSTransitionGroup transitionName = "example"
+                  transitionAppear = {true} transitionAppearTimeout = {700}
+                  transitionEnter = {false} transitionLeave = {false}>
                     <div
                       className="card static pop-card profile-pop-card"
                       key={product.timePosted}
@@ -91,6 +96,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
 
                       </div>
                     </div>
+                    </ReactCSSTransitionGroup>
                   )) :
                   <div className="row">
                     <h5 className="indented">No purchases yet? Take a look at our browse page to see what's available!</h5>
