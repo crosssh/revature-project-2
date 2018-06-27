@@ -137,12 +137,12 @@ export class BrowseComponent extends React.Component<IProp, any> {
   public sortCategoryName = (e: any) => {
     if (this.state.typeSelected) {
       const filtered = this.state.currentTypeSortingList.filter((p: any) => {
-        return p.category.indexOf(e.target.value) !== -1;
+        return p.category.toLowerCase().indexOf(e.target.value) !== -1;
       })
       this.setState({ filteredList: filtered })
     } else {
       const filtered = this.state.unfiltered.filter((p: any) => {
-        return p.category.indexOf(e.target.value) !== -1;
+        return p.category.toLowerCase().indexOf(e.target.value) !== -1;
       })
       this.setState({ currentCategorySortingList: filtered })
       this.setState({ filteredList: filtered })
@@ -154,12 +154,12 @@ export class BrowseComponent extends React.Component<IProp, any> {
   public sortTypeName = (e: any) => {
     if (this.state.categorySelected) {
       const filtered = this.state.currentCategorySortingList.filter((p: any) => {
-        return p.type.indexOf(e.target.value) !== -1;
+        return p.type.toLowerCase().indexOf(e.target.value) !== -1;
       })
       this.setState({ filteredList: filtered })
     } else {
       const filtered = this.state.unfiltered.filter((p: any) => {
-        return p.type.indexOf(e.target.value) !== -1;
+        return p.type.toLowerCase().indexOf(e.target.value) !== -1;
       })
       this.setState({ currentTypeSortingList: filtered })
       this.setState({ filteredList: filtered })
@@ -170,14 +170,14 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public sortCategory = (e: any) => {
     const filtered = this.state.unfiltered.filter((p: any) => {
-      return p.category.indexOf(e.target.value) !== -1;
+      return p.category.toLowerCase().indexOf(e.target.value) !== -1;
     })
     this.setState({ filteredList: filtered })
   }
 
   public sortType = (e: any) => {
     const filtered = this.state.unfiltered.filter((p: any) => {
-      return p.type.indexOf(e.target.value) !== -1;
+      return p.type.toLowerCase().indexOf(e.target.value) !== -1;
     })
     this.setState({ filteredList: filtered })
   }
@@ -194,8 +194,8 @@ export class BrowseComponent extends React.Component<IProp, any> {
 
   public reset = () => {
     this.setState({ filteredList: this.state.unfiltered })
-    this.setState({ currentSortingType: '' })
-    this.setState({ currentSortingCategory: "" })
+    this.setState({ currentSortingType: 'none' })
+    this.setState({ currentSortingCategory: "none" })
     this.setState({ categorySelected: false })
     this.setState({ typeSelected: false })
   }
@@ -214,6 +214,48 @@ export class BrowseComponent extends React.Component<IProp, any> {
     return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
   }
 
+  public getUnfilteredTypeListName = (e:any) => {
+
+    if(!this.state.categorySelected){
+
+      this.setState({ filteredList: this.state.unfiltered })
+      this.setState({ typeSelected: false })
+
+    } else {
+    
+      const filtered = this.state.unfiltered.filter((p: any) => {
+        return p.category.toLowerCase().indexOf(this.state.currentSortingCategory) !== -1;
+      })
+      this.setState({ currentCategorySortingList: filtered })
+      this.setState({ filteredList: filtered })
+    // this.setState({ filteredList: this.state.currentCategorySortingList })
+    this.setState({ typeSelected: false })
+
+    }
+    this.setState({currentSortingType: e.target.value })
+
+  }
+
+
+  public getUnfilteredCategoryListName = (e: any) => {
+    
+    if (!this.state.typeSelected){
+      this.setState({filteredList: this.state.unfiltered })
+      this.setState({ categorySelected: false })
+
+    }
+    else {
+      const filtered = this.state.unfiltered.filter((p: any) => {
+        return p.type.toLowerCase().indexOf(this.state.currentSortingType) !== -1;
+      })
+      this.setState({ currentTypeSortingList: filtered })
+      this.setState({ filteredList: filtered })
+    // this.setState({ filteredList: this.state.currentTypeSortingList })
+    this.setState({ categorySelected: false })
+    }
+    this.setState({ currentSortingCategory: e.target.value })
+  }
+
   public render() {
     return (
       <div className="row">
@@ -226,6 +268,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
               <div>
                 <h5>Category</h5>
                 <ul className="list-group">
+                <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'none'} onChange={this.getUnfilteredCategoryListName } name='categoryChoice' type="radio" value='none' />none</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'animation'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="animation" />Animation</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'games'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="games" />Games</li>
                   <li className="list-group-item"><input checked={this.state.currentSortingCategory === 'heroes'} onChange={this.sortCategoryName} name='categoryChoice' type="radio" value="heroes" />Heroes</li>
@@ -241,6 +284,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
               <div>
                 <h5>Types</h5>
                 <ul className="list-group">
+                  <li className="list-group-item"> <input checked={this.state.currentSortingType === 'none'} onChange={this.getUnfilteredTypeListName} name='typeChoice' type="radio" value="none" />none</li>
                   <li className="list-group-item"> <input checked={this.state.currentSortingType === 'pop'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pop" />POP!</li>
                   <li className="list-group-item"> <input checked={this.state.currentSortingType === 'pocket'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="pocket" />Pocket</li>
                   <li className="list-group-item"> <input checked={this.state.currentSortingType === 'vinyl'} onChange={this.sortTypeName} name='typeChoice' type="radio" value="vinyl" />Vinyl</li>
@@ -325,7 +369,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
                         <option value="music">Music</option>
                         <option value="rides">Rides</option>
                         <option value="sports">Sports</option>
-                        <option value="Star Wars">Star Wars</option>
+                        <option value="star wars">Star Wars</option>
                         <option value="television">Television</option>
                         <option value="home">Other</option>
                       </select>
