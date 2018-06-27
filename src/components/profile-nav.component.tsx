@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const ProfileNavComponent: React.StatelessComponent<{}> = () => {
   return (
-    <div className="col-1 vertical-menu">
+    <div className="col-2 vertical-menu">
       <Link to="/bids" className="unset-anchor nav-link">
         Bids
       </Link>
