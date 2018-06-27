@@ -12,6 +12,7 @@ interface IProp extends IBuyer, IProduct, IUser, RouteProps {
   user: any;
   history: any;
   addToBought: (boughtItem: any, boughtItems: any[]) => void;
+  clearItem: () => void;
   getBuyer: (username: string) => void;
   putNewBid: (currentBuyer: any) => void;
   putProduct: (chosenProduct: any) => void;
@@ -93,6 +94,10 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     } else {
       return this.props.product.chosenItem.currentBidPrice;
     }
+  }
+
+  public componentWillUnmount() {
+    this.props.clearItem();
   }
 
   public render() {
