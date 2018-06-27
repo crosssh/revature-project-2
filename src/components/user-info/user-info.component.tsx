@@ -105,15 +105,18 @@ export class UserInfoComponent extends React.Component<any, any> {
 
         cognitoUser.changePassword(this.state.oldPassword, this.state.newPassword, function (err, result) {
           if (err) {
-            alert(err);
             console.log(err);
             return;
           }
-          console.log('call result: ' + result);
+          console.log(result);
+          return;
         });
       }
       this.setState({
         errorMsg: "",
+        newPassword: "",
+        oldPassword: "",
+        repeatPassword: "",
       })
     } else {
       this.setState({
