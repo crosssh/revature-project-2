@@ -65,25 +65,27 @@ export class CheckoutComponent extends React.Component<IProp, any> {
 
   public componentDidMount() {
 
-    const username: any = localStorage.getItem('username');
-    if (username !== null && this.props.product.chosenItem !== null) {
-      this.setContinueTrue();
-      this.props.getBuyer(username);
-      this.props.updateBoughtPrice(this.props.product.chosenItem.buyNowPrice);
-      this.props.updateBoughtSeller(this.props.product.chosenItem.username);
-      this.props.updateItemNameBought(this.props.product.chosenItem.name);
-      this.props.updateBoughtTime(Date.now());
-      this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
-      this.props.updateStatus("sold");
-      this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
-    } else if (this.props.product.chosenItem !== null) {
-      this.props.updateStatus("sold");
-      this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
-    } else {
-      this.setState({
-        errorMsg: "Must select an item berfore checking out."
-      })
-    }
+    this.forceUpdate(() => {
+      const username: any = localStorage.getItem('username');
+      if (username !== null && this.props.product.chosenItem !== null) {
+        this.setContinueTrue();
+        this.props.getBuyer(username);
+        this.props.updateBoughtPrice(this.props.product.chosenItem.buyNowPrice);
+        this.props.updateBoughtSeller(this.props.product.chosenItem.username);
+        this.props.updateItemNameBought(this.props.product.chosenItem.name);
+        this.props.updateBoughtTime(Date.now());
+        this.props.updatePostTimeBought(this.props.product.chosenItem.timePosted);
+        this.props.updateStatus("sold");
+        this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
+      } else if (this.props.product.chosenItem !== null) {
+        this.props.updateStatus("sold");
+        this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
+      } else {
+        this.setState({
+          errorMsg: "Must select an item berfore checking out."
+        })
+      }
+    })
   }
 
   public checkout = (e: any) => {
@@ -114,7 +116,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
       continueGuest: true,
     })
   }
-  
+
   public componentWillUnmount() {
     this.props.clearItem();
   }
