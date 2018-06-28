@@ -63,13 +63,14 @@ export class BoughtComponent extends React.Component<IProp, any> {
                 {this.props.product.photos.length > 0 ?
                   this.props.product.photos.map((product: any) => (
 
-                    <ReactCSSTransitionGroup transitionName="example"
-                      transitionAppear={true} transitionAppearTimeout={700}
-                      transitionEnter={false} transitionLeave={false}>
-                      <div
-                        className="card static pop-card profile-pop-card"
-                        key={product.timePosted}
-                      >
+
+                    <ReactCSSTransitionGroup transitionName = "example"
+                  transitionAppear = {true} transitionAppearTimeout = {700}
+                  transitionEnter = {false} transitionLeave = {false}>
+                    <div
+                      className="card static pop-card profile-pop-card grow"
+                      key={product.timePosted}
+                    >
 
                         <img
                           className="card-img-top pop-card-img"

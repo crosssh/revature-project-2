@@ -61,11 +61,12 @@ export class SellingComponent extends React.Component<IProp, any> {
 
               {this.props.product.productList.length > 0 ?
                 this.props.product.productList.map((product: any) => (
+
                   <ReactCSSTransitionGroup transitionName="example"
                     transitionAppear={true} transitionAppearTimeout={700}
                     transitionEnter={false} transitionLeave={false}>
                     <div
-                      className="card static pop-card profile-pop-card"
+                      className="card static pop-card profile-pop-card grow"
                       key={product.timePosted}
                     >
                       <img
@@ -112,6 +113,7 @@ export class SellingComponent extends React.Component<IProp, any> {
                           <button className="btn btn-sm btn-secondary" onClick={this.removeProduct(product.username, product.timePosted)}>Withdraw from sale</button>
                         }
                       </div>
+
                     </div>
                   </ReactCSSTransitionGroup>
                 )) :
