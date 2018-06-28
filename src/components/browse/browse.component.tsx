@@ -3,7 +3,6 @@ import { IProduct, IBuyer } from "../../reducers";
 import { setTimeout } from "timers";
 import { RouteProps } from "react-router";
 import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import 'node_modules/font-awesome/css/font-awesome.min.css'
 // import '../browse/browse.css'
 
 
@@ -269,7 +268,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
             this.state.currentSearchCriteria === 'name' &&                                                                                                                                             
             <div>                                                                                                            
               <h4> Sort options </h4>
-              <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categoryChoice'>Reset <i className="fa fa-filter"></i></button></div>
+              <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categoryChoice'>Reset Filter</button></div>
               <div>
                 <h5>Category</h5>
                 <ul className="list-group ">
@@ -395,7 +394,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
                 </div>
                 <div className="col">
                 
-                  <button className="btn btn-secondary" type="submit"><i className="fa fa-search"></i> </button>
+                  <button className="btn btn-secondary" type="submit">Search</button>
                 </div>
               </div>
             </form>
