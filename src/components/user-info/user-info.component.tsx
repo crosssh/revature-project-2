@@ -5,7 +5,7 @@ import * as awsCognito from "amazon-cognito-identity-js";
 export class UserInfoComponent extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
+
     this.state = {
       email: "",
       errorMsg: "",
@@ -20,8 +20,8 @@ export class UserInfoComponent extends React.Component<any, any> {
 
   public componentDidMount() {
     const poolData = {
-      ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here
-      UserPoolId: "us-west-2_S3BP7tO7z" // Your user pool id here
+      ClientId: "5gpn6c10oppbml3hjva90nrjgf",
+      UserPoolId: "us-west-2_S3BP7tO7z"
     };
     const userPool = new awsCognito.CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
@@ -89,8 +89,8 @@ export class UserInfoComponent extends React.Component<any, any> {
 
     if (this.state.newPassword === this.state.repeatPassword) {
       const poolData = {
-        ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here
-        UserPoolId: "us-west-2_S3BP7tO7z" // Your user pool id here
+        ClientId: "5gpn6c10oppbml3hjva90nrjgf",
+        UserPoolId: "us-west-2_S3BP7tO7z"
       };
       const userPool = new awsCognito.CognitoUserPool(poolData);
       const cognitoUser = userPool.getCurrentUser();
@@ -121,7 +121,7 @@ export class UserInfoComponent extends React.Component<any, any> {
       })
     } else {
       this.setState({
-        errorMsg: "New pass word is not the same as the repeat password",
+        errorMsg: "New password field does not match the confirm password field",
       })
     }
   }

@@ -34,13 +34,14 @@ export class BoughtComponent extends React.Component<IProp, any> {
             .then(res => {
               this.props.updatePhotos(this.props.product.chosenItem, this.props.product.photos);
             })
-            .catch(err => console.log(err)); // Tell them we can't load info?
+            .catch(err => console.log(err));
         }
       })
       .catch(err => {
         console.log("");
       });
   }
+
   public componentWillUnmount() {
     this.props.reinitializeProduct();
     this.props.clearItem();
@@ -62,16 +63,13 @@ export class BoughtComponent extends React.Component<IProp, any> {
               <div className="row">
                 {this.props.product.photos.length > 0 ?
                   this.props.product.photos.map((product: any) => (
-
-
-                    <ReactCSSTransitionGroup transitionName = "example"
-                  transitionAppear = {true} transitionAppearTimeout = {700}
-                  transitionEnter = {false} transitionLeave = {false}>
-                    <div
-                      className="card static pop-card profile-pop-card grow pop-card-no-cursor"
-                      key={product.timePosted}
-                    >
-
+                    <ReactCSSTransitionGroup transitionName="example"
+                      transitionAppear={true} transitionAppearTimeout={700}
+                      transitionEnter={false} transitionLeave={false}>
+                      <div
+                        className="card static pop-card profile-pop-card grow pop-card-no-cursor"
+                        key={product.timePosted}
+                      >
                         <img
                           className="card-img-top pop-card-img"
                           src={
@@ -94,7 +92,6 @@ export class BoughtComponent extends React.Component<IProp, any> {
                         </ul>
                         <div className="card-body">
                           Seller: {product.username}
-
                         </div>
                       </div>
                     </ReactCSSTransitionGroup>

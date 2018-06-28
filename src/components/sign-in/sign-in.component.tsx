@@ -33,8 +33,8 @@ export class SignInComponent extends React.Component<any, any> {
       authenticationData
     );
     const poolData = {
-      ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here
-      UserPoolId: "us-west-2_S3BP7tO7z" // Your user pool id here
+      ClientId: "5gpn6c10oppbml3hjva90nrjgf",
+      UserPoolId: "us-west-2_S3BP7tO7z"
     };
     const userPool = new awsCognito.CognitoUserPool(poolData);
     const userData = {
@@ -53,7 +53,6 @@ export class SignInComponent extends React.Component<any, any> {
         // const idtok: any = result.getIdToken();
         // console.log(idtok.payload['cognito:groups']) //payload has the user info on it
 
-        // navigate pages now that we have successfully logged in
         this.props.history.push("/home");
       },
 
@@ -81,7 +80,7 @@ export class SignInComponent extends React.Component<any, any> {
   public render() {
     return (
       <form className="form-signin" onSubmit={this.submit}>
-        <h1 className="h3 mb-3 font-weight-normal">Please sign in for the full PopBay experience!</h1>
+        <h1 className="h3 mb-3 font-weight-normal">Please sign in to begin PopBay experience!</h1>
         <label htmlFor="inputUsername" className="sr-only">
           Username
         </label>

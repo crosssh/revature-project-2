@@ -42,8 +42,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
 
   public onDrop = (files: any) => {
     const file = files[0];
-    console.log(file);
-
     const url = file.name;
     this.updatePhotoNames(url);
     this.updatePhotos(file);
@@ -121,7 +119,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
     e.preventDefault();
     this.props.addProduct(this.props.product.currentProduct);
     for (let i = 0; i < this.props.product.photos.length; i++) {
-      console.log(this.props.product.photos[i]);
       this.sendPhotos(this.props.product.photos[i]);
     }
 
@@ -165,7 +162,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
                     value={this.props.product.currentProduct.category}
                     onChange={this.updateCategory}
                     className="form-control category"
-                    id="FormControlSelect1"
+                    id="FormControlSelect2"
                   >
                     <option value="choose" hidden>
                       Select
@@ -185,7 +182,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
                     value={this.props.product.currentProduct.condition}
                     onChange={this.updateCondition}
                     className="form-control condition"
-                    id="FormControlSelect1"
+                    id="FormControlSelect3"
                   >
                     <option value="choose" hidden>
                       Select
@@ -197,21 +194,20 @@ export class NewPopComponent extends React.Component<IProp, any> {
                   </select>
                   Minimum bid price: <br />
                   <input
-                    value={this.props.product.currentProduct.minimumBidPrice}
+                    placeholder='$'
                     type="number"
                     className="min-bid form-control"
                     onChange={this.setMinBid}
                   />{" "}
                   Buy-now price: <br />
                   <input
-                    value={this.props.product.currentProduct.buyNowPrice}
                     type="number"
                     className="buy-now-price form-control"
                     onChange={this.setBuyNow}
+                    placeholder='$'
                   />{" "}
                   Auction length (hours): <br />
                   <input
-                    // value={this.props.product.currentProduct.auctionEndTime}
                     type="text"
                     className="auction-length form-control"
                     onChange={this.setAuctionEnd}
@@ -219,7 +215,6 @@ export class NewPopComponent extends React.Component<IProp, any> {
                 </div>
                 <div className="col">
                   <Dropzone onDrop={this.onDrop}>
-
                     Drop your files here,
                   <br />
                     or click to select one.

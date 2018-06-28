@@ -18,7 +18,6 @@ interface IProp extends IBuyer, IUser, RouteProps {
 export class CreateUserComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   public updateUsername = (e: any) => {
@@ -53,8 +52,8 @@ export class CreateUserComponent extends React.Component<IProp, any> {
   public submit = (e: any) => {
     e.preventDefault();
     const poolData = {
-      ClientId: "5gpn6c10oppbml3hjva90nrjgf", // Your client id here
-      UserPoolId: "us-west-2_S3BP7tO7z" // Your user pool id here
+      ClientId: "5gpn6c10oppbml3hjva90nrjgf",
+      UserPoolId: "us-west-2_S3BP7tO7z"
     };
     const userPool = new awsCognito.CognitoUserPool(poolData);
     const email = {

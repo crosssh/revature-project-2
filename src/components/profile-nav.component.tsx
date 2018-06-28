@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-// import RevLogo from '../assets/rev-logo.png';
+
 
 export const ProfileNavComponent: React.StatelessComponent<{}> = () => {
   return (

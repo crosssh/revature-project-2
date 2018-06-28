@@ -3,7 +3,6 @@ import { IProduct, IBuyer } from "../../reducers";
 import { setTimeout } from "timers";
 import { RouteProps } from "react-router";
 import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-// import '../browse/browse.css'
 
 
 interface IProp extends IBuyer, IProduct, RouteProps {
@@ -24,7 +23,7 @@ interface IProp extends IBuyer, IProduct, RouteProps {
 export class BrowseComponent extends React.Component<IProp, any> {
   constructor(props: any) {
     super(props);
-    console.log(props);
+
     this.state = {
       categorySelected: false,
       currentCategory: '',
@@ -50,7 +49,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
   public componentDidMount() {
     this.props.getByName(this.state.searchText);
     setTimeout(this.setFiltered, 1500);
-     
+
   }
 
   public componentWillUnmount() {
@@ -232,7 +231,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
       })
       this.setState({ currentCategorySortingList: filtered })
       this.setState({ filteredList: filtered })
-      // this.setState({ filteredList: this.state.currentCategorySortingList })
       this.setState({ typeSelected: false })
 
     }
@@ -254,7 +252,6 @@ export class BrowseComponent extends React.Component<IProp, any> {
       })
       this.setState({ currentTypeSortingList: filtered })
       this.setState({ filteredList: filtered })
-      // this.setState({ filteredList: this.state.currentTypeSortingList })
       this.setState({ categorySelected: false })
     }
     this.setState({ currentSortingCategory: e.target.value })
@@ -265,8 +262,8 @@ export class BrowseComponent extends React.Component<IProp, any> {
       <div className="row">
         <div className="col-2">
           {
-            this.state.currentSearchCriteria === 'name' &&                                                                                                                                             
-            <div>                                                                                                            
+            this.state.currentSearchCriteria === 'name' &&
+            <div>
               <h4> Sort options </h4>
               <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categoryChoice'>Reset Filter</button></div>
               <div>
@@ -393,7 +390,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
                   )}
                 </div>
                 <div className="col">
-                
+
                   <button className="btn btn-secondary" type="submit">Search</button>
                 </div>
               </div>
