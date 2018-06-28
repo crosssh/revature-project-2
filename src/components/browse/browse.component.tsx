@@ -3,6 +3,7 @@ import { IProduct, IBuyer } from "../../reducers";
 import { setTimeout } from "timers";
 import { RouteProps } from "react-router";
 import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import 'node_modules/font-awesome/css/font-awesome.min.css'
 // import '../browse/browse.css'
 
 
@@ -50,6 +51,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
   public componentDidMount() {
     this.props.getByName(this.state.searchText);
     setTimeout(this.setFiltered, 1500);
+     
   }
 
   public componentWillUnmount() {
@@ -103,7 +105,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
   public setFiltered = () => {
     this.setState({ filteredList: this.props.product.productList })
     this.setState({ unfiltered: this.props.product.productList })
-
+    this.reset();
     this.state.filteredList.forEach((product: any) => {
       if (parseInt(product.auctionEndTime, 10) <= Date.now()) {
         const tempProduct = product;
@@ -264,10 +266,10 @@ export class BrowseComponent extends React.Component<IProp, any> {
       <div className="row">
         <div className="col-2">
           {
-            this.state.currentSearchCriteria === 'name' &&
-            <div>
+            this.state.currentSearchCriteria === 'name' &&                                                                                                                                             
+            <div>                                                                                                            
               <h4> Sort options </h4>
-              <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categoryChoice'>Reset Filter</button></div>
+              <div><button type="button" className="btn btn-secondary" onClick={this.reset} name='categoryChoice'>Reset <i className="fa fa-filter"></i></button></div>
               <div>
                 <h5>Category</h5>
                 <ul className="list-group ">
@@ -392,7 +394,8 @@ export class BrowseComponent extends React.Component<IProp, any> {
                   )}
                 </div>
                 <div className="col">
-                  <button className="btn btn-secondary" type="submit">Search Now</button>
+                
+                  <button className="btn btn-secondary" type="submit"><i className="fa fa-search"></i> </button>
                 </div>
               </div>
             </form>
