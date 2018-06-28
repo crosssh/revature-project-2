@@ -85,6 +85,8 @@ export class NavComponent extends React.Component<IProp, any> {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarsExample04">
+            <h1 className="bubble-font" >Welcome to PopBay{localStorage.getItem('username') !== null ?
+              ', ' + localStorage.getItem('username') + '!' : '!'}</h1>
             <ul className="navbar-nav ml-auto margin-nav">
               <li className="nav-item active">
                 <Link to="/home" className="unset-anchor nav-link">Home</Link>
@@ -107,17 +109,17 @@ export class NavComponent extends React.Component<IProp, any> {
                 <ul className="dropdown-menu form-wrapper">
                   <li>
                     <form onSubmit={this.submit} method="post">
-                      <div className="form-group">
+                      <div className="form-group mini-form-group">
                         <input
                           value={this.props.username}
                           onChange={this.updateUsername}
-                          type="text" className="form-control"
+                          type="text" className="form-control mini-form-control"
                           placeholder="Username" required />
                       </div>
-                      <div className="form-group">
+                      <div className="form-group mini-form-group">
                         <input
                           onChange={this.changeTemp}
-                          type="password" className="form-control"
+                          type="password" className="form-control mini-form-control"
                           placeholder="Password" required />
                       </div>
                       <button type="submit" className="btn btn-danger btn-block" value="Login"> Sign In</button>

@@ -134,7 +134,7 @@ export class NewPopComponent extends React.Component<IProp, any> {
         {localStorage.getItem('token') ?
           <div className="col-10">
             <form onSubmit={this.addProduct}>
-              <h3>Post one of your POPS on our site: </h3>
+              <h3 className="bubble-font">Post one of your POPS on our site! </h3>
               <div className="row">
                 <div className="col">
                   Product Name: <br />
@@ -248,15 +248,14 @@ export class NewPopComponent extends React.Component<IProp, any> {
                     </table>
                   )}
                   <br />
-                  <button className="btn btn-success centered" type="submit">
+                  <button className="btn btn-danger centered" type="submit">
                     Add Product
               </button>
                   <br />
                   <br />
-                  <h4 className="italic">{this.props.user.errorMessage}</h4>
+                  <h4 className="bubble-font">{this.props.user.errorMessage}</h4>
                 </div>
               </div>
-              <br />
             </form>
           </div>
           : <h1>With a user account, you can post POPS to sell!</h1>
