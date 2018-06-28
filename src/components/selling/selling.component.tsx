@@ -56,63 +56,65 @@ export class SellingComponent extends React.Component<IProp, any> {
         <ProfileNavComponent />
         {localStorage.getItem('token') ?
           <div className="col-10">
-            <h1>{localStorage.getItem('username')}'s posted items</h1>
+            <h1 className="bubble-font">{localStorage.getItem('username')}'s posted items</h1>
             <div className="row">
 
               {this.props.product.productList.length > 0 ?
                 this.props.product.productList.map((product: any) => (
-                  <ReactCSSTransitionGroup transitionName = "example"
-                  transitionAppear = {true} transitionAppearTimeout = {700}
-                  transitionEnter = {false} transitionLeave = {false}>
-                  <div
-                    className="card static pop-card profile-pop-card grow"
-                    key={product.timePosted}
-                  >
-                    <img
-                      className="card-img-top pop-card-img"
-                      src={
-                        "http://popbay-photo-storage.s3.amazonaws.com/" +
-                        product.photoNames[0]
-                      }
-                      alt="Card image cap"
-                    />
-                    <div className="card-title">
-                      <h5>{product.name}</h5>
+
+                  <ReactCSSTransitionGroup transitionName="example"
+                    transitionAppear={true} transitionAppearTimeout={700}
+                    transitionEnter={false} transitionLeave={false}>
+                    <div
+                      className="card static pop-card profile-pop-card grow"
+                      key={product.timePosted}
+                    >
+                      <img
+                        className="card-img-top pop-card-img"
+                        src={
+                          "http://popbay-photo-storage.s3.amazonaws.com/" +
+                          product.photoNames[0]
+                        }
+                        alt="Card image cap"
+                      />
+                      <div className="card-title">
+                        <h5>{product.name}</h5>
+                      </div>
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item">
+                          Auction {product.status === 'available'
+                            ? 'ends ' + this.formatTime(product.auctionEndTime)
+                            : 'has ended'}
+                        </li>
+                        <li className="list-group-item">
+                          Current Bid: ${product.currentBidPrice
+                            ? product.currentBidPrice
+                            : product.minimumBidPrice} <br />
+                          Current Bidder: {product.currentBidder}
+                        </li>
+                        <li className="list-group-item">
+                          Buy Now Price: ${product.buyNowPrice}
+                        </li>
+                        <li className="list-group-item">
+                          Status: {product.status}
+                        </li>
+                        <li className="list-group-item">
+                          Category: {product.category}
+                        </li>
+                        <li className="list-group-item">
+                          Type: {product.type}
+                        </li>
+                        <li className="list-group-item">
+                          Condition: {product.condition}
+                        </li>
+                      </ul>
+                      <div className="card-body">
+                        {product.status === "available" &&
+                          <button className="btn btn-sm btn-secondary" onClick={this.removeProduct(product.username, product.timePosted)}>Withdraw from sale</button>
+                        }
+                      </div>
+
                     </div>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        Auction {product.status === 'available'
-                          ? 'ends ' + this.formatTime(product.auctionEndTime)
-                          : 'has ended'}
-                      </li>
-                      <li className="list-group-item">
-                        Current Bid: ${product.currentBidPrice
-                          ? product.currentBidPrice
-                          : product.minimumBidPrice} <br />
-                        Current Bidder: {product.currentBidder}
-                      </li>
-                      <li className="list-group-item">
-                        Buy Now Price: ${product.buyNowPrice}
-                      </li>
-                      <li className="list-group-item">
-                        Status: {product.status}
-                      </li>
-                      <li className="list-group-item">
-                        Category: {product.category}
-                      </li>
-                      <li className="list-group-item">
-                        Type: {product.type}
-                      </li>
-                      <li className="list-group-item">
-                        Condition: {product.condition}
-                      </li>
-                    </ul>
-                    <div className="card-body">
-                      {product.status === "available" &&
-                        <button className="btn btn-sm btn-secondary" onClick={this.removeProduct(product.username, product.timePosted)}>Withdraw from sale</button>
-                      }
-                    </div>
-                  </div>
                   </ReactCSSTransitionGroup>
                 )) :
                 <h5 className="indented">Aren't selling anything right now? Click on "Add New POP" in the sidebar to get started!</h5>

@@ -165,7 +165,7 @@ export class ItemComponent extends React.Component<IProp, any> {
 
   public formatTime = (time: any) => {
     const newTime = new Date(time);
-    return 'on ' + newTime.toDateString() +' at ' + newTime.toLocaleTimeString()
+    return 'on ' + newTime.toDateString() + ' at ' + newTime.toLocaleTimeString()
   }
 
 
@@ -214,7 +214,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                         </h3>
                       </div>
                       <div className="col">
-                        <button className="btn btn-success" onClick={this.goBuy}> Buy Now</button>
+                        <button className="btn btn-danger" onClick={this.goBuy}> Buy Now</button>
                       </div>
                     </div>
                   </li>
@@ -240,7 +240,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                             />
                           </div>
                           <div className="col">
-                            <button className="btn btn-warning" type="submit">
+                            <button className="btn btn-danger" type="submit">
                               {" "}
                               Submit Bid{" "}
                             </button>
@@ -260,7 +260,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                       )}
                   </li>
                   <li className="list-group-item">
-                    <h5>bid ends 
+                    <h5>bid ends
                       {this.formatTime(this.props.product.chosenItem.auctionEndTime)}
                     </h5>
                   </li>

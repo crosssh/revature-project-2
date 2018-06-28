@@ -132,6 +132,8 @@ export class UserInfoComponent extends React.Component<any, any> {
         <ProfileNavComponent />
         <div className="col-10">
           <div className="container">
+            <h5 className="bubble-font text-center">Your User Information</h5>
+            <br />
             <p className="font-weight-bold text-center">First Name: {this.state.firstName}</p>
             <p className="font-weight-bold text-center">Last Name: {this.state.lastName}</p>
             <p className="font-weight-bold text-center">Email: {this.state.email}</p>
@@ -154,7 +156,7 @@ export class UserInfoComponent extends React.Component<any, any> {
             }
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }

@@ -232,6 +232,15 @@ nav {
   margin-left: 4em;
 }
 
+.indented-less{
+  margin-left: 3em;
+}
+
+.bubble-font{
+  font-family: "Arial Black", Gadget, sans-serif;
+  color: crimson;
+}
+
 
 /**********************
 *Items
@@ -262,8 +271,6 @@ item grow when selected
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.02,1.02); }
 
-
-
 /****************
 * User Info
 ****************/
@@ -284,12 +291,12 @@ item grow when selected
   margin-left: .25em;
 }
 
-.form-control {
+.mini-form-control {
   box-shadow: none;		
   font-weight: normal;
   font-size: 14px;
 }
-.form-control:focus {
+.mini-form-control:focus {
   border-color: crimson;
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
@@ -303,7 +310,7 @@ item grow when selected
   font-weight: normal;
 }
 .navbar .nav .dropdown-menu li a, .navbar .nav .dropdown-menu li a:hover, .navbar .nav .dropdown-menu li a:focus {
-  padding: 8px 20px;
+  padding: 8px;
   line-height: normal;
 }
 .navbar .navbar-form {
@@ -314,7 +321,7 @@ item grow when selected
   padding: 20px;
   left: auto;
   right: 0;
-      font-size: 14px;
+  font-size: 14px;
 }
 .navbar .dropdown-menu.form-wrapper a {		
   color: black;

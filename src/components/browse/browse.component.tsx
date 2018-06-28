@@ -341,7 +341,7 @@ export class BrowseComponent extends React.Component<IProp, any> {
           }
         </div>
         <div className="col-10">
-          <h1>Browse our collection of POPS for sale</h1>
+          <h1 className="bubble-font">Browse our collection of POPS for sale</h1>
           <br />
           <div className="container">
             <form className="form-group" onSubmit={this.submitSearch}>
@@ -402,39 +402,39 @@ export class BrowseComponent extends React.Component<IProp, any> {
           </div>
           <div className="container">
             <div className="row">
-            
+
               {this.state.filteredList.length > 0 &&
-              
-              
+
+
                 this.state.filteredList.map((product: any) => (
-                  <ReactCSSTransitionGroup transitionName = "example"
-                  transitionAppear = {true} transitionAppearTimeout = {700}
-                  transitionEnter = {false} transitionLeave = {false}>
-                  
-                  <div
-                    className="card col-3 pop-card browse-pop-card grow"
-                    key={product.timePosted}
-                    onClick={this.selectItem(product.username, product.timePosted)}
-                  >
-                    <img
-                      className="card-img-top pop-card-img"
-                      src={
-                        "http://popbay-photo-storage.s3.amazonaws.com/" +
-                        product.photoNames[0]
-                      }
-                      alt="Card image cap"
-                    />
-                    <div className="card-title">
-                      <h5>{product.name}</h5>
+
+                  <ReactCSSTransitionGroup transitionName="example"
+                    transitionAppear={true} transitionAppearTimeout={700}
+                    transitionEnter={false} transitionLeave={false}>
+
+                    <div
+                      className="card col-3 pop-card browse-pop-card grow"
+                      key={product.timePosted}
+                      onClick={this.selectItem(product.username, product.timePosted)}
+                    >
+                      <img
+                        className="card-img-top pop-card-img"
+                        src={
+                          "http://popbay-photo-storage.s3.amazonaws.com/" +
+                          product.photoNames[0]
+                        }
+                        alt="Card image cap"
+                      />
+                      <div className="card-title">
+                        <h5>{product.name}</h5>
+                      </div>
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item">Category: {product.category}</li>
+                        <li className="list-group-item">Type: {product.type}</li>
+                        <li className="list-group-item">Condition: {product.condition}</li>
+                        <li className="list-group-item">Auction ends {this.formatTime(product.auctionEndTime)}</li>
+                      </ul>
                     </div>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">Category: {product.category}</li>
-                      <li className="list-group-item">Type: {product.type}</li>
-                      <li className="list-group-item">Condition: {product.condition}</li>
-                      <li className="list-group-item">Auction ends {this.formatTime(product.auctionEndTime)}</li>
-                    </ul>
-                                                
-                  </div>
                   </ReactCSSTransitionGroup>
                 ))}
             </div>

@@ -54,7 +54,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
           {localStorage.getItem('token') ?
             <div className="container">
               <div className="row">
-                <h1>
+                <h1 className="bubble-font">
                   Previously purchased items for{" "}
                   {this.props.buyer.currentBuyer.username}
                 </h1>
@@ -62,6 +62,7 @@ export class BoughtComponent extends React.Component<IProp, any> {
               <div className="row">
                 {this.props.product.photos.length > 0 ?
                   this.props.product.photos.map((product: any) => (
+
 
                     <ReactCSSTransitionGroup transitionName = "example"
                   transitionAppear = {true} transitionAppearTimeout = {700}
@@ -71,31 +72,31 @@ export class BoughtComponent extends React.Component<IProp, any> {
                       key={product.timePosted}
                     >
 
-                      <img
-                        className="card-img-top pop-card-img"
-                        src={
-                          "http://popbay-photo-storage.s3.amazonaws.com/" +
-                          product.photoNames[0]
-                        }
-                        alt="Card image cap"
-                      />
-                      <div className="card-title">
-                        <h5>{product.name}</h5>
-                      </div>
-                      <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                          Item Price: ${product.buyNowPrice}
-                        </li>
-                        <li className="list-group-item">Type: {product.type}</li>
-                        <li className="list-group-item">
-                          Condition: {product.condition}
-                        </li>
-                      </ul>
-                      <div className="card-body">
-                        Seller: {product.username}
+                        <img
+                          className="card-img-top pop-card-img"
+                          src={
+                            "http://popbay-photo-storage.s3.amazonaws.com/" +
+                            product.photoNames[0]
+                          }
+                          alt="Card image cap"
+                        />
+                        <div className="card-title">
+                          <h5>{product.name}</h5>
+                        </div>
+                        <ul className="list-group list-group-flush">
+                          <li className="list-group-item">
+                            Item Price: ${product.buyNowPrice}
+                          </li>
+                          <li className="list-group-item">Type: {product.type}</li>
+                          <li className="list-group-item">
+                            Condition: {product.condition}
+                          </li>
+                        </ul>
+                        <div className="card-body">
+                          Seller: {product.username}
 
+                        </div>
                       </div>
-                    </div>
                     </ReactCSSTransitionGroup>
                   )) :
                   <div className="row">
