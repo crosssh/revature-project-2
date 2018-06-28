@@ -1,13 +1,12 @@
 import * as React from "react";
-// import * as PropTypes from 'prop-types';
 
 
-const Layout = (props:any) => (
+const Layout = (props: any) => (
   <div>
-     
-      <title>Serverless Stripe Checkout Example</title>
-      <script src="https://js.stripe.com/v3/" />
-      <style>{`
+
+    <title>Serverless Stripe Checkout Example</title>
+    <script src="https://js.stripe.com/v3/" />
+    <style>{`
          html {
            height: 100%;
            background: #F6F8FA;
@@ -26,19 +25,12 @@ const Layout = (props:any) => (
            background-color: #fff2a8;
          }
       `}</style>
-     
+
     <div id="container">
       {props.children}
     </div>
   </div>
 );
 
-
-// Layout.propTypes = {
-//   children: PropTypes.oneOfType([
-//     PropTypes.arrayOf(PropTypes.node),
-//     PropTypes.node,
-//   ]).isRequired,
-// };
 
 export default Layout;

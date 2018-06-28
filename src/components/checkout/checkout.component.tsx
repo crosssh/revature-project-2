@@ -50,7 +50,6 @@ export class CheckoutComponent extends React.Component<IProp, any> {
     )
       .then(resp => {
         const data = (resp);
-        console.log('onToken'); // Logs for ease of debugging
         console.log(data);
         const username = localStorage.getItem('username');
         if (username !== null) {
@@ -83,7 +82,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         this.setState({ amount: this.props.product.chosenItem.buyNowPrice * 100 })
       } else {
         this.setState({
-          errorMsg: "Must select an item berfore checking out."
+          errorMsg: "Must select an item before checking out."
         })
       }
     })
@@ -128,30 +127,30 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         {this.props.product.chosenItem !== null && this.state.continueGuest === true &&
           <div className="row checkout">
             <div className="col-5">
-            <ReactCSSTransitionGroup transitionName = "example"
-                  transitionAppear = {true} transitionAppearTimeout = {700}
-                  transitionEnter = {false} transitionLeave = {false}>
-              <div className="checkout-pop-card">
-                <img
-                  className="card-img-top img-fluid"
-                  src={
-                    "http://popbay-photo-storage.s3.amazonaws.com/" + this.props.product.chosenItem.photoNames[0]
-                  }
-                  alt="Card image cap"
-                />
-                <div className="card-title">
-                  <h5>{this.props.product.chosenItem.name}</h5>
+              <ReactCSSTransitionGroup transitionName="example"
+                transitionAppear={true} transitionAppearTimeout={700}
+                transitionEnter={false} transitionLeave={false}>
+                <div className="checkout-pop-card">
+                  <img
+                    className="card-img-top img-fluid"
+                    src={
+                      "http://popbay-photo-storage.s3.amazonaws.com/" + this.props.product.chosenItem.photoNames[0]
+                    }
+                    alt="Card image cap"
+                  />
+                  <div className="card-title">
+                    <h5>{this.props.product.chosenItem.name}</h5>
+                  </div>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">
+                      Category: {this.props.product.chosenItem.category}
+                    </li>
+                    <li className="list-group-item">Type: {this.props.product.chosenItem.type}</li>
+                    <li className="list-group-item">
+                      Condition: {this.props.product.chosenItem.condition}
+                    </li>
+                  </ul>
                 </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item">
-                    Category: {this.props.product.chosenItem.category}
-                  </li>
-                  <li className="list-group-item">Type: {this.props.product.chosenItem.type}</li>
-                  <li className="list-group-item">
-                    Condition: {this.props.product.chosenItem.condition}
-                  </li>
-                </ul>
-              </div>
               </ReactCSSTransitionGroup>
             </div>
             <div className="col-7 checkout-seller-info">
@@ -179,9 +178,9 @@ export class CheckoutComponent extends React.Component<IProp, any> {
         }
         {
           this.props.product.chosenItem !== null && this.state.continueGuest !== true &&
-          <div className="contianer">
-            <h5> You are not currently signed in. If you have an account and would like to sign in please do so. If
-              you would like to check out as a guest please press continue.</h5>
+          <div className="container">
+            <h5> You are not currently signed in. If you have an account and would like to check out, please sign in.
+              <br /> If you would like to check out as a guest, please press continue.</h5>
             <button className="btn btn-secondary btn-sm" onClick={this.setContinueTrue}>Continue</button>
           </div>
         }

@@ -163,7 +163,7 @@ export const buyerReducer = (state = initialState, action: any) => {
           timePosted: 0
         }
       };
-  } // end switch
+  }
 
   return state;
 };

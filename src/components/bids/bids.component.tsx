@@ -34,13 +34,14 @@ export class BidsComponent extends React.Component<IProp, any> {
             .then(res => {
               this.props.updatePhotos(this.props.product.chosenItem, this.props.product.photos);
             })
-            .catch(err => console.log(err)); // Tell them we can't load info?
+            .catch(err => console.log(err));
         }
       })
       .catch(err => {
         console.log("");
       });
   }
+
   public componentWillUnmount() {
     this.props.reinitializeProduct();
     this.props.clearItem();
@@ -71,49 +72,46 @@ export class BidsComponent extends React.Component<IProp, any> {
             <div className="row">
               {this.props.product.photos.length > 0 ?
                 this.props.product.photos.map((product: any) => (
-                  
-                  product.status === "available" &&
-                  <ReactCSSTransitionGroup transitionName = "example"
-                  transitionAppear = {true} transitionAppearTimeout = {700}
-                  transitionEnter = {false} transitionLeave = {false}>
-                  
-                   
-                  <div
-                    className="card static-pop-card pop-card-no-cursor profile-pop-card grow"
-                    key={product.timePosted}
-                  >
-                    <img
-                      className="card-img-top pop-card-img"
-                      src={
-                        "http://popbay-photo-storage.s3.amazonaws.com/" +
-                        product.photoNames[0]
-                      }
-                      alt="Card image cap"
-                    />
-                    <div className="card-title">
-                      <h5>{product.name}</h5>
-                    </div>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        Highest Bidder: {product.currentBidder === this.props.user.username ? 'Me' : product.currentBidder}
-                      </li>
-                      <li className="list-group-item">
-                        Current Bid Price: ${product.currentBidPrice}
-                      </li>
-                      <li className="list-group-item">Type: {product.type}</li>
-                      <li className="list-group-item">
-                        Condition: {product.condition}
-                      </li>
-                      <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
-                    </ul>
-                    <div className="card-body">
-                      Seller: {product.username}
 
+                  product.status === "available" &&
+                  <ReactCSSTransitionGroup transitionName="example"
+                    transitionAppear={true} transitionAppearTimeout={700}
+                    transitionEnter={false} transitionLeave={false}>
+
+                    <div
+                      className="card static-pop-card pop-card-no-cursor profile-pop-card grow"
+                      key={product.timePosted}
+                    >
+                      <img
+                        className="card-img-top pop-card-img"
+                        src={
+                          "http://popbay-photo-storage.s3.amazonaws.com/" +
+                          product.photoNames[0]
+                        }
+                        alt="Card image cap"
+                      />
+                      <div className="card-title">
+                        <h5>{product.name}</h5>
+                      </div>
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item">
+                          Highest Bidder: {product.currentBidder === this.props.user.username ? 'Me' : product.currentBidder}
+                        </li>
+                        <li className="list-group-item">
+                          Current Bid Price: ${product.currentBidPrice}
+                        </li>
+                        <li className="list-group-item">Type: {product.type}</li>
+                        <li className="list-group-item">
+                          Condition: {product.condition}
+                        </li>
+                        <li className="list-group-item">Bid ends {this.formatTime(product.auctionEndTime)}</li>
+                      </ul>
+                      <div className="card-body">
+                        Seller: {product.username}
+                      </div>
                     </div>
-                  </div>
                   </ReactCSSTransitionGroup>
                 )) :
-                
                 <div className="row">
                   <h5 className="indented">Don't have any bids yet? Head over to our browse page to see what's available!</h5>
                   <Link to='/browse'>

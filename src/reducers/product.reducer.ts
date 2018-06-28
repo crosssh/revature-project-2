@@ -192,7 +192,7 @@ export const productReducer = (state = initialState, action: any) => {
     case productTypes.PUT_PRODUCT:
       return {
         ...state
-        // chosenItem: {}
+
       };
 
     case productTypes.ADD_PRODUCT:
@@ -246,7 +246,7 @@ export const productReducer = (state = initialState, action: any) => {
         photos: [],
         url: ""
       };
-  } // end switch
+  }
 
   return state;
 };

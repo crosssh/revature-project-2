@@ -72,7 +72,6 @@ export class ItemComponent extends React.Component<IProp, any> {
           .getBuyer(this.props.product.chosenItem.currentBidder)
           .then(resp => {
             holdBuyer = this.props.buyer.currentBuyer;
-            console.log(holdBuyer);
             for (let i = 0; i < holdBuyer.bids.length; i++) {
               if (
                 holdBuyer.bids[i].seller ===
@@ -80,7 +79,6 @@ export class ItemComponent extends React.Component<IProp, any> {
                 holdBuyer.bids[i].timePosted ===
                 this.props.product.chosenItem.timePosted
               ) {
-                console.log(holdBuyer.bids[i]);
                 holdBuyer.bids[i].highestBid = false;
               }
             }
@@ -150,14 +148,12 @@ export class ItemComponent extends React.Component<IProp, any> {
   }
 
   public changeImage = (img: string) => {
-    console.log(img)
     this.setState({
       currentPhoto: img,
     })
   }
 
   public changeImageOnClick = (img: string) => (e: any) => {
-    console.log(img)
     this.setState({
       currentPhoto: img,
     })
@@ -260,7 +256,7 @@ export class ItemComponent extends React.Component<IProp, any> {
                       )}
                   </li>
                   <li className="list-group-item">
-                    <h5>bid ends
+                    <h5>Auction ends
                       {this.formatTime(this.props.product.chosenItem.auctionEndTime)}
                     </h5>
                   </li>
