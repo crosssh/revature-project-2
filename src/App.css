@@ -194,6 +194,12 @@ nav {
   min-width: 20.25em;
 }
 
+.pop-card-no-cursor {
+  cursor: default;
+  transform: none !important;
+  transition: none !important;
+}
+
 /**********************
 * Vertical Menu
 **********************/

@@ -79,7 +79,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                   
                    
                   <div
-                    className="card static-pop-card profile-pop-card grow"
+                    className="card static-pop-card pop-card-no-cursor profile-pop-card grow"
                     key={product.timePosted}
                   >
                     <img
