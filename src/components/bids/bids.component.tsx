@@ -95,7 +95,7 @@ export class BidsComponent extends React.Component<IProp, any> {
                       </div>
                       <ul className="list-group list-group-flush">
                         <li className="list-group-item">
-                          Highest Bidder: {product.currentBidder === this.props.user.username ? 'Me' : product.currentBidder}
+                          Highest Bidder: {product.currentBidder === localStorage.getItem('username') ? 'Me' : product.currentBidder}
                         </li>
                         <li className="list-group-item">
                           Current Bid Price: ${product.currentBidPrice}

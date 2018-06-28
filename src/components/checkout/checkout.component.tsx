@@ -157,7 +157,7 @@ export class CheckoutComponent extends React.Component<IProp, any> {
               <div className="row">
                 <h5 className="checkout-seller font-weight-bold">Seller: </h5><h5 className="checkout-seller">{this.props.product.chosenItem.username}</h5>
               </div><div className="row">
-                <h5 className="checkout-seller font-weight-bold">Price: </h5><h5 className="checkout-seller">{this.getPrice()}</h5>
+                <h5 className="checkout-seller font-weight-bold">Price: $</h5><h5 className="checkout-seller">{this.getPrice()}</h5>
               </div>
               <div className="row bottom">
                 <div className="col-auto" onClick={this.checkout}>
